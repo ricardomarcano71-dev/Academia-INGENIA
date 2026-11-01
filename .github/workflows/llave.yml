@@ -1,0 +1,43 @@
+name: Mantenimiento de la plataforma
+on:
+  schedule:
+    - cron: '0 9 1 * *'   # día 1 de cada mes, 5:00 a. m. hora de Venezuela
+  push:
+    branches: [main]
+    paths: ['entrantes/**', 'fuente/firestore.rules']
+  workflow_dispatch:
+    inputs:
+      rotar:
+        description: '¿Cambiar la llave ahora?'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency: mantenimiento
+jobs:
+  mantener:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Revisar permiso de Firebase
+        id: sa
+        env: { FIREBASE_SA: '${{ secrets.FIREBASE_SA }}' }
+        run: if [ -n "$FIREBASE_SA" ]; then echo "ok=1" >> $GITHUB_OUTPUT; else echo "Falta el secreto FIREBASE_SA: no hago nada."; fi
+      - uses: actions/setup-python@v5
+        if: steps.sa.outputs.ok == '1'
+        with: { python-version: '3.12' }
+      - name: Mantenimiento
+        if: steps.sa.outputs.ok == '1'
+        env: { FIREBASE_SA: '${{ secrets.FIREBASE_SA }}' }
+        run: |
+          pip install -q cryptography google-auth requests
+          PASOS="reglas entrantes"
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.rotar }}" = "true" ]; then PASOS="$PASOS rotar"; fi
+          python3 fuente/rotar.py $PASOS
+      - name: Publicar cambios
+        if: steps.sa.outputs.ok == '1'
+        run: |
+          git config user.name "INGENIA automático"
+          git config user.email "actions@github.com"
+          git add -A
+          git diff --cached --quiet || (git commit -m "Mantenimiento automático de la plataforma" && git push)

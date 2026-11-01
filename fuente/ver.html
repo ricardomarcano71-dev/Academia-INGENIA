@@ -15,16 +15,20 @@ html,body{height:100%;overflow:hidden;font-family:'Nunito',Arial,sans-serif;back
 .bar div{height:100%;width:0;background:#ffc93c;transition:width .2s}
 a.b{background:#ffc93c;color:#0d2b45;font-weight:900;text-decoration:none;padding:12px 20px;border-radius:12px;font-size:17px}
 #volver{position:fixed;left:8px;top:8px;z-index:5;background:rgba(13,43,69,.85);color:#fff;font-weight:900;font-size:14px;text-decoration:none;padding:6px 11px;border-radius:20px;display:none;opacity:.75}
+#aviso{display:none;position:fixed;left:50%;bottom:70px;transform:translateX(-50%);z-index:9;background:#fff3cd;color:#5c4400;border:2px solid #ffc93c;border-radius:14px;padding:12px 14px;font-weight:700;font-size:15px;max-width:min(92vw,520px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+#aviso button{margin-left:6px;background:#0d2b45;color:#fff;border:0;border-radius:8px;padding:5px 10px;font-weight:800;cursor:pointer}
 </style>
 </head>
 <body>
 <div id="msg"><h1>INGE<span>NIA</span></h1><p id="t">Abriendo tu clase…</p><div class="bar"><div id="p"></div></div></div>
 <iframe id="f" allow="fullscreen; autoplay" allowfullscreen></iframe>
 <a id="volver" href="./">← Clases</a>
+<div id="aviso"></div>
 <script type="module">
 const id=new URLSearchParams(location.search).get('c')||'';
 const t=document.getElementById('t'),msg=document.getElementById('msg');
 const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+function aviso(r){const a=document.getElementById('aviso');a.innerHTML='⚠️ <b>Esta cuenta es personal.</b> Detectamos que se abrió en '+r.dispositivos+' dispositivos distintos esta semana. Si la compartes, podemos desactivarla. <button onclick="this.parentNode.remove()">Entendido</button>';a.style.display='block'}
 function fallo(texto){t.textContent=texto;document.querySelector('.bar').remove();msg.insertAdjacentHTML('beforeend','<a class="b" href="./">Volver a las clases</a>')}
 async function bajar(url){
   const r=await fetch(url);if(!r.ok)throw new Error('no');
@@ -43,14 +47,21 @@ async function bajar(url){
   const ses=await FB.revisar(await FB.listo());
   if(ses.estado==='fuera'){location.replace('./#clases');return}
   if(ses.estado!=='ok')return fallo('Tu acceso venció. Escríbenos por WhatsApp al 0416-2054982 para renovarlo.');
-  const g={clave:ses.clave};
+  const user=FB.auth.currentUser;
+  FB.registrar(user,id).then(r=>{if(r&&r.compartida)aviso(r)});
   t.textContent='Abriendo “'+c.titulo+'”…';
   try{
     const data=await bajar('c/'+id+'.bin');
     t.textContent='Preparando la clase…';
-    const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(g.clave),'PBKDF2',false,['deriveKey']);
-    const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(D.salt),iterations:D.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
-    const html=await crypto.subtle.decrypt({name:'AES-GCM',iv:data.slice(0,12)},k,data.slice(12));
+    let html=null;
+    for(const clave of [ses.clave,ses.anterior].filter(Boolean)){
+      try{
+        const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(clave),'PBKDF2',false,['deriveKey']);
+        const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(D.salt),iterations:D.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+        html=await crypto.subtle.decrypt({name:'AES-GCM',iv:data.slice(0,12)},k,data.slice(12));break;
+      }catch(e){}
+    }
+    if(!html)throw new Error('llave');
     const f=document.getElementById('f');
     f.src=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));
     f.onload=()=>{msg.style.display='none';f.style.display='block';document.getElementById('volver').style.display='block'};

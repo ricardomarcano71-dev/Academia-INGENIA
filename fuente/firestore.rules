@@ -18,6 +18,13 @@ service cloud.firestore {
     match /alumnos/{uid} {
       allow read: if esAdmin() || (request.auth != null && request.auth.uid == uid);
       allow write: if esAdmin();
+      match /accesos/{a} {
+        allow read: if esAdmin() || (request.auth != null && request.auth.uid == uid);
+        allow create: if request.auth != null && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(['disp','equipo','ip','clase','t'])
+          && request.resource.data.t == request.time;
+        allow delete: if esAdmin();
+      }
     }
     match /secreto/{d} {
       allow read: if esAdmin() || vigente();

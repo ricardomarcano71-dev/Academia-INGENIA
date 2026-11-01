@@ -27,6 +27,8 @@ button.g{background:#25d366;color:#fff}
 .al .n{font-weight:900;font-size:18px}
 .al .d{font-size:14px;color:#4a5a6e;font-weight:700}
 .pill{font-size:13px;font-weight:900;padding:3px 9px;border-radius:20px}
+.pill.w{background:#fff3cd;color:#7a5600}.pill.i{background:#e3ecf4;color:#38506a}
+.acc{width:100%;font-size:13px;color:#4a5a6e;font-weight:600;max-height:200px;overflow:auto;border-top:1px dashed #cfdbe7;padding-top:6px}
 .pill.v{background:#e2f6ec;color:#1f7a4c}.pill.x{background:#fde2e2;color:#a32020}
 .btns{display:flex;flex-wrap:wrap;gap:6px}
 .hide{display:none}
@@ -82,7 +84,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/fireba
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, Timestamp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 import { firebaseConfig } from './firebase-config.js';
-import { app, auth, db, correo, DOMINIO } from './fb.js';
+import { app, auth, db, correo, DOMINIO, accesosDe, resumen, LIMITE_DISP } from './fb.js';
 
 const $ = id => document.getElementById(id);
 const say = (el, txt, ok) => { $(el).textContent = txt; $(el).className = 'msg ' + (ok ? 'ok' : 'err'); };
@@ -127,7 +129,7 @@ onAuthStateChanged(auth, async u => {
 $('bClave').onclick = async () => {
   const c = $('kClave').value.trim().toUpperCase();
   if (!c) return say('mClave', 'Escribe la llave.');
-  await setDoc(doc(db, 'secreto', 'clave'), { clave: c });
+  await setDoc(doc(db, 'secreto', 'clave'), { clave: c }, { merge: true });
   $('kClave').value = c; say('mClave', 'Llave guardada.', true);
 };
 
@@ -159,6 +161,9 @@ async function cargar() {
   const s = await getDocs(collection(db, 'alumnos'));
   ALUMNOS = s.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => a.nombre.localeCompare(b.nombre));
   pintar();
+  await Promise.all(ALUMNOS.map(async a => { try { a.acc = await accesosDe(a.id); a.res = resumen(a.acc); } catch (e) { a.acc = []; } }));
+  ALUMNOS.sort((a, b) => ((b.res && b.res.compartida) - (a.res && a.res.compartida)) || a.nombre.localeCompare(b.nombre));
+  pintar();
 }
 $('buscar').oninput = pintar;
 function pintar() {
@@ -170,13 +175,17 @@ function pintar() {
     const d = document.createElement('div'); d.className = 'al';
     d.innerHTML = `<div><div class="n">${a.nombre}</div><div class="d">usuario: ${a.usuario} · vence ${vence.toLocaleDateString('es-VE', { weekday: 'short', day: 'numeric', month: 'short' })}</div></div>
       <span class="pill ${vig ? 'v' : 'x'}">${vig ? 'Vigente' : a.activo ? 'Vencido' : 'Desactivado'}</span>
+      ${a.res ? `<span class="pill ${a.res.compartida ? 'w' : 'i'}" title="Dispositivos distintos en 7 días">${a.res.compartida ? '⚠️ Posible cuenta compartida · ' : '📱 '}${a.res.dispositivos} disp. · ${a.res.ips} IP</span>` : ''}
       <div class="btns"><button class="s" data-d="7">+1 semana</button><button class="s" data-d="30">+1 mes</button>
-      <button class="s ${a.activo ? 'r' : ''}" data-t="1">${a.activo ? 'Desactivar' : 'Activar'}</button></div>`;
+      <button class="s ${a.activo ? 'r' : ''}" data-t="1">${a.activo ? 'Desactivar' : 'Activar'}</button>
+      ${a.acc && a.acc.length ? '<button class="s" data-v="1">Ver accesos</button>' : ''}</div>
+      <div class="acc hide">${(a.acc || []).map(x => `<div>${x.t && x.t.toDate ? x.t.toDate().toLocaleString('es-VE', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : ''} · ${x.equipo || ''} · disp ${String(x.disp || '').slice(0, 4)} · IP ${x.ip || '¿?'} · ${x.clase || ''}</div>`).join('')}</div>`;
     d.querySelectorAll('[data-d]').forEach(b => b.onclick = async () => {
       const base = Math.max(Date.now(), vence.getTime());
       await updateDoc(doc(db, 'alumnos', a.id), { vence: Timestamp.fromMillis(base + (+b.dataset.d) * DIA), activo: true });
       cargar();
     });
+    const bv = d.querySelector('[data-v]'); if (bv) bv.onclick = () => d.querySelector('.acc').classList.toggle('hide');
     d.querySelector('[data-t]').onclick = async () => { await updateDoc(doc(db, 'alumnos', a.id), { activo: !a.activo }); cargar(); };
     $('lista').appendChild(d);
   });
