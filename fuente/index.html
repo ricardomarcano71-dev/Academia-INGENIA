@@ -73,6 +73,21 @@ h2.t .y{color:var(--yel2)}
 .chip{border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:30px;padding:8px 16px;font-weight:900;font-size:16px;cursor:pointer;font-family:inherit}
 .chip.on{background:var(--navy);color:#fff}
 .sep{width:2px;background:#d5dfea;margin:0 4px}
+.niveles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.nv{border:3px solid var(--navy);background:#fff;border-radius:18px;padding:14px 10px;cursor:pointer;font-family:inherit;color:var(--navy);text-align:center}
+.nv b{display:block;font-size:20px;font-weight:900}.nv span{font-size:14px;font-weight:700;color:#4a5a6e}.nv i{font-style:normal;font-size:30px;display:block}
+.nv.on{background:var(--navy);color:#fff}.nv.on span{color:#ffe27a}
+.buscar{width:100%;margin-top:16px;padding:13px 16px;border:2px solid #cfd8e3;border-radius:14px;font-size:17px;font-family:inherit;font-weight:600}
+.gr{margin-top:14px;border:2px solid #e2e8ef;border-radius:16px;background:#f9fbfd;overflow:hidden}
+.gr>summary{cursor:pointer;padding:14px 18px;font-weight:900;font-size:19px;color:var(--navy);list-style:none;display:flex;justify-content:space-between;gap:10px}
+.gr>summary::-webkit-details-marker{display:none}.gr>summary small{font-weight:700;color:#4a5a6e;font-size:14px;align-self:center}
+.gr[open]>summary{border-bottom:2px solid #e2e8ef}
+.tm{padding:10px 18px;border-top:1px dashed #e2e8ef;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.tm:first-of-type{border-top:0}.tm .tt{flex:1 1 220px;font-weight:800;font-size:17px;color:#1d2b3d}
+.tm .pr{font-size:14px;font-weight:800;color:#8a96a6}.tm .pr a{color:var(--wa)}
+.cl{border:2px solid var(--navy);background:#fff;border-radius:12px;padding:7px 12px;font-weight:900;font-size:15px;cursor:pointer;font-family:inherit;color:var(--navy)}
+.cl.g{border-color:var(--wa);color:#137a4b}
+@media(max-width:560px){.nv b{font-size:16px}.nv span{font-size:12px}.nv i{font-size:24px}}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:22px}
 .card{background:#f7f3e8;background-image:linear-gradient(#e3ecf4 1px,transparent 1px),linear-gradient(90deg,#e3ecf4 1px,transparent 1px);background-size:22px 22px;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:8px;border:2px solid #e2e8ef;position:relative;transition:transform .15s}
 .card:hover{transform:translateY(-3px)}
@@ -130,7 +145,7 @@ footer small{display:block;margin-top:10px;opacity:.7}
 
 <header><div class="wrap">
   <a class="logo" href="#">INGE<span>NIA</span></a>
-  <nav><a href="#como">Cómo funciona</a><a href="#clases">Clases</a><a href="#planes">Planes</a><a href="#prueba">Clase gratis</a></nav>
+  <nav><a href="#como">Cómo funciona</a><a href="#muestra">Gratis</a><a href="#clases">Programa</a><a href="#planes">Planes</a><a href="#prueba">Clase gratis</a></nav>
   <button class="keypill" id="pill" onclick="pillClick()">🔑 Entrar</button>
 </div></header>
 
@@ -165,12 +180,20 @@ footer small{display:block;margin-top:10px;opacity:.7}
   </div>
 </div></section>
 
-<section id="clases"><div class="wrap">
-  <h2 class="t">Clases <span class="y">disponibles</span></h2>
-  <p class="lead">Toca una clase para abrirla. Las que tienen 🔒 se abren entrando con tu usuario.</p>
+<section id="muestra"><div class="wrap">
+  <h2 class="t">Clases de <span class="y">muestra gratis</span></h2>
+  <p class="lead">Ábrelas sin usuario y mira cómo son nuestras clases: con voz, paso a paso y en 3D.</p>
+  <div class="grid" id="gratis"></div>
+</div></section>
+
+<section id="clases" style="background:#fff"><div class="wrap">
+  <h2 class="t">Programa de <span class="y">estudio</span></h2>
+  <p class="lead">Elige tu nivel y tu materia. Están todos los temas del programa oficial: los que tienen ▶ ya tienen clase, y los demás los vamos agregando.</p>
+  <div class="niveles" id="niveles"></div>
   <div class="filters" id="filtros"></div>
-  <div class="grid" id="grid"></div>
-  <p class="empty" id="vacio" hidden>Todavía no hay clases en este grupo. ¡Pídela por WhatsApp y te la preparamos!</p>
+  <input class="buscar" id="buscar" type="search" placeholder="🔍 Busca un tema, por ejemplo: fracciones, derivadas, enlaces…" oninput="pintar()">
+  <div id="programa"></div>
+  <p class="empty" id="vacio" hidden>No encontramos ese tema. ¡Pídelo por WhatsApp y te lo preparamos!</p>
 </div></section>
 
 <section style="padding-top:0;background:#fff"><div class="wrap">
@@ -243,7 +266,7 @@ footer small{display:block;margin-top:10px;opacity:.7}
 const WA='584162054982';
 document.querySelectorAll('.wa-link').forEach(a=>{a.href='https://wa.me/'+WA+'?text='+encodeURIComponent(a.dataset.msg||'');a.target='_blank';a.rel='noopener'});
 
-let DATOS=null, pendiente=null, nivel='Todos', materia='Todas', SES={estado:'fuera'};
+let DATOS=null, PROG=null, pendiente=null, nivel='Bachillerato', materia='Todas', SES={estado:'fuera'};
 function guardada(){return SES.estado==='ok'}
 function pintarPill(){const p=document.getElementById('pill');p.classList.toggle('ok',SES.estado==='ok');
   p.textContent=SES.estado==='ok'?'🔓 '+((SES.alumno&&SES.alumno.nombre||'').split(' ')[0]||'Mi cuenta')+' · Salir':SES.estado==='vencido'?'⏳ Acceso vencido · Salir':'🔑 Entrar'}
@@ -266,27 +289,42 @@ function abrir(c){
   if(SES.estado!=='ok'){abrirClave(c.id);return}
   location.href='ver.html?c='+c.id;
 }
+function tarjeta(c,ok){
+  const d=document.createElement('div');d.className='card';
+  d.innerHTML=(c.gratis?'<span class="free">GRATIS</span>':'')+
+    `<div class="ic">${c.icono}</div><h3>${c.titulo}</h3><p>${c.desc}</p>
+     <div class="meta"><span class="m-${c.materia}">${c.materia}</span><span>${c.grado}</span><span>${c.tipo}</span></div>
+     <button class="btn y open">▶ Abrir clase</button>
+     ${c.mb>2?`<span class="lock">Pesa ${c.mb} MB (trae la voz incluida)</span>`:''}`;
+  d.querySelector('button').onclick=()=>abrir(c);return d}
 function pintarFiltros(){
+  const nv=document.getElementById('niveles');nv.innerHTML='';
+  PROG.niveles.forEach(n=>{const b=document.createElement('button');b.className='nv'+(nivel===n.n?' on':'');b.innerHTML=`<i>${n.ic}</i><b>${n.n}</b><span>${n.sub}</span>`;b.onclick=()=>{nivel=n.n;materia='Todas';pintarFiltros();pintar()};nv.appendChild(b)});
   const f=document.getElementById('filtros');f.innerHTML='';
   const mk=(txt,act,fn)=>{const b=document.createElement('button');b.className='chip'+(act?' on':'');b.textContent=txt;b.onclick=fn;f.appendChild(b)};
-  ['Todos','Primaria','Bachillerato','Universidad'].forEach(n=>mk(n,nivel===n,()=>{nivel=n;pintarFiltros();pintar()}));
-  const s=document.createElement('span');s.className='sep';f.appendChild(s);
-  ['Todas','Matemática','Física','Química'].forEach(m=>mk(m==='Todas'?'Todas las materias':m,materia===m,()=>{materia=m;pintarFiltros();pintar()}));
+  const N=PROG.niveles.find(x=>x.n===nivel);
+  ['Todas'].concat(N.materias.map(m=>m.m)).forEach(m=>mk(m==='Todas'?'Todas las materias':m,materia===m,()=>{materia=m;pintarFiltros();pintar()}));
 }
+const sinTilde=t=>t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 function pintar(){
-  const g=document.getElementById('grid'),ok=!!guardada();g.innerHTML='';
-  const lista=DATOS.clases.filter(c=>(nivel==='Todos'||c.niveles.includes(nivel))&&(materia==='Todas'||c.materia===materia));
-  document.getElementById('vacio').hidden=lista.length>0;
-  lista.forEach(c=>{
-    const d=document.createElement('div');d.className='card';
-    d.innerHTML=(c.gratis?'<span class="free">GRATIS</span>':'')+
-      `<div class="ic">${c.icono}</div><h3>${c.titulo}</h3><p>${c.desc}</p>
-       <div class="meta"><span class="m-${c.materia}">${c.materia}</span><span>${c.grado}</span><span>${c.tipo}</span></div>
-       <button class="btn y open">${c.gratis||ok?'▶ Abrir clase':'🔒 Entra para abrirla'}</button>
-       ${c.mb>2?`<span class="lock">Pesa ${c.mb} MB (trae la voz incluida)</span>`:''}`;
-    d.querySelector('button').onclick=()=>abrir(c);
-    g.appendChild(d);
-  });
+  const ok=guardada(),C={};DATOS.clases.forEach(c=>C[c.id]=c);
+  const g=document.getElementById('gratis');g.innerHTML='';
+  DATOS.clases.filter(c=>c.gratis).sort((a,b)=>(a.orden||99)-(b.orden||99)).forEach(c=>g.appendChild(tarjeta(c,ok)));
+  const q=sinTilde(document.getElementById('buscar').value.trim()),P=document.getElementById('programa');P.innerHTML='';let n=0;
+  const niveles=q?PROG.niveles:PROG.niveles.filter(x=>x.n===nivel);
+  niveles.forEach(N=>N.materias.filter(m=>q||materia==='Todas'||m.m===materia).forEach(M=>M.grados.forEach(G=>{
+    const temas=G.temas.filter(t=>!q||sinTilde(t.t+' '+(t.c||[]).map(i=>C[i]?C[i].titulo:'').join(' ')).includes(q));
+    if(!temas.length)return;n++;
+    const listos=G.temas.filter(t=>t.c&&t.c.length).length;
+    const d=document.createElement('details');d.className='gr';d.open=!!q;
+    d.innerHTML=`<summary><span>${q?N.n+' · ':''}${M.m} · ${G.g}</span><small>${listos?'▶ '+listos+' con clase · ':''}${G.temas.length} temas</small></summary>`;
+    temas.forEach(t=>{const r=document.createElement('div');r.className='tm';r.innerHTML=`<span class="tt">${t.t}</span>`;
+      (t.c||[]).forEach(i=>{const c=C[i];if(!c)return;const b=document.createElement('button');b.className='cl'+(c.gratis?' g':'');
+        b.textContent=(c.gratis?'▶ ':ok?'▶ ':'🔒 ')+c.titulo+(c.gratis?' · gratis':'');b.onclick=()=>abrir(c);r.appendChild(b)});
+      if(!(t.c||[]).length){const s=document.createElement('span');s.className='pr';s.innerHTML=`Próximamente · <a target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent('¡Hola INGENIA! Quiero la clase de '+t.t+' ('+N.n+', '+M.m+', '+G.g+').')}">pídela</a>`;r.appendChild(s)}
+      d.appendChild(r)});
+    P.appendChild(d)})));
+  document.getElementById('vacio').hidden=n>0;
 }
 
 // ---- App instalable ----
@@ -301,10 +339,10 @@ async function instalar(){
   if(PROMPT){PROMPT.prompt();const r=await PROMPT.userChoice;PROMPT=null;if(r.outcome==='accepted'){document.getElementById('instalar').hidden=true;toast('⏳ Instalando INGENIA… en unos segundos aparece en tu pantalla de inicio.')}return}
   if(IOS)document.getElementById('mios').classList.add('on');
 }
-fetch('datos.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
-  DATOS=d;pintarPill();pintarFiltros();pintar();
+Promise.all([fetch('datos.json',{cache:'no-store'}).then(r=>r.json()),fetch('programa.json',{cache:'no-store'}).then(r=>r.json())]).then(([d,p])=>{
+  DATOS=d;PROG=p;pintarPill();pintarFiltros();pintar();
   document.getElementById('semana').textContent='Clases actualizadas el '+d.semana.split('-').reverse().join('/');
-}).catch(()=>{document.getElementById('grid').innerHTML='<p class="empty">No se pudo cargar la lista de clases. Revisa tu conexión y recarga la página.</p>'});
+}).catch(()=>{document.getElementById('programa').innerHTML='<p class="empty">No se pudo cargar la lista de clases. Revisa tu conexión y recarga la página.</p>'});
 </script>
 <script type="module">
 import * as FB from './fb.js';

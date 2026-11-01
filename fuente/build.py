@@ -44,7 +44,7 @@ if __name__ == '__main__':
     cfg = {"salt": b64(salt), "iter": ITER, "semana": datetime.date.today().isoformat(),
            "check": b64(iv + aes.encrypt(iv, b"INGENIA-OK", None)), "clases": pub}
     open(os.path.join(out, 'datos.json'), 'w', encoding='utf-8').write(json.dumps(cfg, ensure_ascii=False))
-    for f in ('index.html', 'ver.html', 'admin.html', 'fb.js', 'firebase-config.js'):
+    for f in ('index.html', 'ver.html', 'admin.html', 'fb.js', 'firebase-config.js', 'programa.json'):
         shutil.copy(os.path.join(here, f), os.path.join(out, f))
     for f in os.listdir(os.path.join(here, 'pwa')):
         shutil.copy(os.path.join(here, 'pwa', f), os.path.join(out, f))
