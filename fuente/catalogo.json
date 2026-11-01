@@ -154,16 +154,16 @@
  {
   "id": "carbono-3d",
   "titulo": "El átomo de carbono en 3D",
-  "desc": "Por qué el carbono forma 4 enlaces, visto en 3D.",
+  "desc": "Por qué el carbono forma 4 enlaces, visto en 3D y explicado con voz.",
   "materia": "Química",
   "niveles": [
    "Bachillerato",
    "Universidad"
   ],
   "grado": "4.º–5.º año",
-  "tipo": "Herramienta",
+  "tipo": "Clase 3D con voz",
   "icono": "💎",
-  "archivo": "enlaces-quimicos/atomo-carbono-3d.html",
+  "archivo": "enlaces-quimicos/atomo-carbono-3d-voz-sebastian.html",
   "gratis": true,
   "orden": 2
  },
