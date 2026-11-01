@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El átomo de carbono en 3D</title>
+<style>
+/* Una pantalla: visor 3D a la izquierda, explicación y cajitas a la derecha, barra de pasos abajo. Todo dentro del archivo, sin internet. */
+:root{
+  --paper:#F7F5EF; --ink:#23241F; --soft:#5C5E53; --rule:#D9D5C6; --card:#FFFFFF;
+  --n:#1C7293; --n-bg:#E4EEF6; --val:#C2551A; --val-bg:#FBEDE4; --pair:#6B4E9E;
+  --sp:#C0392B; --sp-bg:#FBE9E7; --sp2:#A86F00; --sp2-bg:#FBF1DC; --sp3:#2E7D32; --sp3-bg:#E6F2E6; --p:#D9822B; --p-bg:#FCEFDD;
+  --stage:#10141A;
+  --display:Georgia,"Times New Roman",serif; --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#1B1C19; --ink:#EDEAE0; --soft:#A8A89C; --rule:#3A3C35; --card:#232520;
+  --n:#7FBEE0; --n-bg:#17293A; --val:#F2A06B; --val-bg:#3A2213; --pair:#B9A3E3;
+  --sp:#F08A7E; --sp-bg:#3A1A17; --sp2:#E2B652; --sp2-bg:#33280F; --sp3:#8FCB8F; --sp3-bg:#1B2E1B; --p:#F0A860; --p-bg:#3A2A14; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#1B1C19; --ink:#EDEAE0; --soft:#A8A89C; --rule:#3A3C35; --card:#232520;
+  --n:#7FBEE0; --n-bg:#17293A; --val:#F2A06B; --val-bg:#3A2213; --pair:#B9A3E3;
+  --sp:#F08A7E; --sp-bg:#3A1A17; --sp2:#E2B652; --sp2-bg:#33280F; --sp3:#8FCB8F; --sp3-bg:#1B2E1B; --p:#F0A860; --p-bg:#3A2A14; color-scheme:dark}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding:max(12px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+h1{font-family:var(--display);font-size:clamp(22px,4.6vw,32px);line-height:1.15;margin:0;flex:1 1 240px}
+.btn{font:inherit;font-size:15px;background:var(--card);color:var(--ink);border:1px solid var(--rule);border-radius:10px;padding:8px 13px;cursor:pointer;min-height:42px;white-space:nowrap}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.pri{background:var(--n);border-color:var(--n);color:var(--paper)}
+.btn:disabled{opacity:.35}
+.cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:820px) and (orientation:portrait){.cols{grid-template-columns:1fr;gap:10px}}
+.stage{position:relative;background:var(--stage);border-radius:16px;overflow:hidden;touch-action:none}
+#cv{display:block;width:100%;height:440px;cursor:grab}
+.tip{position:absolute;right:12px;top:8px;font-size:13px;color:#AEB4BC;pointer-events:none}
+.legend{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0 0}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;padding:2px 10px;border-radius:999px;font-weight:600;white-space:nowrap;background:var(--card);border:1px solid var(--rule)}
+.chip i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:12px 16px;margin:0 0 10px}
+.card .lbl{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin:0 0 2px}
+.card h2{font-family:var(--display);font-size:clamp(20px,3.8vw,26px);line-height:1.2;margin:0 0 8px}
+.card p{margin:0 0 8px}.card p:last-child{margin:0}
+.boxes{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:10px 14px}
+.boxes .ttl{font-size:13px;color:var(--soft);margin:0 0 6px}
+.row{display:flex;align-items:flex-end;gap:6px;flex-wrap:wrap}
+.box{width:48px;text-align:center}
+.box i{display:flex;align-items:center;justify-content:center;height:40px;border:2px solid var(--rule);border-radius:8px;font-style:normal;font-size:20px;font-weight:700;background:var(--paper)}
+.box span{display:block;font-size:12px;color:var(--soft);margin-top:2px}
+.box.core i{border-color:var(--n);color:var(--n)}
+.box.s i{border-color:var(--val);color:var(--val)}
+.box.p i{border-color:var(--p);color:var(--p);background:var(--p-bg)}
+.box.hole i{border-style:dashed;color:var(--soft)}
+.box.sp i{border-color:var(--sp);background:var(--sp-bg);color:var(--sp)}
+.box.sp2 i{border-color:var(--sp2);background:var(--sp2-bg);color:var(--sp2)}
+.box.sp3 i{border-color:var(--sp3);background:var(--sp3-bg);color:var(--sp3)}
+.gap{width:10px}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:5px 7px;border-bottom:1px solid var(--rule);font-size:15px;vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);font-weight:400}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--rule);z-index:10;
+ padding:0 max(12px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(12px,env(safe-area-inset-left,0px))}
+.bar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:7px;padding-block:8px}
+#count{font-size:14px;color:var(--soft);min-width:52px;text-align:center}
+#say{border-color:var(--n);color:var(--n);margin-left:auto}
+.full{display:inline}.mini{display:none}
+@media (max-width:620px){.full{display:none}.mini{display:inline}.btn{padding:8px 11px}.box{width:42px}.box i{height:34px;font-size:18px}#cv{height:340px}}
+@media (max-height:500px){h1{font-size:20px}.top{margin-bottom:6px}.card{padding:8px 12px}.bar .in{padding-block:4px}.btn{min-height:36px;padding:5px 10px}}
+:focus-visible{outline:2px solid var(--n);outline-offset:2px}
+</style>
+<style>#dl,.dlb{display:none!important}</style><script>document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll("button,a").forEach(function(e){if(/Descargar/i.test(e.textContent+(e.title||"")))e.remove()})})</script></head>
+<body>
+<div class="wrap" id="wrap">
+  <div class="top">
+    <h1>El átomo de carbono, desde cero</h1>
+    <button class="btn" id="spin" aria-pressed="true">↻ Girar solo</button>
+    <button class="btn" id="narr" aria-pressed="false">🔊 Narrar al avanzar</button>
+  </div>
+  <div class="cols">
+    <div>
+      <div class="stage"><canvas id="cv" aria-label="Modelo 3D del átomo; arrástralo para girarlo"></canvas><span class="tip">Arrastra con el dedo para girar</span></div>
+      <div class="legend" id="leg"></div>
+    </div>
+    <div>
+      <div class="card" aria-live="polite"><p class="lbl" id="lbl"></p><h2 id="ttl"></h2><div id="txt"></div></div>
+      <div class="boxes" id="boxes"></div>
+    </div>
+  </div>
+</div>
+<div class="bar" id="bar"><div class="in">
+  <button class="btn" id="prev"><span class="full">◀ Anterior</span><span class="mini">◀</span></button>
+  <button class="btn pri" id="next"><span class="full">Siguiente ▶</span><span class="mini">▶</span></button>
+  <span id="count"></span>
+  <button class="btn" id="say">🔊 Leer</button>
+  <button class="btn" id="dl" title="Descargar"><span class="full">⬇ Descargar</span><span class="mini">⬇</span></button>
+</div></div>
+<script>
+var SRC="<!DOCTYPE html>\n"+document.documentElement.outerHTML;
+
+/* ---------- Colores de la escena 3D (fondo oscuro siempre) ---------- */
+var COL={nuc:"#E8E2D0",core:"#5FB4E6",val:"#FF9A4D",s:"#5FB4E6",p:"#F2A65A",hole:"#8A9099",sp3:"#5CC46A",sp2:"#F2C14E",sp:"#F06A5A",H:"#E6E6E0",bond:"#9AA096",lab:"#E9ECEF"};
+
+/* ---------- Vectores ---------- */
+function V(x,y,z){return [x,y,z]}
+function add(a,b,s){s=s===undefined?1:s;return [a[0]+b[0]*s,a[1]+b[1]*s,a[2]+b[2]*s]}
+function nrm(a){var l=Math.hypot(a[0],a[1],a[2])||1;return [a[0]/l,a[1]/l,a[2]/l]}
+function cross(a,b){return [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]]}
+function basis(n){n=nrm(n);var t=Math.abs(n[1])<.9?[0,1,0]:[1,0,0],u=nrm(cross(n,t)),v=cross(n,u);return [u,v]}
+var T=1/Math.sqrt(3),TET=[[T,T,T],[T,-T,-T],[-T,T,-T],[-T,-T,T]];
+function tri(k){var a=k*2*Math.PI/3;return [Math.cos(a),0,Math.sin(a)]}
+
+/* ---------- Piezas de la escena ---------- */
+function nucleus(p,s){return {k:"sph",p:p||[0,0,0],r:.32*(s||1),c:COL.nuc,t:"C"}}
+function cloud(p,r,c,a){return {k:"cloud",p:p,r:r,c:c,a:a}}
+function lobe(p,d,L,R,c,a,empty){return {k:"lobe",p:p,d:nrm(d),L:L,R:R,c:c,a:a,empty:!!empty}}
+function porb(p,d,c,a,empty,L){return [lobe(p,d,L||1.5,.5,c,a,empty),lobe(p,[-d[0],-d[1],-d[2]],L||1.5,.5,c,a,empty)]}
+function el(p,c){return {k:"e",p:p,c:c}}
+function lab(p,t,c){return {k:"lab",p:p,t:t,c:c||COL.lab}}
+function ring(p,n,r,c){return {k:"ring",p:p,n:nrm(n),r:r,c:c}}
+function bond(a,b){return {k:"bond",a:a,b:b}}
+function hatom(p){return [cloud(p,.42,COL.H,.18),{k:"sph",p:p,r:.2,c:COL.H,t:"H",dark:1}]}
+/* electrones que tiemblan dentro de su orbital */
+function jig(p,t,seed){return [p[0]+.07*Math.sin(t*3.1+seed),p[1]+.07*Math.sin(t*2.7+seed*2),p[2]+.07*Math.cos(t*3.3+seed)]}
+function core(t){return [cloud([0,0,0],.5,COL.s,.16),el(jig([.18,0,0],t,1),COL.core),el(jig([-.18,0,0],t,2),COL.core)]}
+
+/* ---------- Escenas de cada paso ---------- */
+var SC={
+ bohr:function(t,showVal){var o=[nucleus()],n1=[.25,1,.15],n2=[-.35,.85,.45],b1=basis(n1),b2=basis(n2);
+   o.push(ring([0,0,0],n1,.85,COL.core),ring([0,0,0],n2,1.9,showVal?COL.val:COL.core));
+   for(var k=0;k<2;k++){var a=t*1.6+k*Math.PI;o.push(el(add(add([0,0,0],b1[0],.85*Math.cos(a)),b1[1],.85*Math.sin(a)),COL.core))}
+   for(var j=0;j<4;j++){var a2=-t*.9+j*Math.PI/2;o.push(el(add(add([0,0,0],b2[0],1.9*Math.cos(a2)),b2[1],1.9*Math.sin(a2)),showVal?COL.val:COL.core))}
+   if(showVal){o.push(lab([0,-1.25,0],"capa 1: 2 e⁻",COL.core),lab([0,2.25,0],"capa 2 (valencia): 4 e⁻",COL.val))}
+   else o.push(lab([0,.55,0],"núcleo: 6 protones + 6 neutrones",COL.nuc));
+   return o},
+ rooms:function(t){var o=[nucleus()].concat(core(t));o.push(cloud([0,0,0],1.05,COL.val,.13));
+   o=o.concat(porb([0,0,0],[1,0,0],COL.p,.3),porb([0,0,0],[0,1,0],COL.p,.3),porb([0,0,0],[0,0,1],COL.p,.3));
+   o.push(lab([1.15,1.05,0],"2s: una pelota",COL.val),lab([2.05,0,0],"2px",COL.p),lab([0,2.05,0],"2py",COL.p),lab([0,0,2.1],"2pz",COL.p));return o},
+ fill:function(t,jump){var o=[nucleus()].concat(core(t));o.push(cloud([0,0,0],1.05,COL.val,.13));
+   o=o.concat(porb([0,0,0],[1,0,0],COL.p,.3),porb([0,0,0],[0,1,0],COL.p,.3),porb([0,0,0],[0,0,1],jump?COL.p:COL.hole,jump?.3:.12,!jump));
+   o.push(el(jig([1.15,0,0],t,3),COL.val),el(jig([0,1.15,0],t,4),COL.val));
+   if(!jump){o.push(el(jig([.62,.62,0],t,5),COL.val),el(jig([-.62,-.62,0],t,6),COL.val));
+     o.push(lab([2.05,0,0],"bracito",COL.val),lab([0,2.05,0],"bracito",COL.val),lab([0,0,2.15],"hueco (vacío)",COL.hole),lab([-.85,-1.05,0],"pareja en 2s",COL.val))}
+   else{var ph=Math.min(1,(t%5)/1.8),f=ph*ph*(3-2*ph),from=[-.62,-.62,0],to=[0,0,1.15];
+     o.push(el(jig([.62,.62,0],t,5),COL.val),el([from[0]+(to[0]-from[0])*f,from[1]+(to[1]-from[1])*f,from[2]+(to[2]-from[2])*f],COL.val));
+     o.push(lab([2.05,0,0],"bracito 1",COL.val),lab([0,2.05,0],"bracito 2",COL.val),lab([0,0,2.15],ph<1?"¡salta!":"bracito 3",COL.val),lab([.95,.95,0],"bracito 4",COL.val))}
+   return o},
+ sp3:function(t){var o=[nucleus()].concat(core(t));TET.forEach(function(d,k){o.push(lobe([0,0,0],d,1.7,.55,COL.sp3,.38),el(jig(add([0,0,0],d,1.15),t,k),COL.val),lab(add([0,0,0],d,2.05),"bracito sp³",COL.sp3))});return o},
+ ch4:function(t){var o=[nucleus()].concat(core(t));TET.forEach(function(d,k){var h=add([0,0,0],d,1.75);o.push(lobe([0,0,0],d,1.55,.5,COL.sp3,.32));o=o.concat(hatom(h));
+   o.push(el(jig(add([0,0,0],d,1.0),t,k),COL.val),el(jig(add([0,0,0],d,1.3),t,k+7),COL.H))});
+   o.push(lab([0,-2.3,0],"metano CH₄: 4 enlaces σ sp³–s",COL.sp3));return o},
+ sp2:function(t){var o=[nucleus()].concat(core(t));[0,1,2].forEach(function(k){var d=tri(k);o.push(lobe([0,0,0],d,1.7,.55,COL.sp2,.38),el(jig(add([0,0,0],d,1.15),t,k),COL.val),lab(add([0,0,0],d,2.05),"bracito sp²",COL.sp2))});
+   o=o.concat(porb([0,0,0],[0,1,0],COL.p,.32));o.push(el(jig([0,1.15,0],t,9),COL.val),lab([0,2.0,0],"p que sobra (para el π)",COL.p));return o},
+ c2h4:function(t){var o=[],A=[-.67,0,0],B=[.67,0,0];
+   [[A,1],[B,-1]].forEach(function(q,k){var c=q[0],s=q[1];o.push(nucleus(c,.85));
+     o.push(lobe(c,[s,0,0],.8,.45,COL.sp2,.32));
+     [[-.5*s,0,.866],[-.5*s,0,-.866]].forEach(function(d,j){o.push(lobe(c,d,1.15,.42,COL.sp2,.28));o=o.concat(hatom(add(c,d,1.5)))});
+     o=o.concat(porb(c,[0,1,0],COL.p,.3,false,1.3));o.push(el(jig(add(c,[0,1.05,0]),t,k),COL.val))});
+   o.push(el(jig([0,.08,0],t,3),COL.val),el(jig([0,-.08,0],t,4),COL.val));
+   o.push(lab([0,1.75,0],"π: los p se tocan de lado",COL.p),lab([0,-.55,0],"σ de frente",COL.sp2),lab([0,-2.1,0],"eteno C₂H₄: doble = 1 σ + 1 π",COL.lab));return o},
+ sp:function(t){var o=[nucleus()].concat(core(t));[[1,0,0],[-1,0,0]].forEach(function(d,k){o.push(lobe([0,0,0],d,1.7,.55,COL.sp,.38),el(jig(add([0,0,0],d,1.15),t,k),COL.val),lab(add([0,0,0],d,2.1),"bracito sp",COL.sp))});
+   o=o.concat(porb([0,0,0],[0,1,0],COL.p,.3),porb([0,0,0],[0,0,1],COL.p,.3));o.push(el(jig([0,1.15,0],t,8),COL.val),el(jig([0,0,1.15],t,9),COL.val),lab([0,2.0,0],"p que sobra",COL.p),lab([0,0,2.05],"p que sobra",COL.p));return o},
+ c2h2:function(t){var o=[],A=[-.6,0,0],B=[.6,0,0];
+   [[A,1],[B,-1]].forEach(function(q,k){var c=q[0],s=q[1];o.push(nucleus(c,.85));
+     o.push(lobe(c,[s,0,0],.7,.42,COL.sp,.32),lobe(c,[-s,0,0],1.0,.42,COL.sp,.3));o=o.concat(hatom(add(c,[-s,0,0],1.12)));
+     o=o.concat(porb(c,[0,1,0],COL.p,.26,false,1.2),porb(c,[0,0,1],COL.p,.26,false,1.2))});
+   o.push(lab([0,1.6,0],"π de arriba y abajo",COL.p),lab([0,0,1.75],"π de adelante y atrás",COL.p),lab([0,-2.0,0],"etino C₂H₂: triple = 1 σ + 2 π",COL.lab));return o}
+};
+
+/* ---------- Cajitas ---------- */
+var AR={0:"",1:"↑",2:"↑↓"};
+function B(t,e,c){return '<div class="box '+c+'"><i>'+(c.indexOf("hole")>-1?"□":AR[e])+'</i><span>'+t+'</span></div>'}
+var CORE=B("1s",2,"core")+'<div class="gap"></div>';
+var BOX={
+ normal:'<p class="ttl">Las cajitas del carbono (cada una aguanta 2 electrones)</p><div class="row">'+CORE+B("2s",2,"s")+B("2p",1,"p")+B("2p",1,"p")+B("2p",0,"p hole")+'</div>',
+ empty:'<p class="ttl">Capa 1: una habitación (1s). Capa 2: cuatro habitaciones (2s y tres 2p)</p><div class="row">'+B("1s",0,"core")+'<div class="gap"></div>'+B("2s",0,"s")+B("2px",0,"p")+B("2py",0,"p")+B("2pz",0,"p")+'</div>',
+ jump:'<p class="ttl">Después del salto: 4 electrones solos = 4 bracitos</p><div class="row">'+CORE+B("2s",1,"s")+B("2p",1,"p")+B("2p",1,"p")+B("2p",1,"p")+'</div>',
+ sp3:'<p class="ttl">Mezcla 1 s + 3 p → 4 sp³ iguales · no sobra ningún p</p><div class="row">'+CORE+B("sp³",1,"sp3")+B("sp³",1,"sp3")+B("sp³",1,"sp3")+B("sp³",1,"sp3")+'</div>',
+ sp2:'<p class="ttl">Mezcla 1 s + 2 p → 3 sp² · sobra 1 p (naranja)</p><div class="row">'+CORE+B("sp²",1,"sp2")+B("sp²",1,"sp2")+B("sp²",1,"sp2")+B("p",1,"p")+'</div>',
+ sp:'<p class="ttl">Mezcla 1 s + 1 p → 2 sp · sobran 2 p (naranja)</p><div class="row">'+CORE+B("sp",1,"sp")+B("sp",1,"sp")+B("p",1,"p")+B("p",1,"p")+'</div>',
+ sum:'<table><tr><th>Mezcla</th><th>Bracitos de frente</th><th>p que sobran</th><th>Forma</th><th>Ejemplo</th></tr><tr><td><b style="color:var(--sp3)">sp³</b> = s + 3p</td><td>4</td><td>0</td><td>pirámide, 109,5°</td><td>metano CH₄</td></tr><tr><td><b style="color:var(--sp2)">sp²</b> = s + 2p</td><td>3</td><td>1 → 1 π</td><td>plana, 120°</td><td>eteno C₂H₄</td></tr><tr><td><b style="color:var(--sp)">sp</b> = s + 1p</td><td>2</td><td>2 → 2 π</td><td>recta, 180°</td><td>etino C₂H₂</td></tr></table>',
+ analog:'<table><tr><th>En el átomo</th><th>En el edificio</th></tr><tr><td>Núcleo</td><td>El dueño, en el centro</td></tr><tr><td>Capas</td><td>Pisos</td></tr><tr><td>Orbitales s y p</td><td>Habitaciones (2 personas cada una)</td></tr><tr><td>Electrón solo</td><td>Persona sola: un bracito que busca pareja</td></tr><tr><td>Orbital vacío</td><td>Hueco: habitación sin nadie</td></tr><tr><td>Hibridación</td><td>Remodelar para que los cuartos queden iguales</td></tr></table>'
+};
+function leg(items){return items.map(function(x){return '<span class="chip"><i style="background:'+x[1]+'"></i>'+x[0]+'</span>'}).join("")}
+
+/* ---------- Los pasos ---------- */
+var STEPS=[
+ {sc:"bohr",fit:2.6,ttl:"El átomo: un centro y electrones girando",box:"normal",
+  txt:"<p>Todo está hecho de átomos. Un átomo tiene un <b>núcleo</b> en el centro y <b>electrones</b> girando alrededor, como mosquitos alrededor de un bombillo.</p><p>El carbono tiene <b>6 electrones</b>. En el núcleo tiene 6 protones (con carga +) que los mantienen cerca, porque los electrones tienen carga −.</p>",
+  say:"Todo está hecho de átomos. Un átomo tiene un núcleo en el centro y electrones girando alrededor, como mosquitos alrededor de un bombillo. El carbono tiene seis electrones. En el núcleo tiene seis protones, con carga positiva, que los mantienen cerca, porque los electrones tienen carga negativa.",
+  leg:[["núcleo",COL.nuc],["electrón",COL.core]]},
+ {sc:"bohr",val:1,fit:2.6,ttl:"Las capas: 2 adentro y 4 afuera",box:"normal",
+  txt:"<p>Los electrones van por <b>capas</b>, como los pisos de un edificio. En la <b>capa 1</b> solo caben 2: el carbono la llena con 2 (azules).</p><p>Los otros 4 van a la <b>capa 2</b> (naranjas). Esa es la capa de afuera, la <b>capa de valencia</b>, y sus electrones son los únicos que hacen enlaces.</p><p>En la capa 2 caben 8. El carbono tiene 4, así que le faltan 4: por eso busca <b>4 compañeros</b> y hace 4 enlaces.</p>",
+  say:"Los electrones van por capas, como los pisos de un edificio. En la capa uno solo caben dos, y el carbono la llena con dos, los azules. Los otros cuatro van a la capa dos, los naranjas. Esa es la capa de afuera, la capa de valencia, y sus electrones son los únicos que hacen enlaces. En la capa dos caben ocho. El carbono tiene cuatro, así que le faltan cuatro: por eso busca cuatro compañeros y hace cuatro enlaces.",
+  leg:[["capa 1",COL.core],["capa 2: valencia",COL.val]]},
+ {sc:"rooms",fit:2.5,ttl:"Dentro de la capa 2 hay 4 habitaciones",box:"empty",
+  txt:"<p>Los electrones no andan sueltos: viven en <b>orbitales</b>, que son como habitaciones. En cada una caben <b>máximo 2</b> electrones.</p><p>La capa 2 tiene una habitación <b>s</b>, redonda como una <b>pelota</b>, y tres habitaciones <b>p</b>, con forma de <b>ocho o de maní</b>. Las tres p apuntan cada una en una dirección: de lado a lado (x), de arriba abajo (y) y de adelante hacia atrás (z).</p>",
+  say:"Los electrones no andan sueltos: viven en orbitales, que son como habitaciones. En cada una caben máximo dos electrones. La capa dos tiene una habitación ese, redonda como una pelota, y tres habitaciones pe, con forma de ocho o de maní. Las tres pe apuntan cada una en una dirección: de lado a lado, de arriba abajo, y de adelante hacia atrás.",
+  leg:[["2s (pelota)",COL.val],["2p (ochos)",COL.p],["capa 1",COL.core]]},
+ {sc:"fill",fit:2.5,ttl:"Cómo se acomodan: bracitos y huecos",box:"normal",
+  txt:"<p>Los 4 electrones de afuera se acomodan así: <b>2 en la pelota s</b>, como pareja, y <b>1 en cada uno de dos p</b>. El tercer p queda <b>vacío</b>: ese es el <b>hueco</b>.</p><p>Un electrón <b>solo</b> es un <b>bracito</b>: quiere pareja, así que puede agarrarse de otro átomo. Un electrón que ya tiene pareja no busca a nadie.</p><p>Así como está, el carbono solo tendría 2 bracitos. Pero hace 4 enlaces. ¿Cómo?</p>",
+  say:"Los cuatro electrones de afuera se acomodan así: dos en la pelota ese, como pareja, y uno en cada uno de dos pe. El tercer pe queda vacío: ese es el hueco. Un electrón solo es un bracito: quiere pareja, así que puede agarrarse de otro átomo. Un electrón que ya tiene pareja no busca a nadie. Así como está, el carbono solo tendría dos bracitos. Pero hace cuatro enlaces. ¿Cómo?",
+  leg:[["electrón de valencia",COL.val],["hueco (vacío)",COL.hole],["p con 1 electrón",COL.p]]},
+ {sc:"fill",jump:1,fit:2.5,ttl:"El salto: ahora tiene 4 bracitos",box:"jump",
+  txt:"<p>Un electrón de la pareja de la pelota <b>salta al hueco</b>. Mira la animación.</p><p>Ahora hay <b>4 electrones solos</b>, uno en cada habitación: <b>4 bracitos</b>. El salto le cuesta un poquito de energía, pero la recupera con creces al hacer 4 enlaces en vez de 2.</p>",
+  say:"Un electrón de la pareja de la pelota salta al hueco. Mira la animación. Ahora hay cuatro electrones solos, uno en cada habitación: cuatro bracitos. El salto le cuesta un poquito de energía, pero la recupera con creces al hacer cuatro enlaces en vez de dos.",
+  leg:[["electrón que salta",COL.val],["2p",COL.p]]},
+ {sc:"sp3",fit:2.5,ttl:"sp³: mezcla las 4 habitaciones",box:"sp3",
+  txt:"<p>Pero la pelota y los ochos son distintos, y los 4 enlaces del carbono salen iguales. Entonces el carbono <b>mezcla</b> sus habitaciones, como quien mezcla pinturas, y saca habitaciones nuevas, todas iguales.</p><p>Si mezcla las 4 (1 s + 3 p), salen <b>4 bracitos sp³</b>. Se separan lo más posible y forman una <b>pirámide</b> de 4 puntas, a 109,5° entre sí. No sobra ningún p.</p>",
+  say:"Pero la pelota y los ochos son distintos, y los cuatro enlaces del carbono salen iguales. Entonces el carbono mezcla sus habitaciones, como quien mezcla pinturas, y saca habitaciones nuevas, todas iguales. Si mezcla las cuatro, una ese y tres pe, salen cuatro bracitos ese pe tres. Se separan lo más posible y forman una pirámide de cuatro puntas, a ciento nueve coma cinco grados entre sí. No sobra ningún pe.",
+  leg:[["bracito sp³",COL.sp3],["electrón",COL.val]]},
+ {sc:"ch4",fit:2.6,ttl:"Ejemplo: el metano, CH₄",box:"sp3",
+  txt:"<p>El <b>metano</b> es el gas de cocina. Es un carbono con 4 hidrógenos.</p><p>Cada bracito sp³ se agarra <b>de frente</b> con el orbital s de un hidrógeno. Agarrarse de frente es un enlace <b>sigma (σ)</b>, y cada uno tiene 2 electrones: uno del carbono y uno del hidrógeno.</p><p>Resultado: 4 enlaces σ sp³–s y forma de pirámide.</p>",
+  say:"El metano es el gas de cocina. Es un carbono con cuatro hidrógenos. Cada bracito ese pe tres se agarra de frente con el orbital ese de un hidrógeno. Agarrarse de frente es un enlace sigma, y cada uno tiene dos electrones: uno del carbono y uno del hidrógeno. Resultado: cuatro enlaces sigma, ese pe tres con ese, y forma de pirámide.",
+  leg:[["bracito sp³",COL.sp3],["hidrógeno",COL.H],["electrón del C",COL.val]]},
+ {sc:"sp2",fit:2.5,ttl:"sp²: mezcla solo 3",box:"sp2",
+  txt:"<p>A veces el carbono mezcla <b>solo 3</b> habitaciones (1 s + 2 p). Salen <b>3 bracitos sp²</b>, acostados en un mismo plano, como un triángulo, a 120°.</p><p>Le <b>sobra 1 p</b> sin mezclar (el naranja, de arriba abajo), con su electrón. Ese p sobrante no se agarra de frente: se usa para abrazar de lado. Eso es un enlace <b>pi (π)</b>.</p>",
+  say:"A veces el carbono mezcla solo tres habitaciones, una ese y dos pe. Salen tres bracitos ese pe dos, acostados en un mismo plano, como un triángulo, a ciento veinte grados. Le sobra un pe sin mezclar, el naranja, de arriba abajo, con su electrón. Ese pe sobrante no se agarra de frente: se usa para abrazar de lado. Eso es un enlace pi.",
+  leg:[["bracito sp²",COL.sp2],["p que sobra",COL.p]]},
+ {sc:"c2h4",fit:2.6,ttl:"Ejemplo: el eteno, C₂H₄",box:"sp2",
+  txt:"<p>El <b>eteno</b> es el gas que hace madurar las frutas. Tiene 2 carbonos sp² y 4 hidrógenos.</p><p>Los dos carbonos se dan la mano <b>de frente</b> (σ) con un bracito cada uno, y con los otros dos agarran sus hidrógenos.</p><p>Además, los <b>p que sobraron</b> se tocan <b>de lado</b>, por arriba y por abajo: ese es el <b>π</b>. Por eso entre los carbonos hay un <b>doble enlace</b>: 1 σ + 1 π.</p>",
+  say:"El eteno es el gas que hace madurar las frutas. Tiene dos carbonos ese pe dos y cuatro hidrógenos. Los dos carbonos se dan la mano de frente con un bracito cada uno, y con los otros dos agarran sus hidrógenos. Además, los pe que sobraron se tocan de lado, por arriba y por abajo: ese es el pi. Por eso entre los carbonos hay un doble enlace: un sigma más un pi.",
+  leg:[["bracito sp²",COL.sp2],["p (π)",COL.p],["hidrógeno",COL.H]]},
+ {sc:"sp",fit:2.5,ttl:"sp: mezcla solo 2",box:"sp",
+  txt:"<p>Si mezcla <b>solo 2</b> habitaciones (1 s + 1 p), salen <b>2 bracitos sp</b>, uno a cada lado, en <b>línea recta</b>, a 180°.</p><p>Le <b>sobran 2 p</b>: uno de arriba abajo y otro de adelante hacia atrás. Con ellos puede dar <b>2 abrazos de lado</b>: 2 enlaces π.</p>",
+  say:"Si mezcla solo dos habitaciones, una ese y una pe, salen dos bracitos ese pe, uno a cada lado, en línea recta, a ciento ochenta grados. Le sobran dos pe: uno de arriba abajo y otro de adelante hacia atrás. Con ellos puede dar dos abrazos de lado: dos enlaces pi.",
+  leg:[["bracito sp",COL.sp],["p que sobran",COL.p]]},
+ {sc:"c2h2",fit:2.4,ttl:"Ejemplo: el etino (acetileno), C₂H₂",box:"sp",
+  txt:"<p>El <b>etino</b>, o acetileno, es el gas de los sopletes de soldar. Tiene 2 carbonos sp y 2 hidrógenos, todos en línea recta.</p><p>Los carbonos se dan la mano de frente (σ) y además se abrazan de lado <b>dos veces</b>: con los p de arriba y abajo, y con los p de adelante y atrás. Es un <b>triple enlace</b>: 1 σ + 2 π.</p>",
+  say:"El etino, o acetileno, es el gas de los sopletes de soldar. Tiene dos carbonos ese pe y dos hidrógenos, todos en línea recta. Los carbonos se dan la mano de frente, y además se abrazan de lado dos veces: con los pe de arriba y abajo, y con los pe de adelante y atrás. Es un triple enlace: un sigma más dos pi.",
+  leg:[["bracito sp",COL.sp],["p (π)",COL.p],["hidrógeno",COL.H]]},
+ {sc:"sp3",fit:2.5,ttl:"Resumen: cuántas habitaciones mezcla",box:"sum",
+  txt:"<p>La regla de oro: <b>mientras más enlaces dobles o triples tenga el carbono, menos habitaciones mezcla</b>, porque necesita guardar p sin mezclar para los abrazos de lado (π).</p><p>Solo sencillos → sp³ · un doble → sp² · un triple → sp.</p>",
+  say:"La regla de oro: mientras más enlaces dobles o triples tenga el carbono, menos habitaciones mezcla, porque necesita guardar pe sin mezclar para los abrazos de lado, los pi. Solo sencillos, ese pe tres. Un doble, ese pe dos. Un triple, ese pe.",
+  leg:[["sp³",COL.sp3],["sp²",COL.sp2],["sp",COL.sp]]},
+ {sc:"bohr",val:1,fit:2.6,ttl:"Para explicárselo a quien no sabe química",box:"analog",
+  txt:"<p>Piensa en el átomo como un <b>edificio</b>. El núcleo es el dueño en el centro, las capas son los pisos, y los orbitales son habitaciones donde caben 2 personas.</p><p>Una persona sola en su cuarto es un <b>bracito</b>: busca pareja en otro edificio. Un cuarto vacío es un <b>hueco</b>. Y la hibridación es <b>remodelar</b> los cuartos para que queden iguales y apunten hacia donde están los vecinos.</p>",
+  say:"Piensa en el átomo como un edificio. El núcleo es el dueño en el centro, las capas son los pisos, y los orbitales son habitaciones donde caben dos personas. Una persona sola en su cuarto es un bracito: busca pareja en otro edificio. Un cuarto vacío es un hueco. Y la hibridación es remodelar los cuartos para que queden iguales y apunten hacia donde están los vecinos.",
+  leg:[["capa 1",COL.core],["valencia",COL.val]]}
+];
+
+/* ---------- Visor 3D ---------- */
+var cv=document.getElementById("cv"),cx=cv.getContext("2d"),rx=-.35,ry=.5,drag=false,lx=0,ly=0,spin=true,i=0,t0=performance.now();
+function rot(p){var c1=Math.cos(ry),s1=Math.sin(ry),x1=p[0]*c1-p[2]*s1,z1=p[0]*s1+p[2]*c1,c2=Math.cos(rx),s2=Math.sin(rx);return [x1,p[1]*c2-z1*s2,p[1]*s2+z1*c2]}
+function rgba(h,a){var n=parseInt(h.slice(1),16);return "rgba("+(n>>16)+","+(n>>8&255)+","+(n&255)+","+a+")"}
+function render(){
+  var r=cv.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);if(!r.width)return;
+  var W=Math.round(r.width*d),H=Math.round(r.height*d);if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H}
+  cx.setTransform(d,0,0,d,0,0);var w=r.width,h=r.height,st=STEPS[i],S=Math.min(w,h)/2/st.fit,F=12,ox=w/2,oy=h/2;
+  cx.clearRect(0,0,w,h);
+  var t=(performance.now()-t0)/1000,items=[],labels=[];
+  function pr(p){var q=rot(p),k=F/(F-q[2]);return [ox+q[0]*S*k,oy-q[1]*S*k,k,q[2]]}
+  SC[st.sc](t,st.val||st.jump).forEach(function(o){
+    if(o.k==="lab"){labels.push(o);return}
+    if(o.k==="lobe"){var n=12;for(var j=1;j<=n;j++){var f=j/n,pp=pr(add(o.p,o.d,o.L*f)),rr=o.R*Math.pow(Math.sin(Math.PI*Math.min(f,.98)),.65)*S*pp[2];
+        items.push({z:pp[3],k:"disc",x:pp[0],y:pp[1],r:Math.max(1,rr),c:o.c,a:o.empty?o.a*.5:o.a/3.2,empty:o.empty,last:j===Math.round(n*.62)})}return}
+    if(o.k==="ring"){var bs=basis(o.n),pts=[];for(var j2=0;j2<=64;j2++){var a=j2/64*2*Math.PI;pts.push(pr(add(add(o.p,bs[0],o.r*Math.cos(a)),bs[1],o.r*Math.sin(a))))}
+        items.push({z:-99,k:"ring",pts:pts,c:o.c});return}
+    if(o.k==="bond"){var A=pr(o.a),B2=pr(o.b);items.push({z:(A[3]+B2[3])/2,k:"bond",A:A,B:B2});return}
+    var q=pr(o.p);items.push({z:q[3]+(o.k==="e"?.05:0),k:o.k,x:q[0],y:q[1],s:q[2],o:o});
+  });
+  items.sort(function(a,b){return a.z-b.z});
+  items.forEach(function(it){
+    if(it.k==="ring"){cx.strokeStyle=rgba(it.c,.45);cx.lineWidth=1.4;cx.beginPath();it.pts.forEach(function(p,j){j?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1])});cx.stroke()}
+    else if(it.k==="disc"){if(it.empty){cx.strokeStyle=rgba(it.c,.35);cx.setLineDash([4,4]);cx.lineWidth=1;if(it.last){cx.beginPath();cx.arc(it.x,it.y,it.r,0,7);cx.stroke()}cx.setLineDash([]);cx.fillStyle=rgba(it.c,it.a*.5)}
+      else cx.fillStyle=rgba(it.c,it.a);cx.beginPath();cx.arc(it.x,it.y,it.r,0,7);cx.fill()}
+    else if(it.k==="cloud"){var o=it.o,R=o.r*S*it.s,g=cx.createRadialGradient(it.x,it.y,R*.1,it.x,it.y,R);g.addColorStop(0,rgba(o.c,o.a*1.6));g.addColorStop(.7,rgba(o.c,o.a));g.addColorStop(1,rgba(o.c,0));cx.fillStyle=g;cx.beginPath();cx.arc(it.x,it.y,R,0,7);cx.fill()}
+    else if(it.k==="sph"){var o2=it.o,R2=o2.r*S*it.s,g2=cx.createRadialGradient(it.x-R2*.35,it.y-R2*.4,R2*.1,it.x,it.y,R2);g2.addColorStop(0,"#FFFFFF");g2.addColorStop(.5,o2.c);g2.addColorStop(1,rgba(o2.c,.85));
+      cx.fillStyle=g2;cx.beginPath();cx.arc(it.x,it.y,R2,0,7);cx.fill();if(o2.t&&R2>9){cx.fillStyle="#23241F";cx.font="700 "+Math.round(R2*.9)+"px system-ui,sans-serif";cx.textAlign="center";cx.textBaseline="middle";cx.fillText(o2.t,it.x,it.y+1)}}
+    else if(it.k==="e"){var R3=Math.max(3.5,.09*S*it.s),g3=cx.createRadialGradient(it.x,it.y,0,it.x,it.y,R3*2.6);g3.addColorStop(0,rgba(it.o.c,.55));g3.addColorStop(1,rgba(it.o.c,0));
+      cx.fillStyle=g3;cx.beginPath();cx.arc(it.x,it.y,R3*2.6,0,7);cx.fill();cx.fillStyle=it.o.c;cx.beginPath();cx.arc(it.x,it.y,R3,0,7);cx.fill();cx.fillStyle="rgba(255,255,255,.8)";cx.beginPath();cx.arc(it.x-R3*.3,it.y-R3*.3,R3*.35,0,7);cx.fill()}
+    else if(it.k==="bond"){cx.strokeStyle=COL.bond;cx.lineWidth=5;cx.lineCap="round";cx.beginPath();cx.moveTo(it.A[0],it.A[1]);cx.lineTo(it.B[0],it.B[1]);cx.stroke()}
+  });
+  var fs=Math.max(11,Math.min(15,w/40));cx.font="600 "+fs+"px system-ui,sans-serif";cx.textAlign="center";cx.textBaseline="middle";
+  labels.forEach(function(l){var q=pr(l.p),tw=cx.measureText(l.t).width+12;var x=Math.max(tw/2+4,Math.min(w-tw/2-4,q[0])),y=Math.max(12,Math.min(h-24,q[1]));
+    cx.fillStyle="rgba(16,20,26,.72)";cx.beginPath();if(cx.roundRect)cx.roundRect(x-tw/2,y-fs*.8,tw,fs*1.6,6);else cx.rect(x-tw/2,y-fs*.8,tw,fs*1.6);cx.fill();cx.fillStyle=l.c;cx.fillText(l.t,x,y+1)});
+}
+cv.addEventListener("pointerdown",function(e){cv.setPointerCapture(e.pointerId);drag=true;lx=e.clientX;ly=e.clientY});
+cv.addEventListener("pointermove",function(e){if(!drag)return;ry+=(e.clientX-lx)*.01;rx+=(e.clientY-ly)*.01;rx=Math.max(-1.5,Math.min(1.5,rx));lx=e.clientX;ly=e.clientY});
+cv.addEventListener("pointerup",function(){drag=false});cv.addEventListener("pointercancel",function(){drag=false});
+function loop(){if(spin&&!drag)ry+=.004;render();requestAnimationFrame(loop)}
+
+/* ---------- Voz ---------- */
+var say=document.getElementById("say"),narr=false;
+function callar(){try{speechSynthesis.cancel()}catch(e){}say.textContent="🔊 Leer"}
+function hablar(t){if(!("speechSynthesis" in window)){say.textContent="Sin voz";return}callar();
+  var u=new SpeechSynthesisUtterance(t);u.lang="es-ES";u.rate=.92;var vs=speechSynthesis.getVoices().filter(function(v){return /^es/i.test(v.lang)});if(vs.length)u.voice=vs[0];
+  u.onend=function(){say.textContent="🔊 Leer"};u.onerror=function(){say.textContent="🔊 Leer"};say.textContent="■ Parar";try{speechSynthesis.speak(u)}catch(e){say.textContent="Sin voz"}}
+say.onclick=function(){if(say.textContent.indexOf("Parar")>-1){callar();return}hablar(STEPS[i].ttl+". "+STEPS[i].say)};
+var nb=document.getElementById("narr");nb.onclick=function(){narr=!narr;nb.setAttribute("aria-pressed",narr);if(narr)hablar(STEPS[i].ttl+". "+STEPS[i].say);else callar()};
+var sb=document.getElementById("spin");sb.onclick=function(){spin=!spin;sb.setAttribute("aria-pressed",spin)};
+
+/* ---------- Pasos ---------- */
+function draw(talk){var st=STEPS[i];
+  document.getElementById("lbl").textContent="Paso "+(i+1)+" de "+STEPS.length;
+  document.getElementById("ttl").textContent=st.ttl;document.getElementById("txt").innerHTML=st.txt;
+  document.getElementById("boxes").innerHTML=BOX[st.box];document.getElementById("leg").innerHTML=leg(st.leg);
+  document.getElementById("count").textContent=(i+1)+" / "+STEPS.length;
+  document.getElementById("prev").disabled=i===0;document.getElementById("next").disabled=i===STEPS.length-1;
+  if(st.jump)t0=performance.now();
+  if(talk&&narr)hablar(st.ttl+". "+st.say);else if(talk)callar();
+  fit()}
+function go(k){var n=Math.max(0,Math.min(STEPS.length-1,k));if(n===i)return;i=n;draw(true)}
+document.getElementById("prev").onclick=function(){go(i-1)};document.getElementById("next").onclick=function(){go(i+1)};
+document.addEventListener("keydown",function(e){if(e.key==="ArrowRight")go(i+1);if(e.key==="ArrowLeft")go(i-1)});
+document.getElementById("dl").onclick=function(){try{var b=new Blob([SRC],{type:"text/html"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="atomo-carbono-3d.html";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500)}catch(e){alert("No se pudo descargar desde aquí. Usa la opción Descargar de la tarjeta del archivo.")}};
+
+/* ---------- Todo en una sola pantalla: primero se ajusta el visor, después se reduce si hace falta ---------- */
+var wrap=document.getElementById("wrap"),bar=document.getElementById("bar");
+function fit(){wrap.style.zoom="";cv.style.height="";wrap.style.paddingBottom=(bar.offsetHeight+4)+"px";
+  var avail=window.innerHeight-bar.offsetHeight-4,two=getComputedStyle(document.querySelector(".cols")).gridTemplateColumns.split(" ").length>1;
+  var h=wrap.getBoundingClientRect().height-bar.offsetHeight-4,ch=cv.getBoundingClientRect().height;
+  if(two){var right=document.querySelector(".cols>div:last-child").getBoundingClientRect().height,topH=document.querySelector(".top").getBoundingClientRect().height+24,leg=document.getElementById("leg").getBoundingClientRect().height+8;
+    cv.style.height=Math.max(220,Math.min(620,avail-topH-leg))+"px"}
+  else cv.style.height=Math.max(300,Math.min(440,avail-(h-ch)))+"px";
+  if(wrap.getBoundingClientRect().height<=window.innerHeight)return;
+  wrap.style.paddingBottom="0px";var lo=.45,hi=1;for(var k=0;k<8;k++){var m=(lo+hi)/2;wrap.style.zoom=m;if(wrap.getBoundingClientRect().height<=avail)lo=m;else hi=m}wrap.style.zoom=lo.toFixed(3)}
+window.addEventListener("resize",fit);
+draw(false);loop();setTimeout(fit,200);
+</script>
+</body>
+</html>

@@ -1,0 +1,1289 @@
+{
+ "fuente": "Programa del Ministerio del Poder Popular para la Educación (propuestas de contenidos 2025) y pensum de ciclo básico de ingeniería de UNEG, UNEXPO, UDO, UCAB y UBA",
+ "niveles": [
+  {
+   "n": "Primaria",
+   "ic": "🎒",
+   "sub": "1.º a 6.º grado",
+   "materias": [
+    {
+     "m": "Matemática",
+     "grados": [
+      {
+       "g": "1.º grado",
+       "temas": [
+        {
+         "t": "Contar, comparar y ordenar hasta 100"
+        },
+        {
+         "t": "Valor posicional: unidades, decenas y centenas"
+        },
+        {
+         "t": "Números ordinales"
+        },
+        {
+         "t": "La suma"
+        },
+        {
+         "t": "La resta"
+        },
+        {
+         "t": "Figuras planas y cuerpos"
+        },
+        {
+         "t": "Medidas y el dinero"
+        },
+        {
+         "t": "Pictogramas"
+        }
+       ]
+      },
+      {
+       "g": "2.º grado",
+       "temas": [
+        {
+         "t": "Números hasta 1.000"
+        },
+        {
+         "t": "Series que suben y bajan"
+        },
+        {
+         "t": "Valor posicional hasta los millares"
+        },
+        {
+         "t": "La suma y sus propiedades"
+        },
+        {
+         "t": "La resta"
+        },
+        {
+         "t": "Introducción a la multiplicación"
+        },
+        {
+         "t": "Medidas de longitud, masa, capacidad y tiempo"
+        },
+        {
+         "t": "Gráficos de barras"
+        }
+       ]
+      },
+      {
+       "g": "3.º grado",
+       "temas": [
+        {
+         "t": "Números hasta 10.000"
+        },
+        {
+         "t": "Multiplicar por 10, 100 y 1.000"
+        },
+        {
+         "t": "Polígonos y ángulos"
+        },
+        {
+         "t": "Círculo y circunferencia"
+        },
+        {
+         "t": "Punto, recta y plano"
+        },
+        {
+         "t": "Submúltiplos de las medidas"
+        },
+        {
+         "t": "Tablas de datos"
+        }
+       ]
+      },
+      {
+       "g": "4.º grado",
+       "temas": [
+        {
+         "t": "Números hasta 1.000.000"
+        },
+        {
+         "t": "Multiplicar números grandes",
+         "c": [
+          "parrilla-mult"
+         ]
+        },
+        {
+         "t": "Números decimales"
+        },
+        {
+         "t": "Fracciones"
+        },
+        {
+         "t": "Suma, resta, multiplicación y división con decimales y fracciones"
+        },
+        {
+         "t": "Rectas, rayos y mediatriz"
+        },
+        {
+         "t": "Ángulos y bisectriz"
+        },
+        {
+         "t": "Triángulos y cuadriláteros"
+        },
+        {
+         "t": "Conversión de unidades"
+        },
+        {
+         "t": "Tablas de frecuencia"
+        }
+       ]
+      },
+      {
+       "g": "5.º grado",
+       "temas": [
+        {
+         "t": "Números hasta 100 millones"
+        },
+        {
+         "t": "Multiplicación y división",
+         "c": [
+          "parrilla-mult"
+         ]
+        },
+        {
+         "t": "Decimales y sus operaciones"
+        },
+        {
+         "t": "Fracciones y sus operaciones"
+        },
+        {
+         "t": "Sistema métrico decimal: metro, gramo y litro"
+        },
+        {
+         "t": "Área y superficie"
+        },
+        {
+         "t": "Frecuencia relativa"
+        }
+       ]
+      },
+      {
+       "g": "6.º grado",
+       "temas": [
+        {
+         "t": "Números primos y compuestos"
+        },
+        {
+         "t": "Reglas de divisibilidad"
+        },
+        {
+         "t": "m.c.m. y M.C.D."
+        },
+        {
+         "t": "Potencias"
+        },
+        {
+         "t": "Introducción a las ecuaciones"
+        },
+        {
+         "t": "Operaciones con fracciones"
+        },
+        {
+         "t": "Área y perímetro"
+        },
+        {
+         "t": "Rectas notables del triángulo"
+        },
+        {
+         "t": "Sistemas de numeración"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "m": "Ciencias Naturales",
+     "grados": [
+      {
+       "g": "1.º grado",
+       "temas": [
+        {
+         "t": "Estados de la materia"
+        },
+        {
+         "t": "El agua"
+        },
+        {
+         "t": "Movimiento y fuerzas"
+        },
+        {
+         "t": "Tipos de energía"
+        }
+       ]
+      },
+      {
+       "g": "2.º grado",
+       "temas": [
+        {
+         "t": "El ciclo del agua"
+        },
+        {
+         "t": "El petróleo y sus derivados"
+        },
+        {
+         "t": "Energía renovable y no renovable"
+        }
+       ]
+      },
+      {
+       "g": "3.º grado",
+       "temas": [
+        {
+         "t": "Mezclas homogéneas y heterogéneas"
+        },
+        {
+         "t": "Cómo separar mezclas"
+        },
+        {
+         "t": "La gravedad, la caída libre y el peso"
+        }
+       ]
+      },
+      {
+       "g": "4.º grado",
+       "temas": [
+        {
+         "t": "Instrumentos de medida"
+        },
+        {
+         "t": "Unidades y conversiones"
+        },
+        {
+         "t": "Masa, volumen y longitud"
+        },
+        {
+         "t": "El átomo: protones, neutrones y electrones"
+        },
+        {
+         "t": "Elementos, compuestos y mezclas"
+        }
+       ]
+      },
+      {
+       "g": "5.º grado",
+       "temas": [
+        {
+         "t": "Calor y temperatura"
+        },
+        {
+         "t": "Escalas de temperatura"
+        },
+        {
+         "t": "Magnitudes físicas"
+        },
+        {
+         "t": "Modelos atómicos"
+        },
+        {
+         "t": "Número atómico y masa atómica"
+        }
+       ]
+      },
+      {
+       "g": "6.º grado",
+       "temas": [
+        {
+         "t": "Sustancias puras y mezclas"
+        },
+        {
+         "t": "Símbolos químicos y tabla periódica",
+         "c": [
+          "tabla-periodica"
+         ]
+        },
+        {
+         "t": "Compuestos orgánicos e inorgánicos"
+        },
+        {
+         "t": "Carga eléctrica, campo eléctrico y magnético"
+        },
+        {
+         "t": "Circuitos eléctricos"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": "Bachillerato",
+   "ic": "📐",
+   "sub": "1.º a 5.º año",
+   "materias": [
+    {
+     "m": "Matemática",
+     "grados": [
+      {
+       "g": "1.º año",
+       "temas": [
+        {
+         "t": "Números naturales (N)"
+        },
+        {
+         "t": "Divisibilidad, primos, m.c.m. y M.C.D."
+        },
+        {
+         "t": "Números enteros (Z)"
+        },
+        {
+         "t": "Números racionales (Q)",
+         "c": [
+          "racionales-clase"
+         ]
+        },
+        {
+         "t": "Notación científica"
+        },
+        {
+         "t": "Fracción generatriz"
+        },
+        {
+         "t": "Ecuaciones de primer grado"
+        },
+        {
+         "t": "Plano cartesiano"
+        },
+        {
+         "t": "Ángulos, polígonos y áreas"
+        },
+        {
+         "t": "Estadística y probabilidad"
+        }
+       ]
+      },
+      {
+       "g": "2.º año",
+       "temas": [
+        {
+         "t": "Números racionales (Q)",
+         "c": [
+          "racionales-clase"
+         ]
+        },
+        {
+         "t": "Operaciones combinadas en Q",
+         "c": [
+          "racionales-cuaderno",
+          "racionales-combinadas",
+          "racionales-refuerzo",
+          "racionales-continuo"
+         ]
+        },
+        {
+         "t": "Ecuaciones en Z y Q"
+        },
+        {
+         "t": "Funciones: dominio, rango y gráfica"
+        },
+        {
+         "t": "Funciones inyectivas, sobreyectivas y biyectivas"
+        },
+        {
+         "t": "Polinomios y sus operaciones"
+        },
+        {
+         "t": "Productos notables"
+        },
+        {
+         "t": "Factorización"
+        },
+        {
+         "t": "Vectores en el plano"
+        },
+        {
+         "t": "Traslación, rotación y reflexión"
+        },
+        {
+         "t": "Estadística y permutaciones"
+        }
+       ]
+      },
+      {
+       "g": "3.º año",
+       "temas": [
+        {
+         "t": "Números reales e intervalos"
+        },
+        {
+         "t": "Radicales y racionalización"
+        },
+        {
+         "t": "Función afín"
+        },
+        {
+         "t": "Función cuadrática"
+        },
+        {
+         "t": "Sistemas de 2 ecuaciones"
+        },
+        {
+         "t": "Inecuaciones y sistemas de inecuaciones",
+         "c": [
+          "inecuaciones"
+         ]
+        },
+        {
+         "t": "Teoremas de Pitágoras, Euclides y Tales"
+        },
+        {
+         "t": "Semejanza y congruencia"
+        },
+        {
+         "t": "Combinatoria y probabilidad"
+        }
+       ]
+      },
+      {
+       "g": "4.º año",
+       "temas": [
+        {
+         "t": "Razones trigonométricas"
+        },
+        {
+         "t": "Ley del seno y del coseno"
+        },
+        {
+         "t": "Funciones trigonométricas"
+        },
+        {
+         "t": "Vectores"
+        },
+        {
+         "t": "El número e"
+        },
+        {
+         "t": "Progresiones aritméticas y geométricas"
+        },
+        {
+         "t": "Números complejos"
+        },
+        {
+         "t": "Funciones y ecuaciones exponenciales"
+        },
+        {
+         "t": "Logaritmos y ecuaciones logarítmicas"
+        },
+        {
+         "t": "Inecuaciones (repaso)",
+         "c": [
+          "inecuaciones"
+         ]
+        }
+       ]
+      },
+      {
+       "g": "5.º año",
+       "temas": [
+        {
+         "t": "Cónicas: circunferencia, parábola, elipse e hipérbola"
+        },
+        {
+         "t": "Geometría del espacio"
+        },
+        {
+         "t": "División de polinomios, Ruffini y raíces"
+        },
+        {
+         "t": "Matrices y determinantes"
+        },
+        {
+         "t": "Sistemas de 3 ecuaciones (Cramer y Gauss-Jordan)"
+        },
+        {
+         "t": "Binomio de Newton"
+        },
+        {
+         "t": "Distribución binomial"
+        },
+        {
+         "t": "Inecuaciones racionales y cuadráticas",
+         "c": [
+          "inecuaciones"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "m": "Física",
+     "grados": [
+      {
+       "g": "1.º y 2.º año",
+       "temas": [
+        {
+         "t": "Movimiento y fuerzas"
+        },
+        {
+         "t": "Máquinas simples y palancas"
+        },
+        {
+         "t": "Centro de gravedad y equilibrio"
+        },
+        {
+         "t": "Medición y gráficas"
+        }
+       ]
+      },
+      {
+       "g": "3.º año",
+       "temas": [
+        {
+         "t": "Cinemática"
+        },
+        {
+         "t": "Ondas, sonido y luz"
+        },
+        {
+         "t": "Lentes"
+        },
+        {
+         "t": "Trabajo, potencia y energía"
+        },
+        {
+         "t": "Conservación de la energía"
+        },
+        {
+         "t": "Leyes de Newton"
+        },
+        {
+         "t": "Fuerza de roce"
+        },
+        {
+         "t": "Corriente, voltaje y ley de Ohm"
+        },
+        {
+         "t": "Circuitos eléctricos"
+        }
+       ]
+      },
+      {
+       "g": "4.º año",
+       "temas": [
+        {
+         "t": "Vectores: posición y desplazamiento"
+        },
+        {
+         "t": "Velocidad y aceleración"
+        },
+        {
+         "t": "MRU y MRUV"
+        },
+        {
+         "t": "Movimiento parabólico"
+        },
+        {
+         "t": "Calor y leyes de la termodinámica"
+        }
+       ]
+      },
+      {
+       "g": "5.º año",
+       "temas": [
+        {
+         "t": "Carga eléctrica y ley de Coulomb"
+        },
+        {
+         "t": "Campo eléctrico",
+         "c": [
+          "campo-electrico"
+         ]
+        },
+        {
+         "t": "Potencial eléctrico"
+        },
+        {
+         "t": "Condensadores"
+        },
+        {
+         "t": "Corriente continua"
+        },
+        {
+         "t": "Magnetismo e inducción"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "m": "Química",
+     "grados": [
+      {
+       "g": "1.º y 2.º año",
+       "temas": [
+        {
+         "t": "La materia y sus propiedades"
+        },
+        {
+         "t": "Estados de la materia"
+        },
+        {
+         "t": "Cambios físicos y químicos"
+        },
+        {
+         "t": "Sustancias puras y mezclas"
+        },
+        {
+         "t": "Separación de mezclas"
+        },
+        {
+         "t": "Reacciones químicas y sus tipos"
+        }
+       ]
+      },
+      {
+       "g": "3.º año",
+       "temas": [
+        {
+         "t": "Modelos atómicos",
+         "c": [
+          "atomos-3d"
+         ]
+        },
+        {
+         "t": "Tabla periódica y propiedades periódicas",
+         "c": [
+          "tabla-periodica"
+         ]
+        },
+        {
+         "t": "Números cuánticos y configuración electrónica"
+        },
+        {
+         "t": "Balanceo de ecuaciones"
+        },
+        {
+         "t": "El mol"
+        },
+        {
+         "t": "Conservación de la masa"
+        },
+        {
+         "t": "Leyes de los gases"
+        },
+        {
+         "t": "Concentración de soluciones"
+        }
+       ]
+      },
+      {
+       "g": "4.º año",
+       "temas": [
+        {
+         "t": "Enlace iónico y covalente",
+         "c": [
+          "enlaces",
+          "atomos-3d"
+         ]
+        },
+        {
+         "t": "Soluciones y solubilidad"
+        },
+        {
+         "t": "Propiedades coligativas"
+        },
+        {
+         "t": "Velocidad de reacción y equilibrio químico"
+        },
+        {
+         "t": "pH y pOH"
+        },
+        {
+         "t": "Ácidos y bases"
+        },
+        {
+         "t": "Óxido-reducción y electroquímica"
+        },
+        {
+         "t": "Estequiometría"
+        },
+        {
+         "t": "Fórmula empírica y molecular"
+        },
+        {
+         "t": "Nomenclatura inorgánica"
+        }
+       ]
+      },
+      {
+       "g": "5.º año",
+       "temas": [
+        {
+         "t": "El carbono y sus alótropos",
+         "c": [
+          "carbono-3d"
+         ]
+        },
+        {
+         "t": "Hibridación sp³, sp² y sp",
+         "c": [
+          "carbono-3d",
+          "hibridacion-sp"
+         ]
+        },
+        {
+         "t": "Hidrocarburos"
+        },
+        {
+         "t": "Grupos funcionales"
+        },
+        {
+         "t": "Isomería"
+        },
+        {
+         "t": "Estructuras de Lewis, polaridad y geometría molecular",
+         "c": [
+          "enlaces",
+          "atomos-3d"
+         ]
+        },
+        {
+         "t": "Reacciones orgánicas"
+        },
+        {
+         "t": "Biomoléculas"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": "Universidad",
+   "ic": "🎓",
+   "sub": "Ciclo básico de ingeniería",
+   "nota": "Materias del ciclo básico de UNEG, UNEXPO, UDO, UCAB y UBA. Cada universidad le pone un nombre distinto: debajo de cada materia ves cómo se llama en la tuya.",
+   "materias": [
+    {
+     "m": "Matemática",
+     "grados": [
+      {
+       "g": "Matemática I (cálculo diferencial)",
+       "eq": "UNEG, UNEXPO y UBA: Matemática I · UDO: Matemáticas I · UCAB: Cálculo Diferencial",
+       "temas": [
+        {
+         "t": "Números reales y valor absoluto"
+        },
+        {
+         "t": "Desigualdades e inecuaciones",
+         "c": [
+          "inecuaciones"
+         ]
+        },
+        {
+         "t": "Funciones y sus gráficas"
+        },
+        {
+         "t": "Funciones trigonométricas, exponenciales y logarítmicas"
+        },
+        {
+         "t": "Límites y continuidad"
+        },
+        {
+         "t": "La derivada y sus reglas"
+        },
+        {
+         "t": "Regla de la cadena y derivada implícita"
+        },
+        {
+         "t": "Razones de cambio"
+        },
+        {
+         "t": "Máximos, mínimos y trazado de curvas"
+        },
+        {
+         "t": "Regla de L'Hôpital"
+        }
+       ]
+      },
+      {
+       "g": "Matemática II (cálculo integral)",
+       "eq": "UNEG, UNEXPO y UBA: Matemática II · UDO: Matemáticas II · UCAB: Cálculo Integral",
+       "temas": [
+        {
+         "t": "Integral indefinida"
+        },
+        {
+         "t": "Integral definida y teorema fundamental"
+        },
+        {
+         "t": "Integración por sustitución"
+        },
+        {
+         "t": "Integración por partes"
+        },
+        {
+         "t": "Integrales trigonométricas y sustitución trigonométrica"
+        },
+        {
+         "t": "Fracciones parciales"
+        },
+        {
+         "t": "Integrales impropias"
+        },
+        {
+         "t": "Áreas entre curvas"
+        },
+        {
+         "t": "Volúmenes de sólidos de revolución"
+        },
+        {
+         "t": "Longitud de arco"
+        }
+       ]
+      },
+      {
+       "g": "Matemática III (varias variables)",
+       "eq": "UNEG, UNEXPO y UBA: Matemática III · UDO: Matemáticas III",
+       "temas": [
+        {
+         "t": "Sucesiones y series"
+        },
+        {
+         "t": "Series de potencias y de Taylor"
+        },
+        {
+         "t": "Vectores en el espacio"
+        },
+        {
+         "t": "Rectas y planos"
+        },
+        {
+         "t": "Superficies cuádricas"
+        },
+        {
+         "t": "Funciones de varias variables"
+        },
+        {
+         "t": "Derivadas parciales y gradiente"
+        },
+        {
+         "t": "Máximos y mínimos, multiplicadores de Lagrange"
+        },
+        {
+         "t": "Integrales dobles y triples"
+        },
+        {
+         "t": "Integrales de línea y teoremas de Green, Stokes y divergencia"
+        }
+       ]
+      },
+      {
+       "g": "Matemática IV (ecuaciones diferenciales)",
+       "eq": "UNEG, UNEXPO y UBA: Matemática IV · UDO: Matemáticas IV",
+       "temas": [
+        {
+         "t": "Ecuaciones diferenciales de primer orden"
+        },
+        {
+         "t": "Variables separables, exactas y lineales"
+        },
+        {
+         "t": "Ecuaciones de orden superior"
+        },
+        {
+         "t": "Coeficientes indeterminados y variación de parámetros"
+        },
+        {
+         "t": "Transformada de Laplace"
+        },
+        {
+         "t": "Sistemas de ecuaciones diferenciales"
+        },
+        {
+         "t": "Soluciones por series"
+        },
+        {
+         "t": "Series de Fourier"
+        }
+       ]
+      },
+      {
+       "g": "Álgebra lineal",
+       "eq": "UNEXPO, UCAB y UBA: Álgebra Lineal",
+       "temas": [
+        {
+         "t": "Matrices y operaciones"
+        },
+        {
+         "t": "Determinantes"
+        },
+        {
+         "t": "Sistemas de ecuaciones y Gauss-Jordan"
+        },
+        {
+         "t": "Espacios vectoriales"
+        },
+        {
+         "t": "Bases y dimensión"
+        },
+        {
+         "t": "Transformaciones lineales"
+        },
+        {
+         "t": "Valores y vectores propios"
+        }
+       ]
+      },
+      {
+       "g": "Geometría analítica y trigonometría",
+       "eq": "UBA: Geometría Analítica · UCAB: Álgebra y Trigonometría, Geometría Plana y Espacial",
+       "temas": [
+        {
+         "t": "Trigonometría e identidades"
+        },
+        {
+         "t": "La recta"
+        },
+        {
+         "t": "Circunferencia"
+        },
+        {
+         "t": "Parábola"
+        },
+        {
+         "t": "Elipse"
+        },
+        {
+         "t": "Hipérbola"
+        },
+        {
+         "t": "Coordenadas polares"
+        },
+        {
+         "t": "Geometría del espacio"
+        }
+       ]
+      },
+      {
+       "g": "Lógica matemática",
+       "eq": "UBA: Lógica Matemática · UCAB: Lógica",
+       "temas": [
+        {
+         "t": "Proposiciones y conectivos"
+        },
+        {
+         "t": "Tablas de verdad"
+        },
+        {
+         "t": "Leyes lógicas"
+        },
+        {
+         "t": "Cuantificadores"
+        },
+        {
+         "t": "Conjuntos"
+        },
+        {
+         "t": "Métodos de demostración"
+        }
+       ]
+      },
+      {
+       "g": "Estadística y probabilidad",
+       "eq": "UNEG y UDO: Estadística I · UNEXPO: Estadística Aplicada · UCAB: Probabilidades e Inferencias · UBA: Estadística I y II",
+       "temas": [
+        {
+         "t": "Estadística descriptiva"
+        },
+        {
+         "t": "Probabilidad"
+        },
+        {
+         "t": "Variables aleatorias"
+        },
+        {
+         "t": "Distribución binomial y de Poisson"
+        },
+        {
+         "t": "Distribución normal"
+        },
+        {
+         "t": "Intervalos de confianza"
+        },
+        {
+         "t": "Pruebas de hipótesis"
+        },
+        {
+         "t": "Regresión y correlación"
+        }
+       ]
+      },
+      {
+       "g": "Cálculo numérico",
+       "eq": "UBA: Cálculo Numérico",
+       "temas": [
+        {
+         "t": "Errores"
+        },
+        {
+         "t": "Raíces de ecuaciones (bisección, Newton)"
+        },
+        {
+         "t": "Sistemas de ecuaciones"
+        },
+        {
+         "t": "Interpolación"
+        },
+        {
+         "t": "Integración numérica"
+        },
+        {
+         "t": "Ecuaciones diferenciales numéricas"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "m": "Física",
+     "grados": [
+      {
+       "g": "Física I (mecánica)",
+       "eq": "Física I en las cinco · UCAB: Física General",
+       "temas": [
+        {
+         "t": "Vectores"
+        },
+        {
+         "t": "Cinemática en una dimensión"
+        },
+        {
+         "t": "Movimiento en el plano y parabólico"
+        },
+        {
+         "t": "Leyes de Newton"
+        },
+        {
+         "t": "Roce y dinámica circular"
+        },
+        {
+         "t": "Trabajo y energía"
+        },
+        {
+         "t": "Conservación de la energía"
+        },
+        {
+         "t": "Cantidad de movimiento y choques"
+        },
+        {
+         "t": "Rotación y torque"
+        },
+        {
+         "t": "Equilibrio"
+        }
+       ]
+      },
+      {
+       "g": "Física II (electricidad y magnetismo)",
+       "eq": "UNEG, UNEXPO, UDO y UBA: Física II · UCAB: Fundamentos de Circuitos Eléctricos · UBA: Fundamentos del Electromagnetismo",
+       "temas": [
+        {
+         "t": "Ley de Coulomb"
+        },
+        {
+         "t": "Campo eléctrico",
+         "c": [
+          "campo-electrico"
+         ]
+        },
+        {
+         "t": "Ley de Gauss"
+        },
+        {
+         "t": "Potencial eléctrico"
+        },
+        {
+         "t": "Condensadores y dieléctricos"
+        },
+        {
+         "t": "Corriente y resistencia"
+        },
+        {
+         "t": "Circuitos de corriente continua (Kirchhoff)"
+        },
+        {
+         "t": "Campo magnético"
+        },
+        {
+         "t": "Ley de Ampère y Biot-Savart"
+        },
+        {
+         "t": "Inducción de Faraday"
+        }
+       ]
+      },
+      {
+       "g": "Física III (ondas y óptica)",
+       "eq": "UDO: Física III",
+       "temas": [
+        {
+         "t": "Oscilaciones y movimiento armónico simple"
+        },
+        {
+         "t": "Ondas mecánicas"
+        },
+        {
+         "t": "Sonido"
+        },
+        {
+         "t": "Luz y óptica geométrica"
+        },
+        {
+         "t": "Interferencia y difracción"
+        }
+       ]
+      },
+      {
+       "g": "Mecánica racional (estática y dinámica)",
+       "eq": "UNEG: Mecánica Racional · UDO: Mecánica Racional I y II · UCAB: Estática y Dinámica · UBA: Mecánica",
+       "temas": [
+        {
+         "t": "Fuerzas y momentos"
+        },
+        {
+         "t": "Equilibrio de cuerpos rígidos"
+        },
+        {
+         "t": "Armaduras y estructuras"
+        },
+        {
+         "t": "Centroides y centro de gravedad"
+        },
+        {
+         "t": "Momentos de inercia"
+        },
+        {
+         "t": "Cinemática de la partícula y del cuerpo rígido"
+        },
+        {
+         "t": "Dinámica del cuerpo rígido"
+        }
+       ]
+      },
+      {
+       "g": "Termodinámica",
+       "eq": "UCAB: Termodinámica",
+       "temas": [
+        {
+         "t": "Propiedades y estados"
+        },
+        {
+         "t": "Primera ley"
+        },
+        {
+         "t": "Segunda ley y entropía"
+        },
+        {
+         "t": "Ciclos de potencia y refrigeración"
+        }
+       ]
+      },
+      {
+       "g": "Mecánica de fluidos",
+       "eq": "UBA: Mecánica de Fluidos",
+       "temas": [
+        {
+         "t": "Propiedades de los fluidos"
+        },
+        {
+         "t": "Hidrostática"
+        },
+        {
+         "t": "Ecuación de continuidad"
+        },
+        {
+         "t": "Ecuación de Bernoulli"
+        },
+        {
+         "t": "Flujo en tuberías"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "m": "Química",
+     "grados": [
+      {
+       "g": "Química general",
+       "eq": "UNEG y UNEXPO: Química General · UDO: Química I · UCAB y UBA: Química",
+       "temas": [
+        {
+         "t": "Materia, medición y cifras significativas"
+        },
+        {
+         "t": "Átomo y configuración electrónica",
+         "c": [
+          "atomos-3d"
+         ]
+        },
+        {
+         "t": "Tabla periódica y propiedades periódicas",
+         "c": [
+          "tabla-periodica"
+         ]
+        },
+        {
+         "t": "Enlace químico e hibridación",
+         "c": [
+          "enlaces",
+          "carbono-3d",
+          "hibridacion-sp"
+         ]
+        },
+        {
+         "t": "Geometría molecular",
+         "c": [
+          "atomos-3d"
+         ]
+        },
+        {
+         "t": "Nomenclatura inorgánica"
+        },
+        {
+         "t": "El mol y estequiometría"
+        },
+        {
+         "t": "Gases"
+        }
+       ]
+      },
+      {
+       "g": "Química II",
+       "eq": "UDO: Química II · resto: segunda parte de Química General",
+       "temas": [
+        {
+         "t": "Soluciones y concentraciones"
+        },
+        {
+         "t": "Propiedades coligativas"
+        },
+        {
+         "t": "Cinética química"
+        },
+        {
+         "t": "Equilibrio químico"
+        },
+        {
+         "t": "Ácidos, bases y pH"
+        },
+        {
+         "t": "Electroquímica"
+        },
+        {
+         "t": "Termoquímica"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
