@@ -295,9 +295,10 @@ const IOS=/iPhone|iPad|iPod/i.test(navigator.userAgent), INSTALADA=matchMedia('(
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();PROMPT=e;document.getElementById('instalar').hidden=false});
 if(IOS&&!INSTALADA)document.getElementById('instalar').hidden=false;
-window.addEventListener('appinstalled',()=>{document.getElementById('instalar').hidden=true});
+window.addEventListener('appinstalled',()=>{document.getElementById('instalar').hidden=true;toast('✅ ¡Listo! INGENIA quedó instalada. Búscala en tu pantalla de inicio con el ícono amarillo.')});
+function toast(t){const d=document.createElement('div');d.textContent=t;d.style.cssText='position:fixed;left:50%;top:76px;transform:translateX(-50%);z-index:60;background:#1f9c63;color:#fff;font-weight:800;padding:14px 18px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:92vw;text-align:center';document.body.appendChild(d);setTimeout(()=>d.remove(),7000)}
 async function instalar(){
-  if(PROMPT){PROMPT.prompt();await PROMPT.userChoice;PROMPT=null;document.getElementById('instalar').hidden=true;return}
+  if(PROMPT){PROMPT.prompt();const r=await PROMPT.userChoice;PROMPT=null;if(r.outcome==='accepted'){document.getElementById('instalar').hidden=true;toast('⏳ Instalando INGENIA… en unos segundos aparece en tu pantalla de inicio.')}return}
   if(IOS)document.getElementById('mios').classList.add('on');
 }
 fetch('datos.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
