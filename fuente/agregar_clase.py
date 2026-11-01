@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Agrega (o actualiza) una clase hecha con el motor de clases y la enlaza a su tema del programa.
-Uso: python3 fuente/agregar_clase.py REPO ruta/clase.json [--gratis]
+Uso: python3 fuente/agregar_clase.py REPO ruta/clase.js [--gratis]   (clase en pizarra; también acepta .json del motor viejo)
 La clase .json debe traer un bloque "plataforma":
   {"materia": "Matemática", "niveles": ["Primaria"], "grado": "1.º grado", "tipo": "Clase con voz",
    "desc": "...", "programa": ["Primaria", "Matemática", "1.º grado", "Contar, comparar y ordenar hasta 100"]}
@@ -17,7 +17,13 @@ from cryptography.hazmat.primitives.asymmetric import padding
 here = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, here)
 from build import quitar_descarga
 repo, src = sys.argv[1], sys.argv[2]; gratis = '--gratis' in sys.argv
-C = json.load(open(src, encoding='utf-8')); P = C['plataforma']; cid = C['id']
+if src.endswith('.js'):  # clase en pizarra: los datos salen de K.finish({...})
+    import subprocess
+    lib = '/mnt/project-files/clases-programa/pizarra/lib.js'
+    C = json.loads(subprocess.check_output(['node', '-e', f"require({json.dumps(lib)});require({json.dumps(os.path.abspath(src))});const L=globalThis.LESSON;console.log(JSON.stringify({{id:L.id,titulo:L.titulo,icono:L.icono,plataforma:L.plataforma}}))"]))
+else:
+    C = json.load(open(src, encoding='utf-8'))
+P = C['plataforma']; cid = C['id']
 html_path = os.path.splitext(src)[0] + '.html'
 data = quitar_descarga(open(html_path, 'rb').read())
 rel = os.path.relpath(os.path.abspath(html_path), '/mnt/project-files')
@@ -44,7 +50,7 @@ else:
 
 # 2) catálogo y datos.json
 e = {"id": cid, "titulo": C['titulo'], "desc": P['desc'], "materia": P['materia'], "niveles": P['niveles'],
-     "grado": P['grado'], "tipo": P.get('tipo', 'Clase con voz'), "icono": C.get('icono', '📘')}
+     "grado": P['grado'], "tipo": P.get('tipo', 'Clase con voz'), "icono": C.get('icono') or '📘'}
 if gratis: e['gratis'] = True
 for path in [os.path.join(here, 'catalogo.json'), '/mnt/project-files/plataforma/catalogo.json']:
     if not os.path.exists(path): continue

@@ -184,13 +184,13 @@
  {
   "id": "p1-mat-contar",
   "titulo": "Contar, comparar y ordenar hasta 100",
-  "desc": "Contar tocando, decenas, comparar y ordenar números hasta 100.",
+  "desc": "Contar, decenas en 3D, comparar con el cocodrilo y ordenar hasta 100.",
   "materia": "Matemática",
   "niveles": [
    "Primaria"
   ],
   "grado": "1.º grado",
-  "tipo": "Clase con voz",
+  "tipo": "Pizarra con voz",
   "icono": "🔢",
   "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-contar.html"
  }
