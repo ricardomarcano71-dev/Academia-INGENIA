@@ -1,15 +1,179 @@
 [
- {"id":"parrilla-mult","titulo":"Multiplicar con el método de la parrilla","desc":"Pizarra narrada: multiplicaciones grandes sin perderse, casilla por casilla.","materia":"Matemática","niveles":["Primaria"],"grado":"4.º a 6.º grado","tipo":"Pizarra con voz","icono":"✖️","archivo":"metodo-parrilla/clase-multiplicacion-parrilla.html"},
- {"id":"racionales-clase","titulo":"Números racionales (ℚ)","desc":"Fracciones desde cero: pizzas en 3D, operaciones y potencias.","materia":"Matemática","niveles":["Bachillerato"],"grado":"2.º año","tipo":"Clase interactiva","icono":"🍕","archivo":"numeros-racionales/clase-numeros-racionales.html"},
- {"id":"racionales-combinadas","titulo":"Operaciones combinadas en ℚ","desc":"4 ejercicios resueltos paso a paso, con pistas y soluciones.","materia":"Matemática","niveles":["Bachillerato"],"grado":"2.º año","tipo":"Ejercicios resueltos","icono":"🧮","archivo":"numeros-racionales/combinadas-racionales-resueltas.html"},
- {"id":"racionales-cuaderno","titulo":"Cuaderno de combinadas","desc":"Como en tu cuaderno: cada paso escrito a lápiz, uno debajo del otro.","materia":"Matemática","niveles":["Bachillerato"],"grado":"2.º año","tipo":"Cuaderno","icono":"📓","archivo":"numeros-racionales/cuaderno-combinadas-racionales.html","gratis":true},
- {"id":"racionales-refuerzo","titulo":"Cuaderno de reforzamiento en ℚ","desc":"Ejercicios resueltos en cuaderno, con voz que te explica cada paso.","materia":"Matemática","niveles":["Bachillerato"],"grado":"2.º año","tipo":"Cuaderno con voz","icono":"🔊","archivo":"numeros-racionales/cuaderno-reforzamiento-Q.html"},
- {"id":"racionales-continuo","titulo":"Cadena de igualdades en ℚ","desc":"Los mismos ejercicios resueltos en una sola cadena, sin simplificar a mitad de camino.","materia":"Matemática","niveles":["Bachillerato"],"grado":"2.º año","tipo":"Cuaderno con voz","icono":"🔗","archivo":"numeros-racionales/cuaderno-continuo-sin-simplificar.html"},
- {"id":"inecuaciones","titulo":"Inecuaciones con el método de la parrilla","desc":"La tabla de signos explicada en pizarra, con voz, para no equivocarte nunca más.","materia":"Matemática","niveles":["Bachillerato","Universidad"],"grado":"4.º–5.º año · Cálculo I","tipo":"Pizarra con voz","icono":"📈","archivo":"inecuaciones-parrilla/clase-inecuaciones-parrilla.html"},
- {"id":"campo-electrico","titulo":"Campo eléctrico","desc":"Cargas, líneas de campo en 3D, laboratorio virtual y ejercicios de cuaderno.","materia":"Física","niveles":["Bachillerato","Universidad"],"grado":"5.º año · Física II","tipo":"Clase interactiva","icono":"⚡","archivo":"campo-electrico/clase-campo-electrico.html"},
- {"id":"enlaces","titulo":"Enlaces químicos","desc":"Iónico, covalente, sigma y pi, hibridación. Con moléculas en 3D.","materia":"Química","niveles":["Bachillerato","Universidad"],"grado":"4.º año · Química general","tipo":"Clase interactiva","icono":"🧪","archivo":"enlaces-quimicos/clase-enlaces-completa.html"},
- {"id":"tabla-periodica","titulo":"Tabla periódica viva","desc":"Toca un elemento y mira sus electrones de valencia y los enlaces que forma.","materia":"Química","niveles":["Bachillerato","Universidad"],"grado":"3.º–5.º año","tipo":"Herramienta","icono":"🧲","archivo":"enlaces-quimicos/tabla-periodica-offline.html"},
- {"id":"atomos-3d","titulo":"Átomos y moléculas en 3D","desc":"Gira los modelos con el dedo y míralos por todos lados.","materia":"Química","niveles":["Bachillerato","Universidad"],"grado":"3.º–5.º año","tipo":"Herramienta","icono":"⚛️","archivo":"enlaces-quimicos/modelos3d-offline.html"},
- {"id":"carbono-3d","titulo":"El átomo de carbono en 3D","desc":"Por qué el carbono forma 4 enlaces, visto en 3D.","materia":"Química","niveles":["Bachillerato","Universidad"],"grado":"4.º–5.º año","tipo":"Herramienta","icono":"💎","archivo":"enlaces-quimicos/atomo-carbono-3d.html"},
- {"id":"hibridacion-sp","titulo":"¿De dónde salen los sp?","desc":"La hibridación sp, sp² y sp³ explicada desde cero.","materia":"Química","niveles":["Bachillerato","Universidad"],"grado":"5.º año · Química general","tipo":"Clase interactiva","icono":"🔬","archivo":"enlaces-quimicos/de-donde-salen-los-sp.html"}
+ {
+  "id": "parrilla-mult",
+  "titulo": "Multiplicar con el método de la parrilla",
+  "desc": "Pizarra narrada: multiplicaciones grandes sin perderse, casilla por casilla.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º a 6.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "✖️",
+  "archivo": "metodo-parrilla/PREVIO-multiplicacion-parrilla-voz-aoede.html"
+ },
+ {
+  "id": "racionales-clase",
+  "titulo": "Números racionales (ℚ)",
+  "desc": "Fracciones desde cero: pizzas en 3D, operaciones y potencias.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Clase interactiva",
+  "icono": "🍕",
+  "archivo": "numeros-racionales/clase-numeros-racionales.html"
+ },
+ {
+  "id": "racionales-combinadas",
+  "titulo": "Operaciones combinadas en ℚ",
+  "desc": "4 ejercicios resueltos paso a paso, con pistas y soluciones.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Ejercicios resueltos",
+  "icono": "🧮",
+  "archivo": "numeros-racionales/combinadas-racionales-resueltas.html"
+ },
+ {
+  "id": "racionales-cuaderno",
+  "titulo": "Cuaderno de combinadas",
+  "desc": "Como en tu cuaderno: cada paso escrito a lápiz, uno debajo del otro.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Cuaderno",
+  "icono": "📓",
+  "archivo": "numeros-racionales/cuaderno-combinadas-racionales.html",
+  "gratis": true
+ },
+ {
+  "id": "racionales-refuerzo",
+  "titulo": "Cuaderno de reforzamiento en ℚ",
+  "desc": "Ejercicios resueltos en cuaderno, con voz que te explica cada paso.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Cuaderno con voz",
+  "icono": "🔊",
+  "archivo": "numeros-racionales/cuaderno-reforzamiento-Q.html"
+ },
+ {
+  "id": "racionales-continuo",
+  "titulo": "Cadena de igualdades en ℚ",
+  "desc": "Los mismos ejercicios resueltos en una sola cadena, sin simplificar a mitad de camino.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Cuaderno con voz",
+  "icono": "🔗",
+  "archivo": "numeros-racionales/cuaderno-continuo-sin-simplificar.html"
+ },
+ {
+  "id": "inecuaciones",
+  "titulo": "Inecuaciones con el método de la parrilla",
+  "desc": "La tabla de signos explicada en pizarra, con voz, para no equivocarte nunca más.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato",
+   "Universidad"
+  ],
+  "grado": "4.º–5.º año · Cálculo I",
+  "tipo": "Pizarra con voz",
+  "icono": "📈",
+  "archivo": "inecuaciones-parrilla/clase-inecuaciones-parrilla.html"
+ },
+ {
+  "id": "campo-electrico",
+  "titulo": "Campo eléctrico",
+  "desc": "Cargas, líneas de campo en 3D, laboratorio virtual y ejercicios de cuaderno.",
+  "materia": "Física",
+  "niveles": [
+   "Bachillerato",
+   "Universidad"
+  ],
+  "grado": "5.º año · Física II",
+  "tipo": "Clase interactiva",
+  "icono": "⚡",
+  "archivo": "campo-electrico/clase-campo-electrico.html"
+ },
+ {
+  "id": "enlaces",
+  "titulo": "Enlaces químicos",
+  "desc": "Iónico, covalente, sigma y pi, hibridación. Con moléculas en 3D.",
+  "materia": "Química",
+  "niveles": [
+   "Bachillerato",
+   "Universidad"
+  ],
+  "grado": "4.º año · Química general",
+  "tipo": "Clase interactiva",
+  "icono": "🧪",
+  "archivo": "enlaces-quimicos/clase-enlaces-completa.html"
+ },
+ {
+  "id": "tabla-periodica",
+  "titulo": "Tabla periódica viva",
+  "desc": "Toca un elemento y mira sus electrones de valencia y los enlaces que forma.",
+  "materia": "Química",
+  "niveles": [
+   "Bachillerato",
+   "Universidad"
+  ],
+  "grado": "3.º–5.º año",
+  "tipo": "Herramienta",
+  "icono": "🧲",
+  "archivo": "enlaces-quimicos/tabla-periodica-offline.html"
+ },
+ {
+  "id": "atomos-3d",
+  "titulo": "Átomos y moléculas en 3D",
+  "desc": "Gira los modelos con el dedo y míralos por todos lados.",
+  "materia": "Química",
+  "niveles": [
+   "Bachillerato",
+   "Universidad"
+  ],
+  "grado": "3.º–5.º año",
+  "tipo": "Herramienta",
+  "icono": "⚛️",
+  "archivo": "enlaces-quimicos/modelos3d-offline.html"
+ },
+ {
+  "id": "carbono-3d",
+  "titulo": "El átomo de carbono en 3D",
+  "desc": "Por qué el carbono forma 4 enlaces, visto en 3D.",
+  "materia": "Química",
+  "niveles": [
+   "Bachillerato",
+   "Universidad"
+  ],
+  "grado": "4.º–5.º año",
+  "tipo": "Herramienta",
+  "icono": "💎",
+  "archivo": "enlaces-quimicos/atomo-carbono-3d.html"
+ },
+ {
+  "id": "hibridacion-sp",
+  "titulo": "¿De dónde salen los sp?",
+  "desc": "La hibridación sp, sp² y sp³ explicada desde cero.",
+  "materia": "Química",
+  "niveles": [
+   "Bachillerato",
+   "Universidad"
+  ],
+  "grado": "5.º año · Química general",
+  "tipo": "Clase interactiva",
+  "icono": "🔬",
+  "archivo": "enlaces-quimicos/de-donde-salen-los-sp.html"
+ }
 ]
