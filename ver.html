@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INGENIA · Clase</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;font-family:'Nunito',Arial,sans-serif;background:#0d2b45;color:#fff}
+#f{position:fixed;inset:0;width:100%;height:100%;border:0;background:#fff;display:none}
+#msg{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px}
+#msg h1{font-size:28px}#msg h1 span{color:#ffc93c}
+#msg p{font-size:18px;font-weight:700;color:#bcd3e6;max-width:420px}
+.bar{width:260px;height:12px;border-radius:8px;background:rgba(255,255,255,.15);overflow:hidden}
+.bar div{height:100%;width:0;background:#ffc93c;transition:width .2s}
+a.b{background:#ffc93c;color:#0d2b45;font-weight:900;text-decoration:none;padding:12px 20px;border-radius:12px;font-size:17px}
+#volver{position:fixed;left:8px;top:8px;z-index:5;background:rgba(13,43,69,.85);color:#fff;font-weight:900;font-size:14px;text-decoration:none;padding:6px 11px;border-radius:20px;display:none;opacity:.75}
+</style>
+</head>
+<body>
+<div id="msg"><h1>INGE<span>NIA</span></h1><p id="t">Abriendo tu clase…</p><div class="bar"><div id="p"></div></div></div>
+<iframe id="f" allow="fullscreen; autoplay" allowfullscreen></iframe>
+<a id="volver" href="./">← Clases</a>
+<script>
+const id=new URLSearchParams(location.search).get('c')||'';
+const t=document.getElementById('t'),msg=document.getElementById('msg');
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+function fallo(texto){t.textContent=texto;document.querySelector('.bar').remove();msg.insertAdjacentHTML('beforeend','<a class="b" href="./">Volver a las clases</a>')}
+async function bajar(url){
+  const r=await fetch(url);if(!r.ok)throw new Error('no');
+  const total=+r.headers.get('content-length')||0,rd=r.body.getReader(),partes=[];let n=0;
+  for(;;){const {done,value}=await rd.read();if(done)break;partes.push(value);n+=value.length;if(total)document.getElementById('p').style.width=(100*n/total)+'%'}
+  const out=new Uint8Array(n);let o=0;for(const p of partes){out.set(p,o);o+=p.length}return out;
+}
+(async()=>{
+  if(!/^[a-z0-9-]+$/.test(id))return fallo('Esta clase no existe.');
+  let D;try{D=await (await fetch('datos.json',{cache:'no-store'})).json()}catch(e){return fallo('No se pudo conectar. Revisa tu internet.')}
+  const c=D.clases.find(x=>x.id===id);if(!c)return fallo('Esta clase no existe.');
+  document.title='INGENIA · '+c.titulo;
+  if(c.gratis){location.replace('c/'+id+'.html');return}
+  let g=null;try{g=JSON.parse(localStorage.getItem('ingenia-clave'))}catch(e){}
+  if(!g||g.salt!==D.salt){location.replace('./#clases');return}
+  t.textContent='Abriendo “'+c.titulo+'”…';
+  try{
+    const data=await bajar('c/'+id+'.bin');
+    t.textContent='Preparando la clase…';
+    const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(g.clave),'PBKDF2',false,['deriveKey']);
+    const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(D.salt),iterations:D.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+    const html=await crypto.subtle.decrypt({name:'AES-GCM',iv:data.slice(0,12)},k,data.slice(12));
+    const f=document.getElementById('f');
+    f.src=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));
+    f.onload=()=>{msg.style.display='none';f.style.display='block';document.getElementById('volver').style.display='block'};
+  }catch(e){localStorage.removeItem('ingenia-clave');fallo('Tu clave ya no sirve para esta clase. Vuelve y escribe la clave de esta semana.')}
+})();
+</script>
+</body>
+</html>

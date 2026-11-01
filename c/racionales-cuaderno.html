@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Cuaderno de combinadas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+/* Hoja de cuaderno cuadriculada: cada paso se escribe "a lápiz" debajo del anterior */
+:root{
+  --desk:#E9E4D8; --paper:#FFFEF8; --gridl:#D5E3EE; --margin:#E8A0A0; --lead:#2E2E2E; --blue:#1F4FA8; --red:#C0392B; --hl:#FFF06A;
+  --sticky:#FFF3B0; --stickyink:#4A3B00; --soft:#6B6B6B; --bar:#F7F5EF; --rule:#D9D5C6; --btn:#FFFFFF; --acc:#1C7293; --ok:#2E7D32;
+  --hand:"Patrick Hand","Segoe Print","Bradley Hand","Comic Sans MS",cursive; --note:"Caveat","Segoe Print","Bradley Hand","Comic Sans MS",cursive;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --desk:#151613; --paper:#22231F; --gridl:#2F3A44; --margin:#7A3A3A; --lead:#E8E6DE; --blue:#8DB6FF; --red:#FF8A7A; --hl:#6B5D00;
+  --sticky:#3D3613; --stickyink:#F5E7A8; --soft:#A8A89C; --bar:#1B1C19; --rule:#3A3C35; --btn:#2A2B27; --acc:#7FBEE0; --ok:#8FCB8F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --desk:#151613; --paper:#22231F; --gridl:#2F3A44; --margin:#7A3A3A; --lead:#E8E6DE; --blue:#8DB6FF; --red:#FF8A7A; --hl:#6B5D00;
+  --sticky:#3D3613; --stickyink:#F5E7A8; --soft:#A8A89C; --bar:#1B1C19; --rule:#3A3C35; --btn:#2A2B27; --acc:#7FBEE0; --ok:#8FCB8F; color-scheme:dark}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--desk);color:var(--lead);font-family:var(--body);overflow-x:hidden}
+/* Tamaños fluidos: todo escala con el ancho de la pantalla (teléfono pequeño → tablet → computadora) */
+:root{--g:clamp(18px,4.6vw,26px);--mw:clamp(30px,8vw,58px);--fs:clamp(17px,4.3vw,25px);--ffr:clamp(15px,3.8vw,22px);--fn:clamp(17px,4.1vw,22px);--pad:clamp(8px,2.5vw,18px)}
+.top{position:sticky;top:0;z-index:5;background:var(--bar);border-bottom:1px solid var(--rule);padding:6px max(10px,env(safe-area-inset-left,0px)) 6px max(10px,env(safe-area-inset-right,0px))}
+.top .in{max-width:960px;margin:0 auto;display:flex;gap:8px;align-items:center}
+.top h1{font-family:var(--hand);font-size:clamp(16px,4.2vw,22px);font-weight:400;margin:0;flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tabs{display:flex;gap:5px;flex:0 0 auto}
+.tabs button{font:inherit;font-size:clamp(13px,3.5vw,15px);border:1px solid var(--rule);background:var(--btn);color:var(--lead);border-radius:999px;padding:5px clamp(8px,2.5vw,12px);cursor:pointer;white-space:nowrap}
+.tabs button[aria-pressed="true"]{background:var(--lead);color:var(--paper)}
+.sheet{max-width:960px;margin:clamp(6px,2vw,14px) auto 0;padding:0 clamp(4px,2vw,12px) calc(96px + env(safe-area-inset-bottom,0px));overflow-x:clip}
+.page{display:none;position:relative;background-color:var(--paper);
+  background-image:linear-gradient(var(--gridl) 1px,transparent 1px),linear-gradient(90deg,var(--gridl) 1px,transparent 1px);
+  background-size:var(--g) var(--g);border-radius:4px 4px 10px 10px;box-shadow:0 2px 10px rgba(0,0,0,.15);
+  padding:var(--pad) var(--pad) 40px calc(var(--mw) + var(--pad));min-height:70vh;min-height:70dvh}
+.page.on{display:block}
+.page::before{content:"";position:absolute;top:0;bottom:0;left:var(--mw);border-left:2px solid var(--margin)}
+.head{font-family:var(--hand);font-size:clamp(14px,3.6vw,19px);color:var(--soft);display:flex;justify-content:space-between;gap:4px 12px;flex-wrap:wrap}
+.tit{font-family:var(--hand);font-size:clamp(21px,5.5vw,27px);color:var(--red);margin:6px 0 2px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px}
+.enun{font-family:var(--hand);font-size:var(--fs);line-height:2.3;margin:4px 0 6px;overflow-wrap:anywhere}
+.enun .fr{font-size:var(--ffr)}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 2px;line-height:1.15}
+.fr>span:first-child{border-bottom:2px solid currentColor;padding:0 3px}
+.fr>span:last-child{padding:0 3px}
+.hl{background:linear-gradient(transparent 12%,var(--hl) 12%,var(--hl) 88%,transparent 88%);border-radius:4px;padding:0 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.ln{position:relative;margin:14px 0 6px;scroll-margin-bottom:110px;scroll-margin-top:70px}
+.mg{position:absolute;left:calc(-1 * var(--mw) - var(--pad));top:2px;width:var(--mw);text-align:center;font-family:var(--hand);color:var(--red)}
+.mg span{display:inline-block;border:2px solid var(--red);border-radius:50%;width:clamp(22px,6vw,30px);height:clamp(22px,6vw,30px);line-height:clamp(18px,5.4vw,26px);font-size:clamp(14px,3.8vw,20px)}
+.lab{font-family:var(--note);font-size:clamp(19px,4.6vw,23px);color:var(--red);line-height:1.1;font-weight:700}
+.wr{position:relative;display:block;max-width:100%}
+.ink{font-family:var(--hand);font-size:var(--fs);line-height:2.1;color:var(--lead);clip-path:inset(0 0 0 0);overflow-wrap:anywhere}
+.ink .fr{font-size:var(--ffr)}
+.ln.anim .ink{animation:write var(--d,1.4s) linear both}
+@keyframes write{from{clip-path:inset(-10px 100% -10px 0)}to{clip-path:inset(-10px 0 -10px 0)}}
+.pen{position:absolute;top:30%;left:100%;font-size:clamp(20px,5vw,26px);pointer-events:none;opacity:0;transform:translate(-4px,-70%) rotate(-10deg)}
+.ln.anim .pen{animation:pen var(--d,1.4s) linear both}
+@keyframes pen{0%{left:0;opacity:1}92%{opacity:1}100%{left:100%;opacity:0}}
+.nt{font-family:var(--note);font-size:var(--fn);line-height:1.3;color:var(--blue);margin:0 0 4px}
+.nt .fr,.why .fr{font-size:calc(var(--fn) * .82)}
+.ln.anim .nt,.ln.anim .wb{animation:fade .5s ease both;animation-delay:var(--d,1.4s)}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.wb{font-family:var(--note);font-size:clamp(17px,4vw,20px);color:var(--red);background:transparent;border:1.5px dashed var(--red);border-radius:8px;padding:2px 10px;cursor:pointer;min-height:36px}
+.why{display:none;background:var(--sticky);color:var(--stickyink);font-family:var(--note);font-size:var(--fn);line-height:1.3;padding:8px 12px;margin:6px 0 4px;border-radius:2px;box-shadow:2px 3px 6px rgba(0,0,0,.18);transform:rotate(-.6deg);max-width:min(620px,100%);box-sizing:border-box}
+.why.on{display:block;animation:fade .4s ease}
+.fin .ink .res{display:inline-block;border:2.5px solid var(--red);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;padding:0 10px}
+.side{display:flex;gap:clamp(10px,3vw,22px);flex-wrap:wrap;margin:4px 0}
+.lad{display:flex;gap:clamp(10px,3vw,22px);flex-wrap:wrap;font-family:var(--hand);font-size:calc(var(--fs) * .88)}
+.lad table{border-collapse:collapse}
+.lad td{border:none;padding:0 6px;text-align:right;line-height:1.3;font-size:calc(var(--fs) * .88)}
+.lad td+td{border-left:2px solid var(--lead);text-align:left;color:var(--blue)}
+.lad .res{font-size:calc(var(--fs) * .76);text-align:center}
+.lad .bad{color:var(--red);text-decoration:line-through}
+.err{color:var(--red);text-decoration:line-through}
+.end{font-family:var(--note);font-size:clamp(20px,5vw,24px);color:var(--ok);text-align:center;margin:20px 0 0}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--bar);border-top:1px solid var(--rule);z-index:10;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bar .in{max-width:960px;margin:0 auto;display:flex;gap:6px;align-items:center;padding:8px max(8px,env(safe-area-inset-right,0px)) 8px max(8px,env(safe-area-inset-left,0px))}
+.bar button{font:inherit;font-size:16px;background:var(--btn);color:var(--lead);border:1px solid var(--rule);border-radius:10px;padding:9px 12px;min-height:44px;cursor:pointer;white-space:nowrap}
+.bar button.go{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600;flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.bar button:disabled{opacity:.35;cursor:default}
+.bar button[aria-pressed="true"]{background:var(--lead);color:var(--paper)}
+#cnt{font-size:13px;color:var(--soft);white-space:nowrap}
+.sh-mini{display:none}
+/* Teléfonos */
+@media (max-width:600px){.sh-full{display:none}.sh-mini{display:inline}#cnt{display:none}.bar button{padding:8px 10px}.top h1 .t2{display:none}}
+/* Teléfonos muy pequeños (320–359 px) */
+@media (max-width:359px){.bar .in{gap:4px}.bar button{padding:8px 7px;font-size:15px}.tabs button{padding:4px 7px}.top h1{display:none}.top .in{justify-content:center}}
+/* Teléfono acostado (poca altura): barras más bajas para dejar más hoja */
+@media (max-height:500px) and (orientation:landscape){.top{padding-block:3px}.bar .in{padding-block:4px}.bar button{min-height:36px;padding-block:5px}.sheet{padding-bottom:70px}.ln{scroll-margin-bottom:70px;scroll-margin-top:50px}:root{--fs:clamp(17px,2.6vw,23px);--ffr:clamp(15px,2.3vw,20px);--fn:clamp(17px,2.5vw,21px);--g:22px}}
+/* Tablet y computadora: la hoja más ancha y centrada */
+@media (min-width:900px){:root{--fs:25px;--ffr:22px;--fn:22px;--g:26px;--mw:58px;--pad:18px}}
+@media (prefers-reduced-motion:reduce){.ln.anim .ink,.ln.anim .pen,.ln.anim .nt,.ln.anim .wb{animation:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="in">
+  <h1>✏️ Cuaderno<span class="t2">: combinadas en ℚ</span></h1>
+  <div class="tabs" id="tabs"><button data-e="e1" aria-pressed="true">Ej. 1</button><button data-e="e2">Ej. 2</button><button data-e="e3">Ej. 3</button><button data-e="e4">Ej. 4</button></div>
+</div></div>
+<main class="sheet" id="sheet">
+  <section class="page on" data-e="e1">
+    <div class="head"><span>2.º año · Números racionales</span><span>Fecha: ____________</span></div>
+    <div class="tit">Ejercicio 1</div>
+    <div class="enun">−{ ( <x-f>4|3</x-f> × <x-f>6|4</x-f> ) + 2 − [ <x-f>3|6</x-f> + <x-f>2|5</x-f> ] − ( <x-f>8|4</x-f> − <x-f>2|6</x-f> ) + ( <x-f>7|8</x-f> + <x-f>4|8</x-f> ) }</div>
+    <div class="lines"></div>
+  </section>
+  <section class="page" data-e="e2">
+    <div class="head"><span>2.º año · Números racionales</span><span>Fecha: ____________</span></div>
+    <div class="tit">Ejercicio 2</div>
+    <div class="enun">−{ <x-f>2|3</x-f> − ( <x-f>4|6</x-f> ÷ <x-f>3|5</x-f> ) − [ <x-f>4|5</x-f> + <x-f>2|3</x-f> ] − ( <x-f>4|6</x-f> × <x-f>7|2</x-f> ) + ( <x-f>3|6</x-f> − <x-f>4|2</x-f> ) }</div>
+    <div class="lines"></div>
+  </section>
+  <section class="page" data-e="e3">
+    <div class="head"><span>2.º año · Números racionales</span><span>Fecha: ____________</span></div>
+    <div class="tit">Ejercicio 3</div>
+    <div class="enun">2[ −( <x-f>6|4</x-f> + <x-f>2|5</x-f> ) + 3( <x-f>8|4</x-f> − <x-f>3|6</x-f> ) + ( <x-f>2|4</x-f> × <x-f>3|6</x-f> ) − <x-f>4|5</x-f> ]</div>
+    <div class="lines"></div>
+  </section>
+  <section class="page" data-e="e4">
+    <div class="head"><span>2.º año · Números racionales</span><span>Fecha: ____________</span></div>
+    <div class="tit">Ejercicio 4</div>
+    <div class="enun">3[ ( <x-f>4|3</x-f> + <x-f>6|3</x-f> ) − 8( <x-f>4|2</x-f> − <x-f>6|3</x-f> ) + ( <x-f>4|3</x-f> ÷ <x-f>2|5</x-f> ) + 9 ]</div>
+    <div class="lines"></div>
+  </section>
+</main>
+<div class="bar"><div class="in">
+  <button id="undo" title="Borrar el último paso">↶ <span class="sh-full">Borrar</span></button>
+  <button id="next" class="go">Siguiente paso ✏️</button>
+  <span id="cnt"></span>
+  <button id="all" title="Escribir todo de una vez">⏩<span class="sh-full"> Todo</span></button>
+  <button id="reset" title="Hoja en blanco">↺</button>
+  <button id="voice" aria-pressed="false" title="Leer cada paso en voz alta">🔊</button>
+  <button id="dl" title="Descargar" aria-label="Descargar">⬇<span class="sh-full"> Descargar</span></button>
+</div></div>
+<script>
+var SRC="<!DOCTYPE html>\n"+document.documentElement.outerHTML;
+function F(a,b){return '<span class="fr"><span>'+a+'</span><span>'+b+'</span></span>'}
+document.querySelectorAll("x-f").forEach(function(e){var h=e.innerHTML,k=h.indexOf("|"),t=document.createElement("span");t.innerHTML=F(h.slice(0,k),h.slice(k+1));e.replaceWith(t.firstChild)});
+var H=function(t){return '<span class="hl">'+t+'</span>'};
+function factor(n){var r=[],p=2;while(n>1){while(n%p===0){r.push(p);n/=p}p++;if(p*p>n&&n>1){r.push(n);break}}return r}
+var SUPS={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹"};
+function sup(e){return String(e).split("").map(function(c){return SUPS[c]}).join("")}
+function pw(fs){var m={};fs.forEach(function(p){m[p]=(m[p]||0)+1});return m}
+function pwStr(m){return Object.keys(m).map(function(p){return p+(m[p]>1?sup(m[p]):"")}).join(" · ")}
+function ladder(n,wrong){var fs=factor(n),rows="",v=n;fs.forEach(function(p){rows+="<tr><td>"+v+"</td><td>"+p+"</td></tr>";v/=p});rows+="<tr><td>1</td><td></td></tr>";
+ return '<div><table>'+rows+'</table><div class="res">'+n+" = "+pwStr(pw(fs))+(wrong?'<br><span class="bad">'+wrong+'</span>':"")+'</div></div>'}
+var EXS={
+e1:{steps:[
+ {h:"El plan",t:"Hay tres paréntesis ( ), un corchete [ ] y todo está dentro de llaves { } con un <b>menos delante</b>. Primero resolvemos los paréntesis, después el corchete, y al final quitamos las llaves cambiando los signos.",
+  m:"−{ "+H("( "+F(4,3)+" × "+F(6,4)+" )")+" + 2 − [ "+F(3,6)+" + "+F(2,5)+" ] − "+H("( "+F(8,4)+" − "+F(2,6)+" )")+" + "+H("( "+F(7,8)+" + "+F(4,8)+" )")+" }"},
+ {h:"Paréntesis 1: multiplicación",t:"Se multiplica derecho: arriba 4·6 = 24, abajo 3·4 = 12. Y 24 ÷ 12 = 2 exacto.",m:F(4,3)+" × "+F(6,4)+" = "+F("4 · 6","3 · 4")+" = "+F(24,12)+" = "+H("2"),
+  w:"«Por» significa «de»: "+F(4,3)+" de "+F(6,4)+". Atajo: el 4 de arriba y el 4 de abajo se tachan (4 ÷ 4 = 1) y queda "+F(6,3)+" = 2. Mismo resultado con números más pequeños."},
+ {h:"Paréntesis 2: resta",t:"Simplificamos primero: "+F(8,4)+" = 2 y "+F(2,6)+" = "+F(1,3)+" (÷2). Para restar, el 2 se escribe en tercios: 2 = "+F(6,3)+".",m:F(8,4)+" − "+F(2,6)+" = 2 − "+F(1,3)+" = "+F(6,3)+" − "+F(1,3)+" = "+H(F(5,3)),
+  w:"2 enteros son 6 tercios porque cada entero tiene 3 tercios: 2 · 3 = 6. Ya con el mismo denominador, se restan los de arriba: 6 − 1 = 5."},
+ {h:"Paréntesis 3: igual denominador",t:"Los dos son octavos: se suman los numeradores y el 8 se copia.",m:F(7,8)+" + "+F(4,8)+" = "+F("7 + 4",8)+" = "+H(F(11,8))},
+ {h:"Corchete",t:"Simplificamos "+F(3,6)+" = "+F(1,2)+". m.c.m.(2, 5) = 10: 10 ÷ 2 = 5 → "+F(5,10)+"; 10 ÷ 5 = 2 → "+F(4,10)+".",m:F(3,6)+" + "+F(2,5)+" = "+F(1,2)+" + "+F(2,5)+" = "+F(5,10)+" + "+F(4,10)+" = "+H(F(9,10)),
+  w:"Con la mariposa sin simplificar también sale: "+F("3·5 + 6·2","6·5")+" = "+F(27,30)+" = "+F(9,10)+" (÷3). Pero los números salen más grandes."},
+ {h:"Reemplazar los resultados",t:"Copiamos cada resultado en su lugar. Los signos que estaban delante de cada paréntesis y del corchete se quedan igual (todos los resultados son positivos).",
+  m:"−{ "+H("2")+" + 2 − "+H(F(9,10))+" − "+H(F(5,3))+" + "+H(F(11,8))+" }"},
+ {h:"Quitar las llaves con el − delante",t:"El menos delante de las llaves <b>cambia todos los signos</b> de adentro.",m:H("−2 − 2 + "+F(9,10)+" + "+F(5,3)+" − "+F(11,8)),
+  w:"−{ … } es −1 · { … }: −1·(+2) = −2, −1·(+2) = −2, −1·(−"+F(9,10)+") = +"+F(9,10)+", −1·(−"+F(5,3)+") = +"+F(5,3)+", −1·(+"+F(11,8)+") = −"+F(11,8)+"."},
+ {h:"Juntar los enteros",t:"−2 − 2 = −4. Quedan un entero y tres fracciones.",m:H("−4")+" + "+F(9,10)+" + "+F(5,3)+" − "+F(11,8)},
+ {h:"m.c.m. de 10, 3 y 8",t:"10 = 2 · 5, 3 = 3, 8 = 2³. Factores comunes y no comunes con su mayor exponente: 2³, 3 y 5.",m:"m.c.m. = 2³ · 3 · 5 = 8 · 3 · 5 = "+H("120"),
+  w:"120 está en la tabla de los tres: 120 ÷ 10 = 12, 120 ÷ 3 = 40, 120 ÷ 8 = 15, todos exactos. Del 8 se toma 2³ (no 2) porque el 8 necesita tres doses.",v:'<div class="lad">'+ladder(10)+ladder(3)+ladder(8)+'</div>'},
+ {h:"Amplificar cada término",t:"−4 = −"+F("4 · 120",120)+" = −"+F(480,120)+"<br>120 ÷ 10 = 12 → 12·9 = 108<br>120 ÷ 3 = 40 → 40·5 = 200<br>120 ÷ 8 = 15 → 15·11 = 165.",m:F("−480 + 108 + 200 − 165",120)},
+ {h:"Sumar positivos y negativos",t:"Positivos: 108 + 200 = 308. Negativos: 480 + 165 = 645. Gana el negativo: 308 − 645 = −337.",m:F("308 − 645",120)+" = "+H("−"+F(337,120)),
+  w:"Cuando hay positivos y negativos, se suman aparte y luego se restan: el resultado lleva el signo del grupo más grande."},
+ {h:"Resultado",t:"337 es primo (no se divide entre 2, 3, 5, 7, 11, 13 ni 17), así que la fracción es <b>irreducible</b>. Como número mixto: 337 ÷ 120 = 2 y sobran 97.",m:"Resultado: "+H("−"+F(337,120)+" = −2"+F(97,120))+" ≈ −2,81"}
+]},
+e2:{steps:[
+ {h:"El plan",t:"Tres paréntesis y un corchete, todo dentro de llaves con un <b>menos delante</b>. Ojo: el último paréntesis va a dar <b>negativo</b>.",
+  m:"−{ "+F(2,3)+" − "+H("( "+F(4,6)+" ÷ "+F(3,5)+" )")+" − [ "+F(4,5)+" + "+F(2,3)+" ] − "+H("( "+F(4,6)+" × "+F(7,2)+" )")+" + "+H("( "+F(3,6)+" − "+F(4,2)+" )")+" }"},
+ {h:"Paréntesis 1: división",t:"Simplificamos "+F(4,6)+" = "+F(2,3)+". Dividir es en cruz: 2·5 arriba, 3·3 abajo.",m:F(4,6)+" ÷ "+F(3,5)+" = "+F(2,3)+" ÷ "+F(3,5)+" = "+F("2 · 5","3 · 3")+" = "+H(F(10,9)),
+  w:"Dividir entre "+F(3,5)+" es multiplicar por su volteada "+F(5,3)+": "+F(2,3)+" · "+F(5,3)+" = "+F(10,9)+". Sin simplificar: "+F("4·5","6·3")+" = "+F(20,18)+" = "+F(10,9)+", igual."},
+ {h:"Paréntesis 2: multiplicación",t:"Derecho: 4·7 = 28 y 6·2 = 12. Simplificamos entre 4.",m:F(4,6)+" × "+F(7,2)+" = "+F(28,12)+" = "+H(F(7,3)),
+  w:"28 ÷ 4 = 7 y 12 ÷ 4 = 3. El 4 es el número más grande que divide a los dos (MCD)."},
+ {h:"Paréntesis 3: ¡da negativo!",t:"Simplificamos: "+F(3,6)+" = "+F(1,2)+" y "+F(4,2)+" = 2 = "+F(4,2)+". Medio menos dos enteros: le quitas más de lo que tienes.",m:F(3,6)+" − "+F(4,2)+" = "+F(1,2)+" − "+F(4,2)+" = "+F("1 − 4",2)+" = "+H("−"+F(3,2)),
+  w:"1 − 4 = −3. Piensa en dinero: tienes medio dólar y debes pagar 2; quedas debiendo 1 y medio = −"+F(3,2)+"."},
+ {h:"Corchete",t:"m.c.m.(5, 3) = 15. 15 ÷ 5 = 3 → 3·4 = 12. 15 ÷ 3 = 5 → 5·2 = 10.",m:F(4,5)+" + "+F(2,3)+" = "+F(12,15)+" + "+F(10,15)+" = "+H(F(22,15))},
+ {h:"Reemplazar los resultados",t:"Copiamos cada resultado en su lugar. Donde había + ( −"+F(3,2)+" ), por ley de signos (+)·(−) = − queda − "+F(3,2)+".",m:"−{ "+F(2,3)+" − "+H(F(10,9))+" − "+H(F(22,15))+" − "+H(F(7,3))+" "+H("− "+F(3,2))+" }",
+  w:"+ ( −"+F(3,2)+" ) es «sumar una deuda», que es lo mismo que restar: + · − = −."},
+ {h:"Quitar las llaves con el − delante",t:"El menos de afuera cambia <b>todos</b> los signos: el primero (+"+F(2,3)+") pasa a −, y todos los − pasan a +.",m:H("−"+F(2,3)+" + "+F(10,9)+" + "+F(22,15)+" + "+F(7,3)+" + "+F(3,2)),
+  w:"−{ … } = −1·{ … }. −1·(+"+F(2,3)+") = −"+F(2,3)+" y −1·(−"+F(10,9)+") = +"+F(10,9)+", y así con todos."},
+ {h:"Juntar los tercios",t:"Hay dos fracciones con denominador 3: −"+F(2,3)+" + "+F(7,3)+" = "+F(5,3)+". Así queda una fracción menos.",m:H(F(5,3))+" + "+F(10,9)+" + "+F(22,15)+" + "+F(3,2)},
+ {h:"m.c.m. de 3, 9, 15 y 2",t:"3 = 3, 9 = 3², 15 = 3 · 5, 2 = 2. Mayores exponentes: 2, 3² y 5.",m:"m.c.m. = 2 · 3² · 5 = 2 · 9 · 5 = "+H("90"),v:'<div class="lad">'+ladder(3)+ladder(9)+ladder(15)+ladder(2)+'</div>',
+  w:"Del 3 y del 9 se toma solo 3² (el mayor): el 9 ya contiene al 3. Comprobación: 90 ÷ 3 = 30, 90 ÷ 9 = 10, 90 ÷ 15 = 6, 90 ÷ 2 = 45."},
+ {h:"Amplificar y sumar",t:"90 ÷ 3 = 30 → 30·5 = 150<br>90 ÷ 9 = 10 → 10·10 = 100<br>90 ÷ 15 = 6 → 6·22 = 132<br>90 ÷ 2 = 45 → 45·3 = 135.<br>Todos son positivos: se suman.",m:F("150 + 100 + 132 + 135",90)+" = "+H(F(517,90))},
+ {h:"Resultado",t:"517 = 11 · 47 y 90 = 2 · 3² · 5: no tienen factores comunes, es <b>irreducible</b>. Mixto: 517 ÷ 90 = 5 y sobran 67.",m:"Resultado: "+H(F(517,90)+" = 5"+F(67,90))+" ≈ 5,74"}
+]},
+e3:{steps:[
+ {h:"El plan",t:"No hay llaves: el corchete es lo de afuera, con un <b>2 pegado</b> que multiplica a todo. Resolvemos los tres paréntesis, juntamos lo del corchete y al final multiplicamos por 2.",
+  m:"2[ −"+H("( "+F(6,4)+" + "+F(2,5)+" )")+" + 3"+H("( "+F(8,4)+" − "+F(3,6)+" )")+" + "+H("( "+F(2,4)+" × "+F(3,6)+" )")+" − "+F(4,5)+" ]"},
+ {h:"Paréntesis 1: suma",t:"Simplificamos "+F(6,4)+" = "+F(3,2)+". m.c.m.(2, 5) = 10: 10 ÷ 2 = 5 → 5·3 = 15; 10 ÷ 5 = 2 → 2·2 = 4. El menos de delante se queda pegado al resultado.",m:F(3,2)+" + "+F(2,5)+" = "+F(15,10)+" + "+F(4,10)+" = "+F(19,10)+" &nbsp;→&nbsp; "+H("−"+F(19,10)),
+  w:"Con la mariposa sin simplificar: "+F("6·5 + 4·2","4·5")+" = "+F(38,20)+" = "+F(19,10)+" (÷2). Mismo resultado. Y −( "+F(19,10)+" ) = −"+F(19,10)+": un menos delante de un solo número solo le cambia el signo a ese número."},
+ {h:"Paréntesis 2 y el 3 pegado",t:F(8,4)+" = 2 y "+F(3,6)+" = "+F(1,2)+". 2 − "+F(1,2)+" = "+F(4,2)+" − "+F(1,2)+" = "+F(3,2)+". Después el 3 de afuera multiplica: 3 · "+F(3,2)+" = "+F(9,2)+".",m:"3( 2 − "+F(1,2)+" ) = 3 · "+F(3,2)+" = "+H(F(9,2)),
+  w:"Primero se resuelve lo de adentro y después se multiplica: el paréntesis manda. Un entero por una fracción multiplica solo arriba: 3 · "+F(3,2)+" = "+F("3·3",2)+"."},
+ {h:"Paréntesis 3: multiplicación",t:"Simplificamos: "+F(2,4)+" = "+F(1,2)+" y "+F(3,6)+" = "+F(1,2)+". Medio de medio es un cuarto.",m:F(2,4)+" × "+F(3,6)+" = "+F(1,2)+" × "+F(1,2)+" = "+H(F(1,4)),
+  w:"Sin simplificar: "+F("2·3","4·6")+" = "+F(6,24)+" = "+F(1,4)+" (÷6)."},
+ {h:"Reemplazar",t:"Copiamos los resultados dentro del corchete.",m:"2[ "+H("−"+F(19,10))+" + "+H(F(9,2))+" + "+H(F(1,4))+" − "+F(4,5)+" ]"},
+ {h:"m.c.m. de 10, 2, 4 y 5",t:"10 = 2 · 5, 2 = 2, 4 = 2², 5 = 5. Mayores exponentes: 2² y 5.",m:"m.c.m. = 2² · 5 = 4 · 5 = "+H("20"),v:'<div class="lad">'+ladder(10)+ladder(2)+ladder(4)+ladder(5)+'</div>',
+  w:"20 está en la tabla de todos: 20 ÷ 10 = 2, 20 ÷ 2 = 10, 20 ÷ 4 = 5, 20 ÷ 5 = 4. Del 2 y del 4 se toma solo 2² (el mayor)."},
+ {h:"Amplificar cada fracción",t:"20 ÷ 10 = 2 → 2·19 = 38<br>20 ÷ 2 = 10 → 10·9 = 90<br>20 ÷ 4 = 5 → 5·1 = 5<br>20 ÷ 5 = 4 → 4·4 = 16",m:"2[ "+F("−38 + 90 + 5 − 16",20)+" ]"},
+ {h:"Sumar positivos y negativos",t:"Positivos: 90 + 5 = 95. Negativos: 38 + 16 = 54. 95 − 54 = 41.",m:"2[ "+F("95 − 54",20)+" ] = 2 · "+H(F(41,20))},
+ {h:"Resultado",t:"El 2 de afuera multiplica: 2 · "+F(41,20)+" = "+F(82,20)+", y simplificado entre 2 queda "+F(41,10)+". Mixto: 41 ÷ 10 = 4 y sobra 1.",m:"Resultado: "+H(F(41,10)+" = 4"+F(1,10))+" = 4,1",
+  w:"Atajo: el 2 de arriba y el 20 de abajo se simplifican antes de multiplicar: "+F(2,1)+" · "+F(41,20)+" = "+F(41,10)+". Comprobación con decimales: −1,9 + 4,5 + 0,25 − 0,8 = 2,05 → × 2 = 4,1 ✓"}
+]},
+e4:{steps:[
+ {h:"El plan",t:"El corchete tiene un <b>3 pegado</b> afuera. Adentro: tres paréntesis y un entero. El segundo paréntesis tiene un <b>8 pegado</b>.",
+  m:"3[ "+H("( "+F(4,3)+" + "+F(6,3)+" )")+" − 8"+H("( "+F(4,2)+" − "+F(6,3)+" )")+" + "+H("( "+F(4,3)+" ÷ "+F(2,5)+" )")+" + 9 ]"},
+ {h:"Paréntesis 1: igual denominador",t:"Los dos son tercios: 4 + 6 = 10.",m:F(4,3)+" + "+F(6,3)+" = "+H(F(10,3))},
+ {h:"Paréntesis 2: ¡da cero!",t:F(4,2)+" = 2 y "+F(6,3)+" = 2. 2 − 2 = 0. Y 8 · 0 = 0.",m:"8( "+F(4,2)+" − "+F(6,3)+" ) = 8( 2 − 2 ) = 8 · 0 = "+H("0"),
+  w:"Todo número multiplicado por 0 da 0: 8 veces nada es nada. Error típico: escribir 8 en vez de 0."},
+ {h:"Paréntesis 3: división",t:"En cruz: 4·5 = 20 arriba, 3·2 = 6 abajo. Simplificamos entre 2.",m:F(4,3)+" ÷ "+F(2,5)+" = "+F("4 · 5","3 · 2")+" = "+F(20,6)+" = "+H(F(10,3))},
+ {h:"Reemplazar",t:"Copiamos los resultados.",m:"3[ "+H(F(10,3))+" − "+H("0")+" + "+H(F(10,3))+" + 9 ]"},
+ {h:"Resolver el corchete",t:F(10,3)+" + "+F(10,3)+" = "+F(20,3)+". El 9 en tercios: 9 = "+F(27,3)+". Total: "+F(47,3)+".",m:"3[ "+F(20,3)+" + "+F(27,3)+" ] = 3 · "+H(F(47,3)),
+  w:"9 enteros son 27 tercios porque cada entero tiene 3 tercios: 9 · 3 = 27."},
+ {h:"Resultado",t:"3 · "+F(47,3)+" = "+F(141,3)+" = 47. El 3 de afuera y el 3 de abajo se cancelan.",m:"Resultado: 3 · "+F(47,3)+" = "+H("47"),
+  w:"Multiplicar por 3 y dividir entre 3 se deshacen. Por eso conviene dejar "+F(47,3)+" como fracción y no pasarlo a decimal (15,666…)."}
+]}
+};
+/* ---------- La hoja: cada paso se escribe debajo del anterior ---------- */
+var cur="e1",K={e1:0,e2:0,e3:0,e4:0},voice=false;
+function page(e){return document.querySelector('.page[data-e="'+e+'"]')}
+function plain(html){var d=document.createElement("div");d.innerHTML=html;d.querySelectorAll(".fr").forEach(function(f){f.replaceWith(" "+f.children[0].textContent+" sobre "+f.children[1].textContent+" ")});d.querySelectorAll(".lad").forEach(function(x){x.remove()});return d.textContent}
+function clean(t){return t.replace(/m\.c\.m\./g,"mínimo común múltiplo").replace(/MCD/g,"máximo común divisor").replace(/[·×]/g," por ").replace(/÷/g," entre ").replace(/−/g," menos ").replace(/\+/g," más ").replace(/=/g," igual a ").replace(/≈/g," aproximadamente ").replace(/²/g," al cuadrado").replace(/³/g," al cubo").replace(/[(){}\[\]→✓✏️]/g," ").replace(/\s+/g," ")}
+function hablar(t){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(clean(t));u.lang="es-ES";u.rate=.92;var vs=speechSynthesis.getVoices().filter(function(v){return /^es/i.test(v.lang)});if(vs.length)u.voice=vs[0];speechSynthesis.speak(u)}catch(e){}}
+function addLine(e,k,anim){var steps=EXS[e].steps,st=steps[k],last=k===steps.length-1,m=st.m;
+ if(last)m=m.replace("Resultado: ","Respuesta: ").replace('<span class="hl">','<span class="res">');
+ var d=document.createElement("div");d.className="ln"+(last?" fin":"")+(anim?" anim":"");
+ var len=plain(m).length,dur=Math.max(.9,Math.min(3,len*.045))+(st.v?1:0);d.style.setProperty("--d",dur.toFixed(2)+"s");
+ d.innerHTML='<div class="mg"><span>'+(k+1)+'</span></div><div class="lab">'+st.h+'</div><div class="wr"><div class="ink">'+(st.v?'<div class="side">'+st.v+'</div>':"")+'<div class="eq">'+m+'</div></div><span class="pen" aria-hidden="true">✏️</span></div>'+
+  '<div class="nt">'+st.t+'</div>'+(st.w?'<button class="wb">🤔 ¿De dónde sale?</button><div class="why">'+st.w+'</div>':"");
+ if(st.w){var b=d.querySelector(".wb"),w=d.querySelector(".why");b.onclick=function(){w.classList.toggle("on");if(w.classList.contains("on")){if(voice)hablar(plain(st.w));setTimeout(function(){w.scrollIntoView({behavior:"smooth",block:"nearest"})},60)}}}
+ page(e).querySelector(".lines").appendChild(d);
+ if(last){var f=document.createElement("p");f.className="end";f.textContent="✔ ¡Ejercicio terminado!";if(anim){f.style.animation="fade .6s ease both";f.style.animationDelay=dur+"s"}page(e).querySelector(".lines").appendChild(f)}
+ if(anim){setTimeout(function(){d.scrollIntoView({behavior:"smooth",block:"end"})},40);if(voice)hablar(st.h+". "+plain(st.t))}}
+function upd(){var n=EXS[cur].steps.length,k=K[cur];document.getElementById("next").disabled=k>=n;document.getElementById("all").disabled=k>=n;document.getElementById("undo").disabled=k===0;
+ document.getElementById("cnt").textContent=k+" / "+n+" pasos";document.getElementById("next").innerHTML=k===0?"Empezar ✏️":k>=n?"Terminado ✔":'Siguiente<span class="sh-full"> paso</span> ✏️'}
+document.getElementById("next").onclick=function(){if(K[cur]<EXS[cur].steps.length){addLine(cur,K[cur],true);K[cur]++;upd()}};
+document.getElementById("all").onclick=function(){while(K[cur]<EXS[cur].steps.length){addLine(cur,K[cur],false);K[cur]++}upd();var L=page(cur).querySelectorAll(".ln");L[L.length-1].scrollIntoView({behavior:"smooth",block:"end"})};
+document.getElementById("undo").onclick=function(){var ls=page(cur).querySelector(".lines");if(!K[cur])return;var e=ls.querySelector(".end");if(e)e.remove();ls.lastElementChild.remove();K[cur]--;upd();
+ var L=ls.querySelectorAll(".ln");(L.length?L[L.length-1]:page(cur)).scrollIntoView({behavior:"smooth",block:L.length?"end":"start"})};
+document.getElementById("reset").onclick=function(){page(cur).querySelector(".lines").innerHTML="";K[cur]=0;upd();window.scrollTo({top:0,behavior:"smooth"})};
+document.getElementById("voice").onclick=function(){voice=!voice;this.setAttribute("aria-pressed",voice);if(!voice)try{speechSynthesis.cancel()}catch(e){}};
+document.querySelectorAll("#tabs button").forEach(function(b){b.onclick=function(){cur=b.dataset.e;document.querySelectorAll("#tabs button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});
+ document.querySelectorAll(".page").forEach(function(p){p.classList.toggle("on",p.dataset.e===cur)});try{speechSynthesis.cancel()}catch(e){}upd();window.scrollTo({top:0});try{history.replaceState(null,"","#"+cur)}catch(e){}}});
+document.addEventListener("keydown",function(e){if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();document.getElementById("next").click()}if(e.key==="ArrowLeft")document.getElementById("undo").click()});
+document.getElementById("dl").onclick=function(){try{var b=new Blob([SRC],{type:"text/html"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="cuaderno-combinadas-racionales.html";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500)}catch(e){alert("No se pudo descargar desde aquí. Usa la opción Descargar de la tarjeta del archivo.")}};
+var h=(location.hash||"").slice(1);if(EXS[h])document.querySelector('#tabs button[data-e="'+h+'"]').click();upd();
+</script>
+</body>
+</html>

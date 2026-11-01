@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INGENIA · Plataforma de clases online</title>
+<meta name="description" content="Clases de refuerzo 100% online de Matemática, Física y Química. Aquí sí se entiende.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Caveat:wght@600&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0d2b45;--navy2:#123a5c;--yel:#ffc93c;--yel2:#c9971a;--teal:#1f6f5c;--ink:#1d2a3a;--soft:#bcd3e6;--wa:#25d366}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',Arial,sans-serif;color:var(--ink);background:#f4f7fb;font-size:18px;line-height:1.4}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+/* barra superior */
+header{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
+.logo{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:28px;letter-spacing:1px;text-decoration:none}
+.logo span{color:var(--yel)}
+nav{display:flex;gap:18px;font-weight:800;font-size:16px}
+nav a{text-decoration:none;opacity:.9}
+nav a:hover{color:var(--yel)}
+.keypill{background:rgba(255,255,255,.12);border:2px solid var(--yel);border-radius:30px;padding:6px 14px;font-weight:900;font-size:15px;cursor:pointer;color:#fff;white-space:nowrap}
+.keypill.ok{background:var(--yel);color:var(--navy)}
+@media(max-width:760px){nav{display:none}}
+/* portada */
+.hero{background:radial-gradient(circle at 85% 10%,#1f6f5c 0,transparent 40%),linear-gradient(160deg,#0d2b45 0%,#123a5c 55%,#0b2236 100%);color:#fff;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:40px 40px}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;padding-top:46px;padding-bottom:56px;align-items:center}
+.desc{display:inline-block;font-weight:800;color:var(--soft);font-size:16px;letter-spacing:.5px}
+.hero h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(44px,7vw,78px);line-height:.95;margin:10px 0 14px}
+.hero h1 .y{color:var(--yel)}
+.hero .sub{font-size:clamp(18px,2.4vw,23px);font-weight:700;color:#d8e6f2;max-width:560px}
+.hero .sub b{color:#fff}
+.ribbon{display:inline-block;background:#fff;color:var(--navy);font-weight:900;font-size:15px;padding:6px 14px;border-radius:8px;margin-top:16px}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.tag{background:rgba(255,255,255,.1);border:2px solid rgba(255,201,60,.55);border-radius:30px;padding:6px 14px;font-weight:800;font-size:15px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:18px;padding:14px 22px;border-radius:14px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
+.btn.y{background:var(--yel);color:var(--navy);box-shadow:0 5px 0 var(--yel2)}
+.btn.w{background:var(--wa);color:#fff;box-shadow:0 5px 0 #179447}
+.btn.o{background:transparent;color:#fff;border:2px solid #fff}
+.btn:active{transform:translateY(3px);box-shadow:none}
+.gift{background:var(--yel);color:var(--navy);border-radius:24px;padding:26px 24px;transform:rotate(2deg);box-shadow:0 18px 40px rgba(0,0,0,.35);text-align:center}
+.gift .big{font-family:'Baloo 2',sans-serif;font-size:46px;font-weight:800;line-height:1}
+.gift h2{font-family:'Baloo 2',sans-serif;font-size:30px;line-height:1.05;margin:8px 0}
+.gift p{font-weight:700;font-size:17px}
+.gift .btn{margin-top:14px;background:var(--navy);color:#fff;box-shadow:0 5px 0 #06182a}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.gift{transform:none}}
+/* secciones */
+section{padding:56px 0}
+h2.t{font-family:'Baloo 2',sans-serif;font-size:clamp(30px,4.4vw,42px);color:var(--navy);line-height:1.05}
+h2.t .y{color:var(--yel2)}
+.lead{font-size:19px;color:#4a5a6e;margin-top:8px;max-width:720px;font-weight:600}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+.step{background:#fff;border-radius:18px;padding:22px;box-shadow:0 6px 18px rgba(13,43,69,.08);border-top:6px solid var(--yel)}
+.step .n{font-family:'Baloo 2';font-size:40px;color:var(--yel2);line-height:1}
+.step h3{font-size:21px;color:var(--navy);margin:6px 0 4px}
+.step p{color:#4a5a6e;font-weight:600;font-size:17px}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+/* catálogo */
+#clases{background:#fff}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:30px;padding:8px 16px;font-weight:900;font-size:16px;cursor:pointer;font-family:inherit}
+.chip.on{background:var(--navy);color:#fff}
+.sep{width:2px;background:#d5dfea;margin:0 4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:22px}
+.card{background:#f7f3e8;background-image:linear-gradient(#e3ecf4 1px,transparent 1px),linear-gradient(90deg,#e3ecf4 1px,transparent 1px);background-size:22px 22px;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:8px;border:2px solid #e2e8ef;position:relative;transition:transform .15s}
+.card:hover{transform:translateY(-3px)}
+.card .ic{font-size:36px}
+.card h3{font-size:21px;color:var(--navy);line-height:1.15}
+.card p{font-weight:600;color:#4a5a6e;font-size:16px;flex:1}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.meta span{font-size:13px;font-weight:900;padding:3px 9px;border-radius:20px;background:#fff;border:1px solid #cfdbe7;color:#38506a}
+.meta .m-Matemática{background:#e3f0ff;border-color:#9cc3f0}
+.meta .m-Física{background:#fff1d6;border-color:#f0c56b}
+.meta .m-Química{background:#e2f6ec;border-color:#8fd4b0}
+.card .open{margin-top:6px;justify-content:center;font-size:17px;padding:11px}
+.free{position:absolute;top:-10px;right:14px;background:var(--wa);color:#fff;font-weight:900;font-size:13px;padding:4px 10px;border-radius:20px;transform:rotate(3deg)}
+.lock{font-size:14px;font-weight:800;color:#7a8797}
+.empty{margin-top:20px;font-weight:700;color:#4a5a6e}
+/* no está tu tema */
+.ask{background:linear-gradient(135deg,var(--teal),#174f43);color:#fff;border-radius:24px;padding:30px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.ask h2{font-family:'Baloo 2';font-size:clamp(28px,4vw,38px);line-height:1.05}
+.ask p{font-weight:700;color:#d6efe7;margin-top:8px;font-size:18px}
+@media(max-width:760px){.ask{grid-template-columns:1fr}}
+/* planes */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+.plan{background:#fff;border-radius:22px;padding:24px;box-shadow:0 6px 18px rgba(13,43,69,.08);display:flex;flex-direction:column;gap:10px;border:3px solid transparent}
+.plan.star{border-color:var(--yel)}
+.plan .badge{align-self:flex-start;background:var(--yel);color:var(--navy);font-weight:900;font-size:13px;padding:4px 10px;border-radius:20px}
+.plan h3{font-family:'Baloo 2';font-size:27px;color:var(--navy);line-height:1}
+.plan .who{font-weight:800;color:#6a7a8e;font-size:15px}
+.plan ul{list-style:none;display:flex;flex-direction:column;gap:7px;flex:1}
+.plan li{font-weight:700;font-size:16.5px;padding-left:26px;position:relative}
+.plan li:before{content:"✔";position:absolute;left:0;color:#1f9c63;font-weight:900}
+.plan .btn{justify-content:center}
+.note{margin-top:18px;font-weight:700;color:#4a5a6e;font-size:16px}
+@media(max-width:860px){.plans{grid-template-columns:1fr}}
+/* pie */
+footer{background:var(--navy);color:#d8e6f2;padding:34px 0 90px;text-align:center}
+footer .slogan{font-family:'Caveat',cursive;font-size:30px;color:var(--yel)}
+footer small{display:block;margin-top:10px;opacity:.7}
+.wa-float{position:fixed;right:16px;bottom:16px;z-index:30;background:var(--wa);color:#fff;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 8px 20px rgba(0,0,0,.3);text-decoration:none}
+/* modal de clave */
+.modal{position:fixed;inset:0;background:rgba(6,20,34,.7);z-index:50;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.on{display:flex}
+.box{background:#fff;border-radius:22px;padding:26px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.box .k{font-size:46px}
+.box h3{font-family:'Baloo 2';font-size:28px;color:var(--navy);line-height:1.1;margin:4px 0}
+.box p{font-weight:600;color:#4a5a6e;font-size:16px}
+.box input{width:100%;margin-top:16px;font-size:24px;font-weight:900;text-align:center;letter-spacing:2px;text-transform:uppercase;padding:12px;border:3px solid #cfdbe7;border-radius:14px;font-family:inherit;color:var(--navy)}
+.box input:focus{outline:none;border-color:var(--yel)}
+.box .btn{width:100%;justify-content:center;margin-top:12px}
+.box .err{color:#c62f2f;font-weight:800;min-height:24px;margin-top:8px;font-size:16px}
+.box .x{background:none;border:0;color:#7a8797;font-weight:800;margin-top:10px;cursor:pointer;font-family:inherit;font-size:16px}
+.box .help{font-size:14.5px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="logo" href="#">INGE<span>NIA</span></a>
+  <nav><a href="#como">Cómo funciona</a><a href="#clases">Clases</a><a href="#planes">Planes</a><a href="#prueba">Clase gratis</a></nav>
+  <button class="keypill" id="pill" onclick="abrirClave()">🔑 Tengo mi clave</button>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <span class="desc">Clases de refuerzo y asesorías académicas</span>
+    <h1>Aquí sí se <span class="y">entiende.</span></h1>
+    <p class="sub"><b>Entiende en clase. Repasa en casa. Aprueba con confianza.</b><br>Clases 100% online de Matemática, Física, Química y más, con ejercicios resueltos paso a paso que puedes repetir las veces que quieras.</p>
+    <span class="ribbon">Clases particulares · Refuerzo escolar · Preparación para exámenes</span>
+    <div class="tags"><span class="tag">🎒 Primaria</span><span class="tag">📘 Bachillerato 1.º a 6.º año</span><span class="tag">🎓 Universidad</span><span class="tag">💻 100% online</span></div>
+    <div class="cta">
+      <a class="btn y" href="#clases">📚 Ver las clases</a>
+      <button class="btn o" onclick="abrirClave()">🔑 Entrar con mi clave</button>
+    </div>
+  </div>
+  <div class="gift" id="prueba">
+    <div class="big">🎁</div>
+    <h2>Tu primera clase de prueba es GRATIS</h2>
+    <p>Escríbenos, cuéntanos qué tema te cuesta y agenda tu clase online sin pagar nada.</p>
+    <a class="btn wa-link" data-msg="¡Hola INGENIA! Quiero agendar mi primera clase de prueba GRATIS." href="#">💬 Quiero mi clase gratis</a>
+  </div>
+</div></div>
+
+<section id="como"><div class="wrap">
+  <h2 class="t">¿Cómo <span class="y">funciona?</span></h2>
+  <p class="lead">Todo es en línea, desde tu casa. Para bachillerato también puedes pedir clases presenciales, si lo prefieres.</p>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>Recibes tu clase online</h3><p>Con un profesor que te explica desde cero, con calma y sin saltar pasos.</p></div>
+    <div class="step"><div class="n">2</div><h3>Te damos tu clave de la semana</h3><p>Con ella abres aquí las clases interactivas y los ejercicios resueltos.</p></div>
+    <div class="step"><div class="n">3</div><h3>Repasas cuando quieras</h3><p>En el celular, la tablet o la computadora. Con pistas, soluciones y voz que te explica.</p></div>
+  </div>
+</div></section>
+
+<section id="clases"><div class="wrap">
+  <h2 class="t">Clases <span class="y">disponibles</span></h2>
+  <p class="lead">Toca una clase para abrirla. Las que tienen 🔒 se abren con tu clave de la semana.</p>
+  <div class="filters" id="filtros"></div>
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="vacio" hidden>Todavía no hay clases en este grupo. ¡Pídela por WhatsApp y te la preparamos!</p>
+</div></section>
+
+<section style="padding-top:0;background:#fff"><div class="wrap">
+  <div class="ask">
+    <div>
+      <h2>¿No está tu tema? 🤔</h2>
+      <p>Envíanos por WhatsApp el tema o la foto de tus ejercicios. Te preparamos una clase con los ejercicios resueltos paso a paso y te mandamos el enlace para verla aquí.</p>
+      <p>¿Estudias Ingeniería? Envíanos tu guía de ejercicios y te la resolvemos con explicación interactiva.</p>
+    </div>
+    <a class="btn w wa-link" data-msg="¡Hola INGENIA! Necesito una clase sobre este tema:" href="#">💬 Enviar mi tema</a>
+  </div>
+</div></section>
+
+<section id="planes"><div class="wrap">
+  <h2 class="t">Elige tu <span class="y">plan</span></h2>
+  <p class="lead">Todos los planes son online. Consulta los precios por WhatsApp.</p>
+  <div class="plans">
+    <div class="plan star">
+      <span class="badge">⭐ El más completo</span>
+      <h3>Clases + Plataforma</h3>
+      <span class="who">Primaria, bachillerato y universidad</span>
+      <ul><li>Clases online con profesor</li><li>Clave semanal para la plataforma</li><li>Ejercicios resueltos paso a paso</li><li>Dudas por WhatsApp</li></ul>
+      <a class="btn y wa-link" data-msg="¡Hola INGENIA! Quiero información del plan Clases + Plataforma." href="#">Quiero este plan</a>
+    </div>
+    <div class="plan">
+      <span class="badge" style="background:#e2f6ec">💸 Económico</span>
+      <h3>Solo Plataforma</h3>
+      <span class="who">Para repasar a tu ritmo</span>
+      <ul><li>Acceso a todas las clases interactivas</li><li>Ejercicios con pistas y soluciones</li><li>Explicaciones con voz</li><li>Precio más bajo</li></ul>
+      <a class="btn y wa-link" data-msg="¡Hola INGENIA! Quiero información del plan Solo Plataforma." href="#">Quiero este plan</a>
+    </div>
+    <div class="plan">
+      <span class="badge" style="background:#e3f0ff">⚡ A pedido</span>
+      <h3>Clase a tu medida</h3>
+      <span class="who">Para ese examen o esa guía</span>
+      <ul><li>Mandas tu tema o tus ejercicios</li><li>Recibes tu clase resuelta</li><li>Enlace para verla en la plataforma</li><li>Ideal para universitarios</li></ul>
+      <a class="btn y wa-link" data-msg="¡Hola INGENIA! Quiero una clase a mi medida." href="#">Pedir mi clase</a>
+    </div>
+  </div>
+  <p class="note">🏫 Para bachillerato también ofrecemos clases presenciales opcionales. Pregúntanos por WhatsApp.</p>
+</div></section>
+
+<footer>
+  <div class="logo" style="font-size:34px">INGE<span style="color:var(--yel)">NIA</span></div>
+  <div class="slogan">Aquí sí se entiende.</div>
+  <p style="margin-top:8px;font-weight:700">WhatsApp: <a class="wa-link" data-msg="¡Hola INGENIA!" href="#">0416-2054982</a></p>
+  <small id="semana"></small>
+</footer>
+<a class="wa-float wa-link" data-msg="¡Hola INGENIA! Quiero información sobre las clases online." href="#" aria-label="WhatsApp">💬</a>
+
+<div class="modal" id="modal"><div class="box">
+  <div class="k">🔑</div>
+  <h3>Escribe tu clave de la semana</h3>
+  <p>Te la damos en tu clase. Cambia cada semana.</p>
+  <input id="clave" autocomplete="off" autocapitalize="characters" placeholder="CLAVE" onkeydown="if(event.key==='Enter')probar()">
+  <div class="err" id="err"></div>
+  <button class="btn y" id="entrar" onclick="probar()">Entrar</button>
+  <p class="help">¿No tienes clave? <a class="wa-link" data-msg="¡Hola INGENIA! Quiero mi clave para la plataforma." href="#"><b>Pídela por WhatsApp</b></a></p>
+  <button class="x" onclick="cerrarClave()">Cerrar</button>
+</div></div>
+
+<script>
+const WA='584162054982';
+document.querySelectorAll('.wa-link').forEach(a=>{a.href='https://wa.me/'+WA+'?text='+encodeURIComponent(a.dataset.msg||'');a.target='_blank';a.rel='noopener'});
+
+let DATOS=null, pendiente=null, nivel='Todos', materia='Todas';
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function derivar(clave){
+  const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(clave.trim().toUpperCase()),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(DATOS.salt),iterations:DATOS.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+}
+async function claveValida(clave){
+  try{const k=await derivar(clave),d=b64(DATOS.check);await crypto.subtle.decrypt({name:'AES-GCM',iv:d.slice(0,12)},k,d.slice(12));return true}catch(e){return false}
+}
+function guardada(){try{const g=JSON.parse(localStorage.getItem('ingenia-clave'));return g&&g.salt===DATOS.salt?g.clave:null}catch(e){return null}}
+function pintarPill(){const p=document.getElementById('pill'),ok=!!guardada();p.classList.toggle('ok',ok);p.textContent=ok?'🔓 Acceso activo':'🔑 Tengo mi clave'}
+function abrirClave(id){pendiente=id||null;document.getElementById('err').textContent='';document.getElementById('modal').classList.add('on');setTimeout(()=>document.getElementById('clave').focus(),50)}
+function cerrarClave(){document.getElementById('modal').classList.remove('on')}
+async function probar(){
+  const v=document.getElementById('clave').value,err=document.getElementById('err'),b=document.getElementById('entrar');
+  if(!v.trim()){err.textContent='Escribe la clave.';return}
+  b.textContent='Revisando…';b.disabled=true;
+  const ok=await claveValida(v);b.textContent='Entrar';b.disabled=false;
+  if(!ok){err.textContent='Esa clave no es la de esta semana. Revísala o pídela por WhatsApp.';return}
+  localStorage.setItem('ingenia-clave',JSON.stringify({clave:v.trim().toUpperCase(),salt:DATOS.salt}));
+  cerrarClave();pintarPill();pintar();
+  if(pendiente)location.href='ver.html?c='+pendiente;
+}
+function abrir(c){
+  if(c.gratis){location.href='c/'+c.id+'.html';return}
+  if(!guardada()){abrirClave(c.id);return}
+  location.href='ver.html?c='+c.id;
+}
+function pintarFiltros(){
+  const f=document.getElementById('filtros');f.innerHTML='';
+  const mk=(txt,act,fn)=>{const b=document.createElement('button');b.className='chip'+(act?' on':'');b.textContent=txt;b.onclick=fn;f.appendChild(b)};
+  ['Todos','Primaria','Bachillerato','Universidad'].forEach(n=>mk(n,nivel===n,()=>{nivel=n;pintarFiltros();pintar()}));
+  const s=document.createElement('span');s.className='sep';f.appendChild(s);
+  ['Todas','Matemática','Física','Química'].forEach(m=>mk(m==='Todas'?'Todas las materias':m,materia===m,()=>{materia=m;pintarFiltros();pintar()}));
+}
+function pintar(){
+  const g=document.getElementById('grid'),ok=!!guardada();g.innerHTML='';
+  const lista=DATOS.clases.filter(c=>(nivel==='Todos'||c.niveles.includes(nivel))&&(materia==='Todas'||c.materia===materia));
+  document.getElementById('vacio').hidden=lista.length>0;
+  lista.forEach(c=>{
+    const d=document.createElement('div');d.className='card';
+    d.innerHTML=(c.gratis?'<span class="free">GRATIS</span>':'')+
+      `<div class="ic">${c.icono}</div><h3>${c.titulo}</h3><p>${c.desc}</p>
+       <div class="meta"><span class="m-${c.materia}">${c.materia}</span><span>${c.grado}</span><span>${c.tipo}</span></div>
+       <button class="btn y open">${c.gratis||ok?'▶ Abrir clase':'🔒 Abrir con mi clave'}</button>
+       ${c.mb>2?`<span class="lock">Pesa ${c.mb} MB (trae la voz incluida)</span>`:''}`;
+    d.querySelector('button').onclick=()=>abrir(c);
+    g.appendChild(d);
+  });
+}
+fetch('datos.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  DATOS=d;pintarPill();pintarFiltros();pintar();
+  document.getElementById('semana').textContent='Clases actualizadas el '+d.semana.split('-').reverse().join('/');
+}).catch(()=>{document.getElementById('grid').innerHTML='<p class="empty">No se pudo cargar la lista de clases. Revisa tu conexión y recarga la página.</p>'});
+</script>
+</body>
+</html>
