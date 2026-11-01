@@ -22,11 +22,17 @@ if os.path.exists(out): shutil.rmtree(out)
 os.makedirs(os.path.join(out, 'c'))
 cat = json.load(open(os.path.join(here, 'catalogo.json'), encoding='utf-8'))
 pub = []
+SIN_DESCARGA = (b'<style>#dl,.dlb{display:none!important}</style>'
+    b'<script>document.addEventListener("DOMContentLoaded",function(){'
+    b'document.querySelectorAll("button,a").forEach(function(e){if(/Descargar/i.test(e.textContent+(e.title||"")))e.remove()})})</script>')
+def quitar_descarga(html):
+    i = html.lower().find(b'</head>')
+    return html[:i] + SIN_DESCARGA + html[i:] if i >= 0 else SIN_DESCARGA + html
 for c in cat:
-    data = open(os.path.join(src, c['archivo']), 'rb').read()
+    data = quitar_descarga(open(os.path.join(src, c['archivo']), 'rb').read())
     e = dict(c); del e['archivo']
     if c.get('gratis'):
-        shutil.copy(os.path.join(src, c['archivo']), os.path.join(out, 'c', c['id'] + '.html'))
+        open(os.path.join(out, 'c', c['id'] + '.html'), 'wb').write(data)
     else:
         iv = os.urandom(12)
         open(os.path.join(out, 'c', c['id'] + '.bin'), 'wb').write(iv + aes.encrypt(iv, data, None))
