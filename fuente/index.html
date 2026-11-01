@@ -77,6 +77,8 @@ h2.t .y{color:var(--yel2)}
 .nv{border:3px solid var(--navy);background:#fff;border-radius:18px;padding:14px 10px;cursor:pointer;font-family:inherit;color:var(--navy);text-align:center}
 .nv b{display:block;font-size:20px;font-weight:900}.nv span{font-size:14px;font-weight:700;color:#4a5a6e}.nv i{font-style:normal;font-size:30px;display:block}
 .nv.on{background:var(--navy);color:#fff}.nv.on span{color:#ffe27a}
+.eq{display:block;font-style:normal;font-size:13px;font-weight:700;color:#6b7a8c;margin-top:4px}
+.nota{margin-top:14px;font-weight:700;color:#4a5a6e;background:#fff8dc;border-left:5px solid var(--yel);padding:10px 14px;border-radius:10px}
 .buscar{width:100%;margin-top:16px;padding:13px 16px;border:2px solid #cfd8e3;border-radius:14px;font-size:17px;font-family:inherit;font-weight:600}
 .gr{margin-top:14px;border:2px solid #e2e8ef;border-radius:16px;background:#f9fbfd;overflow:hidden}
 .gr>summary{cursor:pointer;padding:14px 18px;font-weight:900;font-size:19px;color:var(--navy);list-style:none;display:flex;justify-content:space-between;gap:10px}
@@ -192,6 +194,7 @@ footer small{display:block;margin-top:10px;opacity:.7}
   <div class="niveles" id="niveles"></div>
   <div class="filters" id="filtros"></div>
   <input class="buscar" id="buscar" type="search" placeholder="🔍 Busca un tema, por ejemplo: fracciones, derivadas, enlaces…" oninput="pintar()">
+  <p class="nota" id="nota" hidden></p>
   <div id="programa"></div>
   <p class="empty" id="vacio" hidden>No encontramos ese tema. ¡Pídelo por WhatsApp y te lo preparamos!</p>
 </div></section>
@@ -312,12 +315,13 @@ function pintar(){
   DATOS.clases.filter(c=>c.gratis).sort((a,b)=>(a.orden||99)-(b.orden||99)).forEach(c=>g.appendChild(tarjeta(c,ok)));
   const q=sinTilde(document.getElementById('buscar').value.trim()),P=document.getElementById('programa');P.innerHTML='';let n=0;
   const niveles=q?PROG.niveles:PROG.niveles.filter(x=>x.n===nivel);
+  const NN=PROG.niveles.find(x=>x.n===nivel),no=document.getElementById('nota');no.hidden=!!q||!NN.nota;no.textContent=NN.nota||'';
   niveles.forEach(N=>N.materias.filter(m=>q||materia==='Todas'||m.m===materia).forEach(M=>M.grados.forEach(G=>{
     const temas=G.temas.filter(t=>!q||sinTilde(t.t+' '+(t.c||[]).map(i=>C[i]?C[i].titulo:'').join(' ')).includes(q));
     if(!temas.length)return;n++;
     const listos=G.temas.filter(t=>t.c&&t.c.length).length;
     const d=document.createElement('details');d.className='gr';d.open=!!q;
-    d.innerHTML=`<summary><span>${q?N.n+' · ':''}${M.m} · ${G.g}</span><small>${listos?'▶ '+listos+' con clase · ':''}${G.temas.length} temas</small></summary>`;
+    d.innerHTML=`<summary><span>${q?N.n+' · ':''}${M.m} · ${G.g}${G.eq?'<em class="eq">'+G.eq+'</em>':''}</span><small>${listos?'▶ '+listos+' con clase · ':''}${G.temas.length} temas</small></summary>`;
     temas.forEach(t=>{const r=document.createElement('div');r.className='tm';r.innerHTML=`<span class="tt">${t.t}</span>`;
       (t.c||[]).forEach(i=>{const c=C[i];if(!c)return;const b=document.createElement('button');b.className='cl'+(c.gratis?' g':'');
         b.textContent=(c.gratis?'▶ ':ok?'▶ ':'🔒 ')+c.titulo+(c.gratis?' · gratis':'');b.onclick=()=>abrir(c);r.appendChild(b)});
