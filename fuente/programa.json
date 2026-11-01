@@ -13,7 +13,10 @@
        "g": "1.º grado",
        "temas": [
         {
-         "t": "Contar, comparar y ordenar hasta 100"
+         "t": "Contar, comparar y ordenar hasta 100",
+         "c": [
+          "p1-mat-contar"
+         ]
         },
         {
          "t": "Valor posicional: unidades, decenas y centenas"
