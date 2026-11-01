@@ -1,0 +1,17 @@
+{
+  "name": "INGENIA · Clases de refuerzo",
+  "short_name": "INGENIA",
+  "description": "Clases interactivas de Matemática, Física y Química. Aquí sí se entiende.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d2b45",
+  "theme_color": "#0d2b45",
+  "icons": [
+    {"src": "icono-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icono-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

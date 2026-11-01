@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>INGENIA · Plataforma de clases online</title>
 <meta name="description" content="Clases de refuerzo 100% online de Matemática, Física y Química. Aquí sí se entiende.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0d2b45">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="INGENIA">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" type="image/png" href="icono-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Caveat:wght@600&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -137,6 +144,7 @@ footer small{display:block;margin-top:10px;opacity:.7}
     <div class="cta">
       <a class="btn y" href="#clases">📚 Ver las clases</a>
       <button class="btn o" onclick="abrirClave()">🔑 Entrar a mis clases</button>
+      <button class="btn o" id="instalar" hidden onclick="instalar()">📲 Instalar la app</button>
     </div>
   </div>
   <div class="gift" id="prueba">
@@ -213,6 +221,12 @@ footer small{display:block;margin-top:10px;opacity:.7}
 </footer>
 <a class="wa-float wa-link" data-msg="¡Hola INGENIA! Quiero información sobre las clases online." href="#" aria-label="WhatsApp">💬</a>
 
+<div class="modal" id="mios"><div class="box">
+  <div class="k">📲</div>
+  <h3>Instala INGENIA en tu iPhone</h3>
+  <p style="text-align:left;margin-top:10px">1. Abre esta página en <b>Safari</b>.<br>2. Toca el botón <b>Compartir</b> <span style="font-size:20px">⎋</span> (el cuadrito con la flecha hacia arriba).<br>3. Elige <b>"Agregar a inicio"</b> y toca <b>Agregar</b>.</p>
+  <button class="btn y" onclick="document.getElementById('mios').classList.remove('on')">Entendido</button>
+</div></div>
 <div class="modal" id="modal"><div class="box">
   <div class="k">🔑</div>
   <h3>Entra a tus clases</h3>
@@ -273,6 +287,18 @@ function pintar(){
     d.querySelector('button').onclick=()=>abrir(c);
     g.appendChild(d);
   });
+}
+
+// ---- App instalable ----
+let PROMPT=null;
+const IOS=/iPhone|iPad|iPod/i.test(navigator.userAgent), INSTALADA=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();PROMPT=e;document.getElementById('instalar').hidden=false});
+if(IOS&&!INSTALADA)document.getElementById('instalar').hidden=false;
+window.addEventListener('appinstalled',()=>{document.getElementById('instalar').hidden=true});
+async function instalar(){
+  if(PROMPT){PROMPT.prompt();await PROMPT.userChoice;PROMPT=null;document.getElementById('instalar').hidden=true;return}
+  if(IOS)document.getElementById('mios').classList.add('on');
 }
 fetch('datos.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
   DATOS=d;pintarPill();pintarFiltros();pintar();

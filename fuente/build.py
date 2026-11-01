@@ -46,5 +46,9 @@ if __name__ == '__main__':
     open(os.path.join(out, 'datos.json'), 'w', encoding='utf-8').write(json.dumps(cfg, ensure_ascii=False))
     for f in ('index.html', 'ver.html', 'admin.html', 'fb.js', 'firebase-config.js'):
         shutil.copy(os.path.join(here, f), os.path.join(out, f))
+    for f in os.listdir(os.path.join(here, 'pwa')):
+        shutil.copy(os.path.join(here, 'pwa', f), os.path.join(out, f))
+    for f in ():
+        shutil.copy(os.path.join(here, f), os.path.join(out, f))
     open(os.path.join(out, '.nojekyll'), 'w').close()
     print('Listo:', out, '-', len(pub), 'clases, clave', clave)
