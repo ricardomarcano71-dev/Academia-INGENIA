@@ -124,7 +124,7 @@ footer small{display:block;margin-top:10px;opacity:.7}
 <header><div class="wrap">
   <a class="logo" href="#">INGE<span>NIA</span></a>
   <nav><a href="#como">Cómo funciona</a><a href="#clases">Clases</a><a href="#planes">Planes</a><a href="#prueba">Clase gratis</a></nav>
-  <button class="keypill" id="pill" onclick="abrirClave()">🔑 Tengo mi clave</button>
+  <button class="keypill" id="pill" onclick="pillClick()">🔑 Entrar</button>
 </div></header>
 
 <div class="hero"><div class="wrap">
@@ -136,7 +136,7 @@ footer small{display:block;margin-top:10px;opacity:.7}
     <div class="tags"><span class="tag">🎒 Primaria</span><span class="tag">📘 Bachillerato 1.º a 6.º año</span><span class="tag">🎓 Universidad</span><span class="tag">💻 100% online</span></div>
     <div class="cta">
       <a class="btn y" href="#clases">📚 Ver las clases</a>
-      <button class="btn o" onclick="abrirClave()">🔑 Entrar con mi clave</button>
+      <button class="btn o" onclick="abrirClave()">🔑 Entrar a mis clases</button>
     </div>
   </div>
   <div class="gift" id="prueba">
@@ -152,14 +152,14 @@ footer small{display:block;margin-top:10px;opacity:.7}
   <p class="lead">Todo es en línea, desde tu casa. Para bachillerato también puedes pedir clases presenciales, si lo prefieres.</p>
   <div class="steps">
     <div class="step"><div class="n">1</div><h3>Recibes tu clase online</h3><p>Con un profesor que te explica desde cero, con calma y sin saltar pasos.</p></div>
-    <div class="step"><div class="n">2</div><h3>Te damos tu clave de la semana</h3><p>Con ella abres aquí las clases interactivas y los ejercicios resueltos.</p></div>
+    <div class="step"><div class="n">2</div><h3>Te damos tu usuario</h3><p>Con él abres aquí las clases interactivas y los ejercicios resueltos.</p></div>
     <div class="step"><div class="n">3</div><h3>Repasas cuando quieras</h3><p>En el celular, la tablet o la computadora. Con pistas, soluciones y voz que te explica.</p></div>
   </div>
 </div></section>
 
 <section id="clases"><div class="wrap">
   <h2 class="t">Clases <span class="y">disponibles</span></h2>
-  <p class="lead">Toca una clase para abrirla. Las que tienen 🔒 se abren con tu clave de la semana.</p>
+  <p class="lead">Toca una clase para abrirla. Las que tienen 🔒 se abren entrando con tu usuario.</p>
   <div class="filters" id="filtros"></div>
   <div class="grid" id="grid"></div>
   <p class="empty" id="vacio" hidden>Todavía no hay clases en este grupo. ¡Pídela por WhatsApp y te la preparamos!</p>
@@ -184,7 +184,7 @@ footer small{display:block;margin-top:10px;opacity:.7}
       <span class="badge">⭐ El más completo</span>
       <h3>Clases + Plataforma</h3>
       <span class="who">Primaria, bachillerato y universidad</span>
-      <ul><li>Clases online con profesor</li><li>Clave semanal para la plataforma</li><li>Ejercicios resueltos paso a paso</li><li>Dudas por WhatsApp</li></ul>
+      <ul><li>Clases online con profesor</li><li>Usuario propio en la plataforma</li><li>Ejercicios resueltos paso a paso</li><li>Dudas por WhatsApp</li></ul>
       <a class="btn y wa-link" data-msg="¡Hola INGENIA! Quiero información del plan Clases + Plataforma." href="#">Quiero este plan</a>
     </div>
     <div class="plan">
@@ -215,12 +215,13 @@ footer small{display:block;margin-top:10px;opacity:.7}
 
 <div class="modal" id="modal"><div class="box">
   <div class="k">🔑</div>
-  <h3>Escribe tu clave de la semana</h3>
-  <p>Te la damos en tu clase. Cambia cada semana.</p>
-  <input id="clave" autocomplete="off" autocapitalize="characters" placeholder="CLAVE" onkeydown="if(event.key==='Enter')probar()">
+  <h3>Entra a tus clases</h3>
+  <p>Escribe el usuario y la contraseña que te dimos.</p>
+  <input id="usuario" autocomplete="username" autocapitalize="none" placeholder="Usuario" style="text-transform:none;letter-spacing:0">
+  <input id="clave" type="password" autocomplete="current-password" placeholder="Contraseña" style="text-transform:none;letter-spacing:0;margin-top:10px" onkeydown="if(event.key==='Enter')probar()">
   <div class="err" id="err"></div>
   <button class="btn y" id="entrar" onclick="probar()">Entrar</button>
-  <p class="help">¿No tienes clave? <a class="wa-link" data-msg="¡Hola INGENIA! Quiero mi clave para la plataforma." href="#"><b>Pídela por WhatsApp</b></a></p>
+  <p class="help">¿No tienes usuario? <a class="wa-link" data-msg="¡Hola INGENIA! Quiero mi usuario para la plataforma." href="#"><b>Pídelo por WhatsApp</b></a></p>
   <button class="x" onclick="cerrarClave()">Cerrar</button>
 </div></div>
 
@@ -228,32 +229,27 @@ footer small{display:block;margin-top:10px;opacity:.7}
 const WA='584162054982';
 document.querySelectorAll('.wa-link').forEach(a=>{a.href='https://wa.me/'+WA+'?text='+encodeURIComponent(a.dataset.msg||'');a.target='_blank';a.rel='noopener'});
 
-let DATOS=null, pendiente=null, nivel='Todos', materia='Todas';
-const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
-async function derivar(clave){
-  const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(clave.trim().toUpperCase()),'PBKDF2',false,['deriveKey']);
-  return crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(DATOS.salt),iterations:DATOS.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
-}
-async function claveValida(clave){
-  try{const k=await derivar(clave),d=b64(DATOS.check);await crypto.subtle.decrypt({name:'AES-GCM',iv:d.slice(0,12)},k,d.slice(12));return true}catch(e){return false}
-}
-function guardada(){try{const g=JSON.parse(localStorage.getItem('ingenia-clave'));return g&&g.salt===DATOS.salt?g.clave:null}catch(e){return null}}
-function pintarPill(){const p=document.getElementById('pill'),ok=!!guardada();p.classList.toggle('ok',ok);p.textContent=ok?'🔓 Acceso activo':'🔑 Tengo mi clave'}
-function abrirClave(id){pendiente=id||null;document.getElementById('err').textContent='';document.getElementById('modal').classList.add('on');setTimeout(()=>document.getElementById('clave').focus(),50)}
+let DATOS=null, pendiente=null, nivel='Todos', materia='Todas', SES={estado:'fuera'};
+function guardada(){return SES.estado==='ok'}
+function pintarPill(){const p=document.getElementById('pill');p.classList.toggle('ok',SES.estado==='ok');
+  p.textContent=SES.estado==='ok'?'🔓 '+((SES.alumno&&SES.alumno.nombre||'').split(' ')[0]||'Mi cuenta')+' · Salir':SES.estado==='vencido'?'⏳ Acceso vencido · Salir':'🔑 Entrar'}
+async function pillClick(){if(SES.estado==='fuera')return abrirClave();if(confirm('¿Cerrar tu sesión?')){await window.FB.salir();SES={estado:'fuera'};pintarPill();pintar()}}
+function abrirClave(id){pendiente=id||null;document.getElementById('err').textContent='';document.getElementById('modal').classList.add('on');setTimeout(()=>document.getElementById('usuario').focus(),50)}
 function cerrarClave(){document.getElementById('modal').classList.remove('on')}
 async function probar(){
-  const v=document.getElementById('clave').value,err=document.getElementById('err'),b=document.getElementById('entrar');
-  if(!v.trim()){err.textContent='Escribe la clave.';return}
+  const u=document.getElementById('usuario').value,v=document.getElementById('clave').value,err=document.getElementById('err'),b=document.getElementById('entrar');
+  if(!u.trim()||!v){err.textContent='Escribe tu usuario y tu contraseña.';return}
+  if(!window.FB){err.textContent='Cargando… intenta otra vez en un segundo.';return}
   b.textContent='Revisando…';b.disabled=true;
-  const ok=await claveValida(v);b.textContent='Entrar';b.disabled=false;
-  if(!ok){err.textContent='Esa clave no es la de esta semana. Revísala o pídela por WhatsApp.';return}
-  localStorage.setItem('ingenia-clave',JSON.stringify({clave:v.trim().toUpperCase(),salt:DATOS.salt}));
-  cerrarClave();pintarPill();pintar();
+  try{const r=await window.FB.entrar(u,v);SES=await window.FB.revisar(r.user)}catch(e){SES={estado:'fuera'};err.textContent='Usuario o contraseña incorrectos.';b.textContent='Entrar';b.disabled=false;return}
+  b.textContent='Entrar';b.disabled=false;pintarPill();pintar();
+  if(SES.estado==='vencido'){err.innerHTML='Tu acceso venció. <a class="wa-link" target="_blank" href="https://wa.me/'+WA+'?text='+encodeURIComponent('¡Hola INGENIA! Quiero renovar mi acceso a la plataforma.')+'"><b>Renuévalo por WhatsApp</b></a>';return}
+  cerrarClave();
   if(pendiente)location.href='ver.html?c='+pendiente;
 }
 function abrir(c){
   if(c.gratis){location.href='c/'+c.id+'.html';return}
-  if(!guardada()){abrirClave(c.id);return}
+  if(SES.estado!=='ok'){abrirClave(c.id);return}
   location.href='ver.html?c='+c.id;
 }
 function pintarFiltros(){
@@ -272,7 +268,7 @@ function pintar(){
     d.innerHTML=(c.gratis?'<span class="free">GRATIS</span>':'')+
       `<div class="ic">${c.icono}</div><h3>${c.titulo}</h3><p>${c.desc}</p>
        <div class="meta"><span class="m-${c.materia}">${c.materia}</span><span>${c.grado}</span><span>${c.tipo}</span></div>
-       <button class="btn y open">${c.gratis||ok?'▶ Abrir clase':'🔒 Abrir con mi clave'}</button>
+       <button class="btn y open">${c.gratis||ok?'▶ Abrir clase':'🔒 Entra para abrirla'}</button>
        ${c.mb>2?`<span class="lock">Pesa ${c.mb} MB (trae la voz incluida)</span>`:''}`;
     d.querySelector('button').onclick=()=>abrir(c);
     g.appendChild(d);
@@ -282,6 +278,13 @@ fetch('datos.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
   DATOS=d;pintarPill();pintarFiltros();pintar();
   document.getElementById('semana').textContent='Clases actualizadas el '+d.semana.split('-').reverse().join('/');
 }).catch(()=>{document.getElementById('grid').innerHTML='<p class="empty">No se pudo cargar la lista de clases. Revisa tu conexión y recarga la página.</p>'});
+</script>
+<script type="module">
+import * as FB from './fb.js';
+window.FB=FB;
+const u=await FB.listo();
+SES=await FB.revisar(u);
+if(typeof pintar==='function'&&DATOS){pintarPill();pintar()}
 </script>
 </body>
 </html>

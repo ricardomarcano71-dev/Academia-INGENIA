@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>INGENIA · Panel de administración</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',Arial,sans-serif;background:#f4f7fb;color:#1d2a3a;font-size:17px}
+header{background:#0d2b45;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+header b{font-size:22px}header b span{color:#ffc93c}
+main{max-width:900px;margin:0 auto;padding:18px}
+.card{background:#fff;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 4px 14px rgba(13,43,69,.08)}
+h2{font-size:21px;color:#0d2b45;margin-bottom:10px}
+label{display:block;font-weight:800;font-size:14px;color:#4a5a6e;margin-top:10px}
+input,select{width:100%;font-size:17px;padding:10px;border:2px solid #cfdbe7;border-radius:10px;font-family:inherit;margin-top:4px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+button{font-family:inherit;font-weight:900;font-size:16px;border:0;border-radius:10px;padding:10px 14px;cursor:pointer;background:#ffc93c;color:#0d2b45}
+button.s{background:#e3ecf4;font-size:14px;padding:7px 10px}
+button.r{background:#fde2e2;color:#a32020}
+button.g{background:#25d366;color:#fff}
+.msg{margin-top:10px;font-weight:800;min-height:22px}
+.err{color:#c62f2f}.ok{color:#1f9c63}
+.al{border:2px solid #e2e8ef;border-radius:12px;padding:12px;margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.al .n{font-weight:900;font-size:18px}
+.al .d{font-size:14px;color:#4a5a6e;font-weight:700}
+.pill{font-size:13px;font-weight:900;padding:3px 9px;border-radius:20px}
+.pill.v{background:#e2f6ec;color:#1f7a4c}.pill.x{background:#fde2e2;color:#a32020}
+.btns{display:flex;flex-wrap:wrap;gap:6px}
+.hide{display:none}
+#buscar{margin-top:0}
+</style>
+</head>
+<body>
+<header><b>INGE<span>NIA</span> · Panel</b><span id="quien"></span></header>
+<main>
+
+<div class="card" id="vLogin">
+  <h2>Entrar como administrador</h2>
+  <label>Correo</label><input id="aEmail" type="email" value="ricardomarcano7.1@gmail.com">
+  <label>Contraseña</label><input id="aPass" type="password">
+  <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+    <button id="bEntrar">Entrar</button>
+    <button class="s" id="bCrearAdmin">Es mi primera vez: crear mi cuenta</button>
+  </div>
+  <div class="msg" id="mLogin"></div>
+</div>
+
+<div id="vPanel" class="hide">
+  <div class="card">
+    <h2>➕ Nuevo alumno</h2>
+    <div class="row">
+      <div><label>Nombre y apellido</label><input id="nNombre" placeholder="María Pérez"></div>
+      <div><label>Usuario (sin espacios)</label><input id="nUsuario" placeholder="mariaperez" autocapitalize="none"></div>
+      <div><label>Contraseña</label><input id="nPass"></div>
+      <div><label>Acceso por</label><select id="nDias"><option value="7">1 semana</option><option value="14">2 semanas</option><option value="30">1 mes</option></select></div>
+    </div>
+    <div style="margin-top:12px"><button id="bNuevo">Crear alumno</button></div>
+    <div class="msg" id="mNuevo"></div>
+  </div>
+
+  <div class="card">
+    <h2>👩‍🎓 Alumnos</h2>
+    <input id="buscar" placeholder="Buscar por nombre o usuario…">
+    <div id="lista"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔐 Llave de las clases</h2>
+    <p style="font-size:15px;color:#4a5a6e;font-weight:600">Es la llave con la que están cifradas las clases. Los alumnos con acceso vigente la reciben solos. Solo se cambia si Claude vuelve a cifrar las clases con otra.</p>
+    <label>Llave actual</label><input id="kClave" autocomplete="off">
+    <div style="margin-top:10px"><button id="bClave">Guardar llave</button></div>
+    <div class="msg" id="mClave"></div>
+  </div>
+</div>
+</main>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, Timestamp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+import { firebaseConfig } from './firebase-config.js';
+import { app, auth, db, correo, DOMINIO } from './fb.js';
+
+const $ = id => document.getElementById(id);
+const say = (el, txt, ok) => { $(el).textContent = txt; $(el).className = 'msg ' + (ok ? 'ok' : 'err'); };
+const app2 = initializeApp(firebaseConfig, 'altas'), auth2 = getAuth(app2);
+const DIA = 864e5;
+const genPass = () => { const s = 'abcdefghjkmnpqrstuvwxyz23456789'; let p = ''; for (let i = 0; i < 8; i++) p += s[Math.floor(Math.random() * s.length)]; return p; };
+$('nPass').value = genPass();
+let ALUMNOS = [];
+
+$('bEntrar').onclick = async () => {
+  try { await signInWithEmailAndPassword(auth, $('aEmail').value.trim(), $('aPass').value); }
+  catch (e) { say('mLogin', 'Correo o contraseña incorrectos.'); }
+};
+$('bCrearAdmin').onclick = async () => {
+  if ($('aPass').value.length < 8) return say('mLogin', 'Escribe una contraseña de al menos 8 caracteres.');
+  try {
+    const r = await createUserWithEmailAndPassword(auth, $('aEmail').value.trim(), $('aPass').value);
+    await sendEmailVerification(r.user);
+    say('mLogin', 'Cuenta creada. Te enviamos un correo: abre el enlace para verificarlo y luego recarga esta página.', true);
+  } catch (e) { say('mLogin', e.code === 'auth/email-already-in-use' ? 'Esa cuenta ya existe: usa Entrar.' : 'No se pudo crear: ' + e.code); }
+};
+
+onAuthStateChanged(auth, async u => {
+  if (!u) { $('vLogin').classList.remove('hide'); $('vPanel').classList.add('hide'); $('quien').textContent = ''; return; }
+  await u.reload();
+  if (!u.emailVerified) {
+    say('mLogin', 'Falta verificar tu correo. Abre el enlace que te llegó (revisa también Spam) y recarga esta página.');
+    try { await sendEmailVerification(u); } catch (e) {}
+    return;
+  }
+  await u.getIdToken(true);
+  $('quien').innerHTML = u.email + ' <button class="s" id="bSalir">Salir</button>';
+  $('bSalir').onclick = () => signOut(auth);
+  try {
+    const k = await getDoc(doc(db, 'secreto', 'clave'));
+    $('kClave').value = k.exists() ? k.data().clave : '';
+  } catch (e) { say('mLogin', 'Esta cuenta no es de administrador o faltan las reglas de seguridad.'); return; }
+  $('vLogin').classList.add('hide'); $('vPanel').classList.remove('hide');
+  cargar();
+});
+
+$('bClave').onclick = async () => {
+  const c = $('kClave').value.trim().toUpperCase();
+  if (!c) return say('mClave', 'Escribe la llave.');
+  await setDoc(doc(db, 'secreto', 'clave'), { clave: c });
+  $('kClave').value = c; say('mClave', 'Llave guardada.', true);
+};
+
+$('bNuevo').onclick = async () => {
+  const nombre = $('nNombre').value.trim(), usuario = $('nUsuario').value.trim().toLowerCase().replace(/\s+/g, ''), pass = $('nPass').value.trim();
+  if (!nombre || !usuario) return say('mNuevo', 'Escribe el nombre y el usuario.');
+  if (!/^[a-z0-9._-]{3,}$/.test(usuario)) return say('mNuevo', 'El usuario solo puede tener letras sin acentos, números, punto o guion (mínimo 3).');
+  if (pass.length < 6) return say('mNuevo', 'La contraseña debe tener al menos 6 caracteres.');
+  $('bNuevo').disabled = true;
+  try {
+    const r = await createUserWithEmailAndPassword(auth2, correo(usuario), pass);
+    const vence = Timestamp.fromMillis(Date.now() + (+$('nDias').value) * DIA);
+    await setDoc(doc(db, 'alumnos', r.user.uid), { nombre, usuario, vence, activo: true, creado: Timestamp.now() });
+    await signOut(auth2);
+    say('mNuevo', `Listo: ${nombre} · usuario ${usuario} · contraseña ${pass}`, true);
+    const txt = `¡Hola ${nombre.split(' ')[0]}! Ya tienes acceso a la plataforma INGENIA 🎉\nEntra en ${location.href.replace(/admin\.html.*$/, '')}\nUsuario: ${usuario}\nContraseña: ${pass}`;
+    const b = document.createElement('button'); b.className = 'g'; b.textContent = '📋 Copiar mensaje para WhatsApp'; b.style.marginTop = '8px';
+    b.onclick = () => { navigator.clipboard.writeText(txt); b.textContent = '✔ Copiado'; };
+    $('mNuevo').appendChild(document.createElement('br')); $('mNuevo').appendChild(b);
+    $('nNombre').value = ''; $('nUsuario').value = ''; $('nPass').value = genPass();
+    cargar();
+  } catch (e) {
+    say('mNuevo', e.code === 'auth/email-already-in-use' ? 'Ese usuario ya existe. Elige otro.' : 'No se pudo crear: ' + (e.code || e.message));
+  }
+  $('bNuevo').disabled = false;
+};
+
+async function cargar() {
+  const s = await getDocs(collection(db, 'alumnos'));
+  ALUMNOS = s.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => a.nombre.localeCompare(b.nombre));
+  pintar();
+}
+$('buscar').oninput = pintar;
+function pintar() {
+  const q = $('buscar').value.trim().toLowerCase(), L = $('lista'); L.innerHTML = '';
+  const v = ALUMNOS.filter(a => !q || a.nombre.toLowerCase().includes(q) || a.usuario.includes(q));
+  if (!v.length) { L.innerHTML = '<p class="msg">Todavía no hay alumnos.</p>'; return; }
+  v.forEach(a => {
+    const vence = a.vence.toDate(), vig = a.activo && vence > new Date();
+    const d = document.createElement('div'); d.className = 'al';
+    d.innerHTML = `<div><div class="n">${a.nombre}</div><div class="d">usuario: ${a.usuario} · vence ${vence.toLocaleDateString('es-VE', { weekday: 'short', day: 'numeric', month: 'short' })}</div></div>
+      <span class="pill ${vig ? 'v' : 'x'}">${vig ? 'Vigente' : a.activo ? 'Vencido' : 'Desactivado'}</span>
+      <div class="btns"><button class="s" data-d="7">+1 semana</button><button class="s" data-d="30">+1 mes</button>
+      <button class="s ${a.activo ? 'r' : ''}" data-t="1">${a.activo ? 'Desactivar' : 'Activar'}</button></div>`;
+    d.querySelectorAll('[data-d]').forEach(b => b.onclick = async () => {
+      const base = Math.max(Date.now(), vence.getTime());
+      await updateDoc(doc(db, 'alumnos', a.id), { vence: Timestamp.fromMillis(base + (+b.dataset.d) * DIA), activo: true });
+      cargar();
+    });
+    d.querySelector('[data-t]').onclick = async () => { await updateDoc(doc(db, 'alumnos', a.id), { activo: !a.activo }); cargar(); };
+    $('lista').appendChild(d);
+  });
+}
+</script>
+</body>
+</html>

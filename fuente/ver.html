@@ -21,7 +21,7 @@ a.b{background:#ffc93c;color:#0d2b45;font-weight:900;text-decoration:none;paddin
 <div id="msg"><h1>INGE<span>NIA</span></h1><p id="t">Abriendo tu clase…</p><div class="bar"><div id="p"></div></div></div>
 <iframe id="f" allow="fullscreen; autoplay" allowfullscreen></iframe>
 <a id="volver" href="./">← Clases</a>
-<script>
+<script type="module">
 const id=new URLSearchParams(location.search).get('c')||'';
 const t=document.getElementById('t'),msg=document.getElementById('msg');
 const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
@@ -38,8 +38,12 @@ async function bajar(url){
   const c=D.clases.find(x=>x.id===id);if(!c)return fallo('Esta clase no existe.');
   document.title='INGENIA · '+c.titulo;
   if(c.gratis){location.replace('c/'+id+'.html');return}
-  let g=null;try{g=JSON.parse(localStorage.getItem('ingenia-clave'))}catch(e){}
-  if(!g||g.salt!==D.salt){location.replace('./#clases');return}
+  t.textContent='Revisando tu acceso…';
+  let FB;try{FB=await import('./fb.js')}catch(e){return fallo('No se pudo conectar. Revisa tu internet.')}
+  const ses=await FB.revisar(await FB.listo());
+  if(ses.estado==='fuera'){location.replace('./#clases');return}
+  if(ses.estado!=='ok')return fallo('Tu acceso venció. Escríbenos por WhatsApp al 0416-2054982 para renovarlo.');
+  const g={clave:ses.clave};
   t.textContent='Abriendo “'+c.titulo+'”…';
   try{
     const data=await bajar('c/'+id+'.bin');
@@ -50,7 +54,7 @@ async function bajar(url){
     const f=document.getElementById('f');
     f.src=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));
     f.onload=()=>{msg.style.display='none';f.style.display='block';document.getElementById('volver').style.display='block'};
-  }catch(e){localStorage.removeItem('ingenia-clave');fallo('Tu clave ya no sirve para esta clase. Vuelve y escribe la clave de esta semana.')}
+  }catch(e){fallo('No se pudo abrir esta clase. Avísanos por WhatsApp al 0416-2054982.')}
 })();
 </script>
 </body>

@@ -36,7 +36,7 @@ iv = os.urandom(12)
 cfg = {"salt": b64(salt), "iter": ITER, "semana": datetime.date.today().isoformat(),
        "check": b64(iv + aes.encrypt(iv, b"INGENIA-OK", None)), "clases": pub}
 open(os.path.join(out, 'datos.json'), 'w', encoding='utf-8').write(json.dumps(cfg, ensure_ascii=False))
-for f in ('index.html', 'ver.html'):
+for f in ('index.html', 'ver.html', 'admin.html', 'fb.js', 'firebase-config.js'):
     shutil.copy(os.path.join(here, f), os.path.join(out, f))
 open(os.path.join(out, '.nojekyll'), 'w').close()
 print('Listo:', out, '-', len(pub), 'clases, clave', clave)

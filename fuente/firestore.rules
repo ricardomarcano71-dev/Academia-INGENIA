@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function esAdmin() {
+      return request.auth != null
+        && request.auth.token.email in ['ricardomarcano7.1@gmail.com']
+        && request.auth.token.email_verified == true;
+    }
+    function alumno() {
+      return get(/databases/$(database)/documents/alumnos/$(request.auth.uid)).data;
+    }
+    function vigente() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/alumnos/$(request.auth.uid))
+        && alumno().activo == true
+        && alumno().vence > request.time;
+    }
+    match /alumnos/{uid} {
+      allow read: if esAdmin() || (request.auth != null && request.auth.uid == uid);
+      allow write: if esAdmin();
+    }
+    match /secreto/{d} {
+      allow read: if esAdmin() || vigente();
+      allow write: if esAdmin();
+    }
+  }
+}
