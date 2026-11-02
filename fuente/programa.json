@@ -448,6 +448,232 @@
        ]
       }
      ]
+    },
+    {
+     "m": "Lenguaje y Lectura",
+     "grados": [
+      {
+       "g": "1.º grado",
+       "temas": [
+        {
+         "t": "La vocal I",
+         "c": [
+          "p1-lec-vocal-i"
+         ]
+        },
+        {
+         "t": "La vocal U"
+        },
+        {
+         "t": "La vocal O"
+        },
+        {
+         "t": "La vocal E"
+        },
+        {
+         "t": "La vocal A"
+        },
+        {
+         "t": "Repaso de las vocales"
+        },
+        {
+         "t": "La letra S"
+        },
+        {
+         "t": "La letra M"
+        },
+        {
+         "t": "La letra L"
+        },
+        {
+         "t": "La letra T"
+        },
+        {
+         "t": "La letra R"
+        },
+        {
+         "t": "La letra P"
+        },
+        {
+         "t": "La letra N"
+        },
+        {
+         "t": "La letra D"
+        },
+        {
+         "t": "La letra F"
+        },
+        {
+         "t": "La letra C: ca, co, cu"
+        },
+        {
+         "t": "La letra Q: que, qui"
+        },
+        {
+         "t": "La letra C: ce, ci"
+        },
+        {
+         "t": "La letra B"
+        },
+        {
+         "t": "La letra V"
+        },
+        {
+         "t": "La letra J"
+        },
+        {
+         "t": "La letra H"
+        },
+        {
+         "t": "La letra Ñ"
+        },
+        {
+         "t": "La letra G: ga, go, gu"
+        },
+        {
+         "t": "Gue, gui"
+        },
+        {
+         "t": "Güe, güi"
+        },
+        {
+         "t": "La letra G: ge, gi"
+        },
+        {
+         "t": "La CH"
+        },
+        {
+         "t": "La LL"
+        },
+        {
+         "t": "La letra Y"
+        },
+        {
+         "t": "La letra K"
+        },
+        {
+         "t": "La letra X"
+        },
+        {
+         "t": "La letra Z"
+        },
+        {
+         "t": "La letra W"
+        },
+        {
+         "t": "Sílabas tr"
+        },
+        {
+         "t": "Sílabas pr"
+        },
+        {
+         "t": "Sílabas fr"
+        },
+        {
+         "t": "Sílabas br"
+        },
+        {
+         "t": "Sílabas gr"
+        },
+        {
+         "t": "Sílabas cr"
+        },
+        {
+         "t": "Sílabas dr"
+        },
+        {
+         "t": "Sílabas pl"
+        },
+        {
+         "t": "Sílabas fl"
+        },
+        {
+         "t": "Sílabas bl"
+        },
+        {
+         "t": "Sílabas gl"
+        },
+        {
+         "t": "Sílabas cl"
+        },
+        {
+         "t": "Sílabas tl"
+        },
+        {
+         "t": "Comprensión 1: útiles, objetos y animales"
+        },
+        {
+         "t": "Comprensión 2: ¿para qué sirven?"
+        },
+        {
+         "t": "Comprensión 3: el cuerpo, frutas y oficios"
+        },
+        {
+         "t": "Comprensión 4: fichas y preguntas"
+        },
+        {
+         "t": "Lectura: La fiesta"
+        },
+        {
+         "t": "Lectura: La gallina"
+        },
+        {
+         "t": "Lectura: Wendy"
+        },
+        {
+         "t": "Lectura: La basura"
+        },
+        {
+         "t": "Lectura: El mosquito"
+        },
+        {
+         "t": "Lectura: Los patitos"
+        },
+        {
+         "t": "Lectura: La familia feliz"
+        },
+        {
+         "t": "Lectura: Los amigos"
+        },
+        {
+         "t": "Lectura: Abuelita"
+        },
+        {
+         "t": "Lectura: La araña"
+        },
+        {
+         "t": "Lectura: Las travesuras de Ernesto"
+        },
+        {
+         "t": "Lectura: Cristina y la abeja"
+        },
+        {
+         "t": "Lectura: La broma de Ángel"
+        },
+        {
+         "t": "Lectura: El campo"
+        },
+        {
+         "t": "Lectura: Las golondrinas"
+        },
+        {
+         "t": "Lectura: El agua"
+        },
+        {
+         "t": "Lectura: La salud"
+        },
+        {
+         "t": "Lectura: El viento"
+        },
+        {
+         "t": "Lectura: El zoológico"
+        },
+        {
+         "t": "Lectura: Los conejos"
+        }
+       ]
+      }
+     ]
     }
    ]
   },
