@@ -245,5 +245,44 @@
   "tipo": "Pizarra con voz",
   "icono": "➖",
   "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-resta.html"
+ },
+ {
+  "id": "p1-mat-figuras",
+  "titulo": "Figuras planas y cuerpos",
+  "desc": "Figuras planas y cuerpos geométricos en 3D: cubo, esfera, cilindro, cono y pirámide.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🔺",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-figuras.html"
+ },
+ {
+  "id": "p1-mat-medidas",
+  "titulo": "Medidas y el dinero",
+  "desc": "Regla, balanza interactiva, capacidad, el reloj y contar bolívares.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📏",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-medidas.html"
+ },
+ {
+  "id": "p1-mat-pictogramas",
+  "titulo": "Pictogramas",
+  "desc": "Recoger datos con palitos, hacer y leer pictogramas, con votación interactiva.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📊",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-pictogramas.html"
  }
 ]

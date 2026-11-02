@@ -43,13 +43,22 @@
          ]
         },
         {
-         "t": "Figuras planas y cuerpos"
+         "t": "Figuras planas y cuerpos",
+         "c": [
+          "p1-mat-figuras"
+         ]
         },
         {
-         "t": "Medidas y el dinero"
+         "t": "Medidas y el dinero",
+         "c": [
+          "p1-mat-medidas"
+         ]
         },
         {
-         "t": "Pictogramas"
+         "t": "Pictogramas",
+         "c": [
+          "p1-mat-pictogramas"
+         ]
         }
        ]
       },
