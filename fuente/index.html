@@ -141,13 +141,65 @@ footer small{display:block;margin-top:10px;opacity:.7}
 .box .err{color:#c62f2f;font-weight:800;min-height:24px;margin-top:8px;font-size:16px}
 .box .x{background:none;border:0;color:#7a8797;font-weight:800;margin-top:10px;cursor:pointer;font-family:inherit;font-size:16px}
 .box .help{font-size:14.5px;margin-top:10px}
+/* ---- mundos: Kids, Teen, Campus ---- */
+.mundos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:26px}
+.mundo{display:flex;flex-direction:column;gap:8px;text-decoration:none;border-radius:26px;padding:26px 22px 22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 14px 30px rgba(13,43,69,.18);transition:transform .15s,box-shadow .15s;min-height:300px}
+.mundo:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(13,43,69,.25)}
+.mundo .em{font-size:58px;line-height:1}
+.mundo h3{font-family:'Baloo 2',sans-serif;font-size:36px;line-height:1;margin-top:6px}
+.mundo h3 small{display:block;font-size:17px;font-family:'Nunito';font-weight:900;opacity:.9;margin-top:4px;letter-spacing:.3px}
+.mundo p{font-weight:700;font-size:17px;flex:1;opacity:.95}
+.mundo .ir{align-self:flex-start;background:#fff;font-weight:900;font-size:17px;padding:11px 18px;border-radius:14px;margin-top:6px}
+.mundo.kids{background:radial-gradient(circle at 90% 8%,#ffd93d 0 46px,transparent 47px),radial-gradient(circle at 12% 95%,#4ecdc4 0 60px,transparent 61px),linear-gradient(150deg,#ff6b6b,#ff8e53)}
+.mundo.kids .ir{color:#e8483f}
+.mundo.teen{background:radial-gradient(circle at 85% 12%,rgba(255,255,255,.18) 0 50px,transparent 51px),linear-gradient(150deg,#6a2ee8,#2f80ed 70%,#00c2d1)}
+.mundo.teen .ir{color:#5326c9}
+.mundo.campus{background:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(160deg,#1c2733,#0f3b46)}
+.mundo.campus .ir{color:#0f3b46}
+@media(max-width:860px){.mundos{grid-template-columns:1fr}.mundo{min-height:0}}
+.mhero{display:none;color:#fff;position:relative;overflow:hidden}
+.mhero .wrap{position:relative;padding-top:30px;padding-bottom:42px}
+.mhero .volver{display:inline-block;font-weight:900;font-size:16px;text-decoration:none;background:rgba(255,255,255,.18);padding:7px 14px;border-radius:30px}
+.mhero h1{font-family:'Baloo 2',sans-serif;font-size:clamp(46px,8vw,86px);line-height:.95;margin:16px 0 8px}
+.mhero h1 small{display:block;font-size:clamp(18px,2.6vw,24px);font-family:'Nunito';font-weight:900;opacity:.92;margin-top:8px}
+.mhero p{font-size:clamp(18px,2.3vw,22px);font-weight:700;max-width:640px;opacity:.95}
+.mhero .cta{margin-top:20px}
+body.m-kids .mhero,body.m-teen .mhero,body.m-campus .mhero{display:block}
+body.m-kids .hero,body.m-teen .hero,body.m-campus .hero,body.m-kids #mundos,body.m-teen #mundos,body.m-campus #mundos,body.m-kids #como,body.m-teen #como,body.m-campus #como{display:none}
+body.portada #clases,body.portada #ask{display:none}
+body.m-kids .ing,body.m-teen .ing{display:none}
+body:not(.portada) #niveles{display:none}
+/* Kids: colorida e infantil */
+body.m-kids{--navy:#5b3cc4;--navy2:#7b5ce0;--yel:#ffd93d;--yel2:#e0a800;background:#fff9ec}
+body.m-kids .mhero{background:radial-gradient(circle at 92% 18%,#ffd93d 0 70px,transparent 71px),radial-gradient(circle at 6% 100%,#4ecdc4 0 110px,transparent 111px),radial-gradient(circle at 70% 110%,#ff6b6b 0 90px,transparent 91px),linear-gradient(150deg,#7b5ce0,#5b3cc4)}
+body.m-kids header{background:#5b3cc4}
+body.m-kids h2.t,body.m-kids .card h3{color:#5b3cc4}
+body.m-kids .card{border-radius:26px;border:3px solid #ffd93d}
+body.m-kids .gr{border-radius:22px;border-color:#ffe08a;background:#fffdf5}
+body.m-kids .gr:nth-of-type(3n+2){border-color:#9be3dc}body.m-kids .gr:nth-of-type(3n){border-color:#ffb3b3}
+body.m-kids .chip{border-radius:16px}
+body.m-kids .cl{border-radius:16px;border-color:#5b3cc4}
+/* Teen: moderna y con energía */
+body.m-teen{--navy:#4b22c2;--navy2:#2f80ed;--yel:#00d2c6;--yel2:#009e95;background:#f3f1ff}
+body.m-teen .mhero{background:radial-gradient(circle at 88% 20%,rgba(0,210,198,.55) 0 120px,transparent 121px),linear-gradient(140deg,#6a2ee8,#2f80ed 75%)}
+body.m-teen header{background:linear-gradient(90deg,#4b22c2,#2f6fd8)}
+body.m-teen .btn.y{color:#fff;background:#00b8ad;box-shadow:0 5px 0 #00877f}
+body.m-teen .gr{border-color:#d8d0ff}
+/* Campus: sobria */
+body.m-campus{--navy:#1c2733;--navy2:#0f3b46;--yel:#3fb7a8;--yel2:#2b8f83;background:#f2f4f6;font-size:17px}
+body.m-campus .mhero{background:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/34px 34px,linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/34px 34px,linear-gradient(160deg,#1c2733,#0f3b46)}
+body.m-campus header{background:#1c2733}
+body.m-campus .btn.y{color:#fff;background:#2b8f83;box-shadow:0 4px 0 #1d6a61}
+body.m-campus .card{background:#fff;background-image:none;border-radius:12px}
+body.m-campus .gr,body.m-campus .chip,body.m-campus .cl,body.m-campus .buscar{border-radius:10px}
+body.m-campus h2.t,body.m-campus .mhero h1{font-family:'Nunito',sans-serif;font-weight:900;letter-spacing:-.5px}
 </style>
 </head>
-<body>
+<body class="portada">
 
 <header><div class="wrap">
-  <a class="logo" href="#">INGE<span>NIA</span></a>
-  <nav><a href="#como">Cómo funciona</a><a href="#muestra">Gratis</a><a href="#clases">Programa</a><a href="herramientas.html">Herramientas</a><a href="#planes">Planes</a><a href="#prueba">Clase gratis</a></nav>
+  <a class="logo" href="#inicio">INGE<span>NIA</span><em id="lmundo" style="font-style:normal;font-size:.62em;margin-left:6px"></em></a>
+  <nav><a href="#kids">Kids</a><a href="#teen">Teen</a><a href="#campus">Campus</a><a href="#muestra">Gratis</a><a href="herramientas.html">Herramientas</a><a href="#planes">Planes</a><a href="#prueba">Clase gratis</a></nav>
   <button class="keypill" id="pill" onclick="pillClick()">🔑 Entrar</button>
 </div></header>
 
@@ -159,7 +211,7 @@ footer small{display:block;margin-top:10px;opacity:.7}
     <span class="ribbon">Clases particulares · Refuerzo escolar · Preparación para exámenes</span>
     <div class="tags"><span class="tag">🎒 Primaria</span><span class="tag">📘 Bachillerato 1.º a 6.º año</span><span class="tag">🎓 Universidad</span><span class="tag">💻 100% online</span></div>
     <div class="cta">
-      <a class="btn y" href="#clases">📚 Ver las clases</a>
+      <a class="btn y" href="#mundos">📚 Ver las clases</a>
       <button class="btn o" onclick="abrirClave()">🔑 Entrar a mis clases</button>
       <button class="btn o" id="instalar" hidden onclick="instalar()">📲 Instalar la app</button>
     </div>
@@ -171,6 +223,23 @@ footer small{display:block;margin-top:10px;opacity:.7}
     <a class="btn wa-link" data-msg="¡Hola INGENIA! Quiero agendar mi primera clase de prueba GRATIS." href="#">💬 Quiero mi clase gratis</a>
   </div>
 </div></div>
+
+<div class="mhero" id="mhero"><div class="wrap">
+  <a class="volver" href="#inicio">← Inicio INGENIA</a>
+  <h1 id="mh1"></h1>
+  <p id="mp"></p>
+  <div class="cta"><a class="btn y" href="#clases">📚 Ver las clases</a><button class="btn o" onclick="abrirClave()">🔑 Entrar a mis clases</button></div>
+</div></div>
+
+<section id="mundos"><div class="wrap">
+  <h2 class="t">Elige tu <span class="y">mundo</span></h2>
+  <p class="lead">Cada nivel tiene su propio espacio, con sus clases, su programa y su estilo.</p>
+  <div class="mundos">
+    <a class="mundo kids" href="#kids"><span class="em">🎈</span><h3>INGENIA Kids<small>Primaria · 1.º a 6.º grado</small></h3><p>Aprender jugando: contar, sumar, leer y descubrir las ciencias con dibujos, voz y figuras 3D.</p><span class="ir">Entrar a Kids →</span></a>
+    <a class="mundo teen" href="#teen"><span class="em">🚀</span><h3>INGENIA Teen<small>Bachillerato · 1.º a 5.º año</small></h3><p>Matemática, Física y Química paso a paso, con ejercicios resueltos para aprobar con confianza.</p><span class="ir">Entrar a Teen →</span></a>
+    <a class="mundo campus" href="#campus"><span class="em">🎓</span><h3>INGENIA Campus<small>Universidad · ciclo básico</small></h3><p>Cálculo, Física y Química de ingeniería (UNEG, UNEXPO, UDO, UCAB, UBA) y tus guías resueltas.</p><span class="ir">Entrar a Campus →</span></a>
+  </div>
+</div></section>
 
 <section id="como"><div class="wrap">
   <h2 class="t">¿Cómo <span class="y">funciona?</span></h2>
@@ -199,12 +268,12 @@ footer small{display:block;margin-top:10px;opacity:.7}
   <p class="empty" id="vacio" hidden>No encontramos ese tema. ¡Pídelo por WhatsApp y te lo preparamos!</p>
 </div></section>
 
-<section style="padding-top:0;background:#fff"><div class="wrap">
+<section id="ask" style="padding-top:0;background:#fff"><div class="wrap">
   <div class="ask">
     <div>
       <h2>¿No está tu tema? 🤔</h2>
       <p>Envíanos por WhatsApp el tema o la foto de tus ejercicios. Te preparamos una clase con los ejercicios resueltos paso a paso y te mandamos el enlace para verla aquí.</p>
-      <p>¿Estudias Ingeniería? Envíanos tu guía de ejercicios y te la resolvemos con explicación interactiva.</p>
+      <p class="ing">¿Estudias Ingeniería? Envíanos tu guía de ejercicios y te la resolvemos con explicación interactiva.</p>
     </div>
     <a class="btn w wa-link" data-msg="¡Hola INGENIA! Necesito una clase sobre este tema:" href="#">💬 Enviar mi tema</a>
   </div>
@@ -322,7 +391,8 @@ const sinTilde=t=>t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 function pintar(){
   const ok=guardada(),C={};DATOS.clases.forEach(c=>C[c.id]=c);
   const g=document.getElementById('gratis');g.innerHTML='';
-  DATOS.clases.filter(c=>c.gratis).sort((a,b)=>(a.orden||99)-(b.orden||99)).forEach(c=>g.appendChild(tarjeta(c,ok)));
+  const MM=MUNDO&&MUNDOS[MUNDO];
+  DATOS.clases.filter(c=>c.gratis&&(!MM||(c.niveles||[]).includes(MM.nivel))).sort((a,b)=>(a.orden||99)-(b.orden||99)).forEach(c=>g.appendChild(tarjeta(c,ok)));
   const q=sinTilde(document.getElementById('buscar').value.trim()),P=document.getElementById('programa');P.innerHTML='';let n=0;
   const niveles=q?PROG.niveles:PROG.niveles.filter(x=>x.n===nivel);
   const NN=PROG.niveles.find(x=>x.n===nivel),no=document.getElementById('nota');no.hidden=!!q||!NN.nota;no.textContent=NN.nota||'';
@@ -339,7 +409,27 @@ function pintar(){
       d.appendChild(r)});
     P.appendChild(d)})));
   document.getElementById('vacio').hidden=n>0;
+  document.getElementById('muestra').hidden=!g.children.length;
 }
+// ---- Mundos: portada, Kids, Teen, Campus (un solo sitio) ----
+const MUNDOS={
+  kids:{nivel:'Primaria',nombre:'Kids',titulo:'INGENIA Kids',sub:'Primaria · 1.º a 6.º grado',txt:'¡Aprender es una aventura! Clases con voz, dibujos y figuras 3D para contar, sumar, leer y descubrir el mundo. 🎈',color:'#5b3cc4'},
+  teen:{nivel:'Bachillerato',nombre:'Teen',titulo:'INGENIA Teen',sub:'Bachillerato · 1.º a 5.º año',txt:'Matemática, Física y Química explicadas paso a paso, con ejercicios resueltos y 3D. Entiende en clase, repasa en casa y aprueba con confianza. 🚀',color:'#4b22c2'},
+  campus:{nivel:'Universidad',nombre:'Campus',titulo:'INGENIA Campus',sub:'Universidad · ciclo básico de ingeniería',txt:'Cálculo, Física, Química y más del ciclo básico de UNEG, UNEXPO, UDO, UCAB y UBA. ¿Tienes una guía de ejercicios? Te la resolvemos con explicación.',color:'#1c2733'}};
+let MUNDO=null;
+function ponerMundo(){
+  const h=location.hash.slice(1);
+  if(h&&h!=='inicio'&&!MUNDOS[h])return;
+  MUNDO=MUNDOS[h]?h:null;const M=MUNDOS[MUNDO];
+  document.body.className=M?'m-'+MUNDO:'portada';
+  document.getElementById('lmundo').textContent=M?M.nombre:'';
+  document.querySelector('meta[name=theme-color]').content=M?M.color:'#0d2b45';
+  document.title=M?M.titulo+' · '+M.sub:'INGENIA · Plataforma de clases online';
+  if(M){document.getElementById('mh1').innerHTML=M.titulo+'<small>'+M.sub+'</small>';document.getElementById('mp').textContent=M.txt;nivel=M.nivel;materia='Todas'}
+  window.scrollTo(0,0);
+  if(PROG){pintarFiltros();pintar()}
+}
+window.addEventListener('hashchange',ponerMundo);ponerMundo();
 
 // ---- App instalable ----
 let PROMPT=null;
