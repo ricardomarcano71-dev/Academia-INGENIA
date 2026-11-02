@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tablas de multiplicar · INGENIA</title>
+<meta name="theme-color" content="#0d2b45">
+<link rel="icon" type="image/png" href="../icono-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Caveat:wght@600&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0d2b45;--yel:#ffc93c;--yel2:#c9971a;--ink:#1d2a3a;--soft:#4a5a6e;--bg:#f4f7fb;--ok:#1f9c63;--bad:#d64545}
+html,body{height:100%}
+body{font-family:'Nunito',Arial,sans-serif;color:var(--ink);background:var(--bg);overflow:hidden}
+header{background:var(--navy);color:#fff;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px}
+.logo{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:22px;text-decoration:none;color:#fff}.logo span{color:var(--yel)}
+header h1{font-size:17px;font-weight:900;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dl{display:flex;gap:6px}
+.dl a{background:var(--yel);color:var(--navy);font-weight:900;font-size:14px;padding:7px 11px;border-radius:10px;text-decoration:none;white-space:nowrap}
+.dl a.o{background:transparent;color:#fff;border:2px solid var(--yel)}
+main{height:calc(100% - 52px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;padding:12px 14px}
+/* cuadrícula */
+.izq{display:flex;flex-direction:column;min-height:0;align-items:center}
+.ops{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:8px}
+.chip{border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:30px;padding:4px 11px;font-weight:900;font-size:13.5px;cursor:pointer;font-family:inherit}
+.chip.on{background:var(--navy);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(11,1fr);gap:3px;aspect-ratio:1;height:100%;max-height:100%;max-width:100%;min-height:0}
+.c{border:0;border-radius:6px;font-family:inherit;font-weight:900;font-size:clamp(11px,1.6vw,22px);color:var(--navy);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .12s;box-shadow:0 1px 2px rgba(13,43,69,.08)}
+.c:hover{transform:scale(1.12);z-index:2}
+.c.h{background:var(--navy);color:var(--yel);font-family:'Baloo 2';font-size:clamp(13px,1.9vw,26px)}
+.c.x0{background:var(--yel);color:var(--navy);font-size:clamp(14px,2vw,28px)}
+.c.fila,.c.col{box-shadow:inset 0 0 0 3px var(--yel2);filter:saturate(1.6)}
+.c.cuad{box-shadow:inset 0 0 0 2px #f2a93b}
+.c.sel{background:var(--yel)!important;color:var(--navy);transform:scale(1.18);z-index:3;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.c.gem{background:#d9f2e6!important;outline:2px dashed var(--ok)}
+.c.mitad{opacity:.25}
+.c.h.on{background:var(--yel);color:var(--navy)}
+/* panel */
+.der{background:#fff;border-radius:18px;box-shadow:0 6px 18px rgba(13,43,69,.1);display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.tabs{display:flex;border-bottom:2px solid #e8edf3}
+.tab{flex:1;border:0;background:none;font-family:inherit;font-weight:900;font-size:15px;padding:10px 4px;color:var(--soft);cursor:pointer;border-bottom:4px solid transparent}
+.tab.on{color:var(--navy);border-bottom-color:var(--yel)}
+.pan{flex:1;min-height:0;padding:12px 16px;display:none;flex-direction:column;gap:8px;overflow:auto}
+.pan.on{display:flex}
+.eq{font-family:'Baloo 2';font-size:clamp(32px,4.4vw,56px);color:var(--navy);line-height:1;text-align:center}
+.eq b{color:var(--yel2)}
+.exp{font-size:16px;font-weight:700;color:#38506a;text-align:center}
+.exp .suma{font-family:'Caveat',cursive;font-size:24px;color:#2a5d8a}
+.arr{flex:1;min-height:90px;display:flex;align-items:center;justify-content:center}
+.arr svg{width:100%;height:100%;max-width:440px}
+.tip{background:#fff8dc;border-left:5px solid var(--yel);padding:8px 12px;border-radius:10px;font-weight:700;font-size:15px}
+.voz{align-self:center;border:2px solid var(--navy);background:#fff;border-radius:20px;padding:4px 12px;font:inherit;font-weight:900;font-size:14px;cursor:pointer;color:var(--navy)}
+.nums{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.nums button{width:40px;height:40px;border-radius:10px;border:2px solid var(--navy);background:#fff;font:inherit;font-weight:900;font-size:18px;color:var(--navy);cursor:pointer}
+.nums button.on{background:var(--navy);color:var(--yel)}
+.lista{display:grid;grid-template-columns:1fr 1fr;gap:3px 18px;font-family:'Baloo 2';font-size:clamp(17px,1.9vw,24px);color:var(--navy)}
+.lista div{display:flex;justify-content:space-between;padding:0 8px;border-radius:8px;cursor:pointer}
+.lista div:hover,.lista div.on{background:#fff3c4}
+.lista i{font-style:normal;color:var(--yel2)}
+.dedos{display:flex;justify-content:center;gap:4px;align-items:flex-end;height:58px}
+.dedos span{width:16px;border-radius:8px 8px 3px 3px;background:#f2c9a0;border:2px solid #c48a5a;height:52px;transition:height .3s}
+.dedos span.baja{height:14px;background:#d64545;border-color:#9e2f2f}
+.dedos em{width:10px}
+.q{font-family:'Baloo 2';font-size:clamp(40px,6vw,70px);color:var(--navy);text-align:center;line-height:1}
+.opc{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opc button{font-family:'Baloo 2';font-size:30px;padding:8px;border-radius:14px;border:3px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:0 4px 0 var(--navy)}
+.opc button:active{transform:translateY(3px);box-shadow:none}
+.opc button.bien{background:var(--ok);border-color:var(--ok);color:#fff;box-shadow:none}
+.opc button.mal{background:var(--bad);border-color:var(--bad);color:#fff;box-shadow:none;opacity:.7}
+.marc{display:flex;justify-content:space-between;font-weight:900;color:var(--soft);font-size:15px}
+.estrellas{color:var(--yel2);letter-spacing:2px}
+.msg{text-align:center;font-weight:800;font-size:17px;min-height:24px}
+.sigq{align-self:center;background:var(--yel);color:var(--navy);border:0;border-radius:14px;padding:10px 22px;font:inherit;font-weight:900;font-size:18px;cursor:pointer;box-shadow:0 4px 0 var(--yel2)}
+@media(max-width:820px){
+ main{display:flex;flex-direction:column;gap:8px;padding:8px}
+ .izq{flex:0 0 auto}
+ .grid{height:auto;width:min(100%,46vh)}
+ .c{font-size:clamp(10px,3.4vw,18px);border-radius:4px}
+ .c.h,.c.x0{font-size:clamp(11px,3.8vw,20px)}
+ .der{flex:1}
+ .pan{padding:8px 12px;gap:6px}
+ .eq{font-size:34px}
+ .exp{font-size:14.5px}.exp .suma{font-size:20px}
+ .tip{font-size:13.5px}
+ .lista{font-size:17px}
+ .q{font-size:46px}.opc button{font-size:26px;padding:4px}
+ header h1{font-size:15px}.dl a{font-size:12.5px;padding:6px 8px}
+ .chip{font-size:12px;padding:3px 8px}.ops{margin-bottom:5px;flex-wrap:nowrap}
+ .nums{gap:4px}.nums button{width:31px;height:31px;font-size:15px;border-radius:8px}
+ .tab{font-size:13.5px;padding:7px 2px}
+}
+@media(max-height:500px) and (orientation:landscape){main{display:grid;height:calc(100% - 52px)}.izq{min-height:0}.grid{height:auto;width:auto;flex:1;min-height:0}.ops{display:none}}
+/* hoja */
+.hoja{display:none}
+body.imprimir{overflow:visible;background:#fff}
+body.imprimir header,body.imprimir main{display:none}
+body.imprimir .hoja{display:flex;flex-direction:column;width:210mm;height:297mm;padding:10mm 11mm;background:#fff}
+.hoja h1{font-family:'Baloo 2';color:var(--navy);font-size:34px;line-height:1;display:flex;justify-content:space-between;align-items:flex-end}
+.hoja h1 small{font-family:'Nunito';font-size:11.5px;color:var(--soft);font-weight:800;text-align:right}
+.hoja .lg{font-family:'Baloo 2';font-weight:800;font-size:16px}.hoja .lg span{color:var(--yel2)}
+.hg{display:grid;grid-template-columns:repeat(11,1fr);gap:2px;width:104mm;margin:4mm auto 0}
+.hg div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;border-radius:3px;color:var(--navy)}
+.hg .h{background:var(--navy);color:var(--yel);font-family:'Baloo 2';font-size:17px}
+.hg .x0{background:var(--yel);color:var(--navy)}
+.hs{display:grid;grid-template-columns:repeat(5,1fr);gap:3mm;margin-top:5mm}
+.hs div{border:2px solid var(--navy);border-radius:8px;padding:2mm 3mm;font-size:13px;font-weight:800;line-height:1.38}
+.hs div b{display:block;text-align:center;background:var(--navy);color:var(--yel);border-radius:5px;margin-bottom:1mm;font-family:'Baloo 2';font-size:15px}
+.hs span{display:flex;justify-content:space-between}
+.hs span i{font-style:normal;color:#b0790c;font-weight:900}
+.htips{margin-top:5mm;display:grid;grid-template-columns:1fr 1fr;gap:2mm 6mm;font-size:11px;font-weight:700;color:#38506a}
+.htips p b{color:var(--navy)}
+.hpie{margin-top:auto;text-align:center;font-family:'Caveat',cursive;font-size:22px;color:#b0790c}
+</style>
+</head>
+<body>
+<header>
+ <a class="logo" href="../herramientas.html" title="Volver a Herramientas">INGE<span>NIA</span></a>
+ <h1>✖️ Tablas de multiplicar</h1>
+ <div class="dl"><a href="descargas/tablas-multiplicar.png" download>🖼 Imagen</a><a class="o" href="descargas/tablas-multiplicar.pdf" download>🖨 PDF</a></div>
+</header>
+<main>
+ <div class="izq">
+  <div class="ops"><button class="chip" id="bMitad">🪄 Solo la mitad hay que aprender</button><button class="chip" id="bCuad">⬛ Cuadrados</button></div>
+  <div class="grid" id="grid"></div>
+ </div>
+ <div class="der">
+  <div class="tabs"><button class="tab on" data-p="pE">👀 Explorar</button><button class="tab" data-p="pT">📋 Tabla del…</button><button class="tab" data-p="pP">🎯 Practicar</button></div>
+  <div class="pan on" id="pE">
+   <div class="eq" id="eq"></div>
+   <div class="exp" id="exp"></div>
+   <div class="arr" id="arr"></div>
+   <div class="tip" id="tipE"></div>
+   <button class="voz" onclick="decir(vozE)">🔊 Escuchar</button>
+  </div>
+  <div class="pan" id="pT">
+   <div class="nums" id="numsT"></div>
+   <div class="lista" id="lista"></div>
+   <div class="dedos" id="dedos" hidden></div>
+   <div class="tip" id="tipT"></div>
+  </div>
+  <div class="pan" id="pP">
+   <div class="nums" id="numsP"></div>
+   <div class="marc"><span id="cont">0 de 0</span><span class="estrellas" id="est"></span><span id="rach">Racha: 0 🔥</span></div>
+   <div class="q" id="q"></div>
+   <div class="opc" id="opc"></div>
+   <div class="msg" id="msg"></div>
+   <div class="arr" id="arrP" style="min-height:0"></div>
+  </div>
+ </div>
+</main>
+<div class="hoja" id="hoja"></div>
+<script>
+const $=id=>document.getElementById(id);
+const COL=['','#ffd6d6','#ffe6c7','#fff1b3','#e0f2c8','#cdeee6','#d6e9ff','#e3dcff','#f6d9f0','#ffe0ec','#e6ecf2'];
+const TIPS={1:'Todo número multiplicado por 1 <b>se queda igual</b>: 1 × 8 = 8. Es como tener 1 sola bolsa de 8 caramelos.',
+2:'La tabla del 2 es <b>el doble</b>: sumas el número consigo mismo. 2 × 7 = 7 + 7 = 14.',
+3:'Cuenta de 3 en 3: 3, 6, 9, 12… Las cifras de cada resultado suman 3, 6 o 9 (por ejemplo 27 → 2 + 7 = 9).',
+4:'<b>Doble del doble</b>: 4 × 7 → el doble de 7 es 14 → el doble de 14 es 28.',
+5:'Siempre termina en <b>0 o 5</b>. Truco: es la mitad de la del 10. 5 × 8 → 80 ÷ 2 = 40.',
+6:'Con números pares termina igual que el número: 6 × <b>4</b> = 2<b>4</b>, 6 × <b>8</b> = 4<b>8</b>. Y es el triple del doble.',
+7:'¡Ya te sabes casi toda! Con las otras tablas aprendiste 7×1 hasta 7×6. Solo te faltan 7×7 = 49, 7×8 = 56 (5, 6, 7, 8 → 56 = 7 × 8) y 7×9 = 63.',
+8:'<b>Doble, doble y doble</b>: 8 × 6 → 12 → 24 → 48. Las terminaciones bajan de 2 en 2: 8, 6, 4, 2, 0.',
+9:'<b>Truco de los dedos</b>: abre las 10 manos… perdón, ¡los 10 dedos! Para 9 × 4 baja el 4.º dedo: quedan 3 a la izquierda (decenas) y 6 a la derecha (unidades) = 36. Las cifras siempre suman 9.',
+10:'Solo <b>agrega un cero</b> al final: 10 × 7 = 70.'};
+const NUM=['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez'];
+let sa=3,sb=4,mitad=false,cuad=false,tabla=0,vozE='';
+// cuadrícula
+const G=$('grid');
+for(let i=0;i<=10;i++)for(let j=0;j<=10;j++){const b=document.createElement('button');b.className='c';b.dataset.i=i;b.dataset.j=j;
+ if(!i&&!j){b.className+=' x0';b.textContent='×';b.onclick=()=>{}}
+ else if(!i||!j){b.className+=' h';b.textContent=i||j;b.onclick=()=>verTabla(i||j)}
+ else{b.textContent=i*j;b.style.background=COL[i];b.dataset.c=COL[i];b.onclick=()=>{sa=i;sb=j;tab('pE');explorar()}}
+ G.appendChild(b)}
+const celda=(i,j)=>G.children[i*11+j];
+function marcar(){[...G.children].forEach(b=>{const i=+b.dataset.i,j=+b.dataset.j;if(!i||!j){b.classList.toggle('on',(tabla&&i==tabla&&!j)||(!tabla&&(i==sa&&!j||j==sb&&!i)));return}
+ b.classList.remove('fila','col','sel','gem');b.classList.toggle('mitad',mitad&&j<i);b.classList.toggle('cuad',cuad&&i==j);
+ if(tabla){if(i==tabla)b.classList.add('fila')}
+ else{if(i==sa&&j<=sb)b.classList.add('fila');if(j==sb&&i<=sa)b.classList.add('col');if(i==sa&&j==sb)b.classList.add('sel');if(i==sb&&j==sa&&sa!=sb)b.classList.add('gem')}})}
+// dibujo de filas de puntos
+function arreglo(a,b,el,anim){const W=Math.max(b,1)*30+20,H=a*30+20;let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+ for(let i=0;i<a;i++){s+=`<rect x="4" y="${8+i*30}" width="${W-8}" height="26" rx="13" fill="${COL[a]}" opacity=".6"><animate attributeName="opacity" from="0" to=".6" dur=".3s" begin="${anim?i*.35:0}s" fill="freeze"/></rect>`;
+  for(let j=0;j<b;j++)s+=`<circle cx="${25+j*30}" cy="${21+i*30}" r="10" fill="#0d2b45" opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".2s" begin="${anim?i*.35+j*.03:0}s" fill="freeze"/></circle>`}
+ el.innerHTML=s+'</svg>'}
+function explorar(){tabla=0;marcar();const r=sa*sb;
+ $('eq').innerHTML=`${sa} × ${sb} = <b>${r}</b>`;
+ $('exp').innerHTML=`Son <b>${sa}</b> fila${sa>1?'s':''} de <b>${sb}</b> puntos.<br><span class="suma">${Array(sa).fill(sb).join(' + ')} = ${r}</span>`;
+ arreglo(sa,sb,$('arr'),true);
+ $('tipE').innerHTML=sa==sb?`⬛ ${sa} × ${sa} es un <b>cuadrado</b>: igual número de filas que de columnas.`:`🔄 <b>El orden no cambia el resultado:</b> ${sb} × ${sa} también es ${r} (la casilla verde). Gira el dibujo y verás ${sb} filas de ${sa}.`;
+ vozE=`${NUM[sa]} por ${NUM[sb]}, ${r}. Son ${NUM[sa]} filas de ${NUM[sb]} puntos.`}
+function verTabla(n){tabla=n;tab('pT',true);[...$('numsT').children].forEach(b=>b.classList.toggle('on',+b.textContent==n));
+ $('lista').innerHTML=[...Array(10)].map((_,k)=>`<div data-k="${k+1}"><span>${n} × ${k+1}</span><i>${n*(k+1)}</i></div>`).join('');
+ [...$('lista').children].forEach(d=>d.onclick=()=>{sa=n;sb=+d.dataset.k;tab('pE');explorar()});
+ $('tipT').innerHTML='💡 '+TIPS[n];$('dedos').hidden=n!=9;if(n==9)dedos(4);marcar();
+ decir(`La tabla del ${NUM[n]}.`)}
+function dedos(k){const D=$('dedos');D.innerHTML='';for(let i=1;i<=10;i++){if(i==6)D.appendChild(document.createElement('em'));const s=document.createElement('span');if(i==k)s.className='baja';s.title='Dedo '+i;s.onclick=()=>{dedos(i);const l=$('lista').children[i-1];[...$('lista').children].forEach(x=>x.classList.toggle('on',x==l));$('tipT').innerHTML=`🖐 Bajaste el dedo ${i}: quedan <b>${i-1}</b> a la izquierda y <b>${10-i}</b> a la derecha → 9 × ${i} = <b>${9*i}</b>. Toca otro dedo.`};D.appendChild(s)}}
+$('numsT').innerHTML=$('numsP').innerHTML=[...Array(10)].map((_,k)=>`<button>${k+1}</button>`).join('');
+[...$('numsT').children].forEach(b=>b.onclick=()=>verTabla(+b.textContent));
+// práctica
+let elegidas=new Set(),bien=0,total=0,racha=0,qa,qb,resp=false;
+[...$('numsP').children].forEach(b=>b.onclick=()=>{const n=+b.textContent;elegidas.has(n)?elegidas.delete(n):elegidas.add(n);b.classList.toggle('on');pregunta()});
+function pregunta(){const L=elegidas.size?[...elegidas]:[2,3,4,5,6,7,8,9];qa=L[Math.random()*L.length|0];qb=1+(Math.random()*10|0);if(Math.random()<.5&&!elegidas.size)[qa,qb]=[qb,qa];resp=false;
+ $('q').textContent=`${qa} × ${qb} = ?`;const r=qa*qb,o=new Set([r]);const cand=[r+qa,r-qa,r+qb,r-qb,r+1,r-1,r+10,(qa+1)*qb,qa*(qb+1)].filter(v=>v>0&&v!=r);
+ while(o.size<4){o.add(cand.length?cand.splice(Math.random()*cand.length|0,1)[0]:r+o.size)}
+ $('opc').innerHTML=[...o].sort(()=>Math.random()-.5).map(v=>`<button>${v}</button>`).join('');
+ [...$('opc').children].forEach(b=>b.onclick=()=>contestar(b));$('msg').textContent=elegidas.size?'':'👆 Elige arriba qué tablas quieres practicar (o practica todas mezcladas).';$('arrP').innerHTML='';
+ sa=qa;sb=qb;tabla=0;marcar();[...G.children].forEach(c=>{if(+c.dataset.i&&+c.dataset.j)c.textContent=c.classList.contains('sel')?'?':''})}
+function contestar(b){if(resp)return;const r=qa*qb;total++;
+ if(+b.textContent==r){resp=true;bien++;racha++;b.classList.add('bien');const fr=['¡Excelente!','¡Muy bien!','¡Eso es!','¡Genial!','¡Lo lograste!'];$('msg').innerHTML=`<span style="color:var(--ok)">✅ ${fr[Math.random()*5|0]} ${qa} × ${qb} = ${r}</span>`;decir(`¡Muy bien! ${NUM[qa]} por ${NUM[qb]}, ${r}.`);setTimeout(pregunta,1600)}
+ else{racha=0;b.classList.add('mal');$('msg').innerHTML=`<span style="color:var(--bad)">Casi. Mira el dibujo: cuenta ${qa} fila${qa>1?'s':''} de ${qb}.</span>`;arreglo(qa,qb,$('arrP'),true)}
+ $('cont').textContent=`${bien} de ${total} bien`;$('rach').textContent=`Racha: ${racha} 🔥`;$('est').textContent='★'.repeat(Math.min(5,Math.floor(racha/2)));marcar();[...G.children].forEach(c=>{if(+c.dataset.i&&+c.dataset.j)c.textContent=''});celda(qa,qb).textContent=resp?r:'?'}
+// pestañas y voz
+function tab(p,silencio){document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.p==p));document.querySelectorAll('.pan').forEach(x=>x.classList.toggle('on',x.id==p));
+ if(p!='pP')[...G.children].forEach(c=>{const i=+c.dataset.i,j=+c.dataset.j;if(i&&j)c.textContent=i*j})}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{tab(t.dataset.p);if(t.dataset.p=='pE')explorar();if(t.dataset.p=='pT')verTabla(tabla||sa);if(t.dataset.p=='pP')pregunta()});
+function decir(t){if(!window.speechSynthesis||document.body.classList.contains('imprimir'))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='es-VE';const v=speechSynthesis.getVoices();u.voice=v.find(x=>/es[-_](VE|MX|US|419)/i.test(x.lang))||v.find(x=>x.lang.startsWith('es'))||null;u.rate=.95;speechSynthesis.speak(u)}
+$('bMitad').onclick=e=>{mitad=!mitad;e.target.classList.toggle('on',mitad);marcar();if(mitad){tab('pE');$('tipE').innerHTML='🪄 Como 3 × 4 = 4 × 3, la mitad gris <b>ya te la sabes</b>. ¡Solo hay que aprender 55 resultados, no 100!'}};
+$('bCuad').onclick=e=>{cuad=!cuad;e.target.classList.toggle('on',cuad);marcar();if(cuad){tab('pE');$('tipE').innerHTML='⬛ La diagonal son los <b>cuadrados</b>: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100. Se forman con puntos en forma de cuadrado.'}};
+// hoja para imprimir
+function hoja(){let g='';for(let i=0;i<=10;i++)for(let j=0;j<=10;j++)g+=!i&&!j?'<div class="x0">×</div>':!i||!j?`<div class="h">${i||j}</div>`:`<div style="background:${COL[i]}">${i*j}</div>`;
+ const t=[...Array(10)].map((_,n)=>`<div><b>Tabla del ${n+1}</b>${[...Array(10)].map((_,k)=>`<span>${n+1} × ${k+1} =<i>${(n+1)*(k+1)}</i></span>`).join('')}</div>`).join('');
+ const tp=[2,4,5,9].map(n=>`<p><b>Tabla del ${n}:</b> ${TIPS[n].replace(/<[^>]+>/g,'').replace('abre las 10 manos… perdón, ¡los 10 dedos! ','')}</p>`).join('');
+ $('hoja').innerHTML=`<h1><span>Tablas de multiplicar</span><small><span class="lg">INGE<span>NIA</span></span><br>Aquí sí se entiende · WhatsApp 0416-2054982</small></h1>
+ <div class="hg">${g}</div><div class="hs">${t}</div><div class="htips">${tp}<p><b>Recuerda:</b> el orden no cambia el resultado (3 × 4 = 4 × 3), así que solo hay que aprender la mitad.</p></div>
+ <div class="hpie">Entiende en clase. Repasa en casa. Aprueba con confianza.</div>`}
+if(/[?&](imprimir|hoja)/.test(location.search)){document.body.classList.add('imprimir');hoja()}else explorar();
+</script>
+</body>
+</html>
