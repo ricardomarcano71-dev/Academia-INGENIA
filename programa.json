@@ -66,28 +66,52 @@
        "g": "2.º grado",
        "temas": [
         {
-         "t": "Números hasta 1.000"
+         "t": "Números hasta 1.000",
+         "c": [
+          "p2-mat-numeros"
+         ]
         },
         {
-         "t": "Series que suben y bajan"
+         "t": "Series que suben y bajan",
+         "c": [
+          "p2-mat-series"
+         ]
         },
         {
-         "t": "Valor posicional hasta los millares"
+         "t": "Valor posicional hasta los millares",
+         "c": [
+          "p2-mat-valor-millar"
+         ]
         },
         {
-         "t": "La suma y sus propiedades"
+         "t": "La suma y sus propiedades",
+         "c": [
+          "p2-mat-suma"
+         ]
         },
         {
-         "t": "La resta"
+         "t": "La resta",
+         "c": [
+          "p2-mat-resta"
+         ]
         },
         {
-         "t": "Introducción a la multiplicación"
+         "t": "Introducción a la multiplicación",
+         "c": [
+          "p2-mat-multiplicacion"
+         ]
         },
         {
-         "t": "Medidas de longitud, masa, capacidad y tiempo"
+         "t": "Medidas de longitud, masa, capacidad y tiempo",
+         "c": [
+          "p2-mat-medidas"
+         ]
         },
         {
-         "t": "Gráficos de barras"
+         "t": "Gráficos de barras",
+         "c": [
+          "p2-mat-barras"
+         ]
         }
        ]
       },
@@ -254,13 +278,22 @@
        "g": "2.º grado",
        "temas": [
         {
-         "t": "El ciclo del agua"
+         "t": "El ciclo del agua",
+         "c": [
+          "p2-cie-ciclo-agua"
+         ]
         },
         {
-         "t": "El petróleo y sus derivados"
+         "t": "El petróleo y sus derivados",
+         "c": [
+          "p2-cie-petroleo"
+         ]
         },
         {
-         "t": "Energía renovable y no renovable"
+         "t": "Energía renovable y no renovable",
+         "c": [
+          "p2-cie-energias"
+         ]
         }
        ]
       },
