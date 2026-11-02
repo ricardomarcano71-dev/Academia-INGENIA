@@ -14,19 +14,26 @@ export const correo = u => { u = u.trim().toLowerCase(); return u.includes('@') 
 export const PLANES = ['primaria', 'teen', 'campus'];
 export const NOMBRE_PLAN = { primaria: 'INGENIA Kids (primaria)', teen: 'INGENIA Teen (bachillerato)', campus: 'INGENIA Campus (universidad)' };
 export const PLAN_DE_NIVEL = { Primaria: 'primaria', Bachillerato: 'teen', Universidad: 'campus' };
-export const planesDeClase = c => [...new Set((c.niveles || []).map(n => PLAN_DE_NIVEL[n]).filter(Boolean))];
+// Colegios ("Mi colegio"): cada uno tiene su llave (secreto/col-<id>); el alumno la recibe si su ficha tiene el colegio en "colegios"
+export const COLEGIOS = { idea: 'col-idea', fatima: 'col-fatima' };
+export const NOMBRE_COLEGIO = { idea: 'Colegio IDEA (1.º grado)', fatima: 'Colegio Nra. Sra. de Fátima' };
+export const ADMIN = 'ricardomarcano7.1@gmail.com';
+export const planesDeClase = c => [...new Set((c.niveles || []).map(n => PLAN_DE_NIVEL[n]).concat((c.colegios || []).map(x => COLEGIOS[x])).filter(Boolean))];
 
-// Devuelve {estado:'fuera'|'vencido'|'ok', alumno, planes, llaves:{plan:[clave, anterior]}}
+// Devuelve {estado:'fuera'|'vencido'|'ok', alumno, planes, colegios:['idea'…], llaves:{plan:[clave, anterior]}}
 export async function revisar(user) {
   if (!user) return { estado: 'fuera' };
   let alumno = null;
   try { const a = await getDoc(doc(db, 'alumnos', user.uid)); alumno = a.exists() ? a.data() : null; } catch (e) {}
   const planes = (alumno && Array.isArray(alumno.planes)) ? alumno.planes : PLANES, llaves = {};
-  await Promise.all(planes.map(async p => {
+  // colegios del alumno (el administrador ve todos)
+  const colegios = user.email === ADMIN ? Object.values(COLEGIOS) : ((alumno && Array.isArray(alumno.colegios)) ? alumno.colegios : []);
+  await Promise.all(planes.concat(colegios).map(async p => {
     try { const s = await getDoc(doc(db, 'secreto', p)); if (s.exists()) { const d = s.data(); llaves[p] = [d.clave, d.anterior].filter(Boolean); } } catch (e) {}
   }));
-  if (Object.keys(llaves).length) return { estado: 'ok', alumno, planes, llaves };
-  return { estado: 'vencido', alumno, planes };
+  const cols = Object.keys(COLEGIOS).filter(c => colegios.includes(COLEGIOS[c]));
+  if (Object.keys(llaves).length) return { estado: 'ok', alumno, planes, colegios: cols, llaves };
+  return { estado: 'vencido', alumno, planes, colegios: cols };
 }
 export const listo = () => new Promise(r => { const off = onAuthStateChanged(auth, u => { off(); r(u); }); });
 export const entrar = (u, p) => signInWithEmailAndPassword(auth, correo(u), p);
@@ -56,6 +63,25 @@ export function resumen(accesos) {
 export async function accesosDe(uid, n = 40) {
   const s = await getDocs(query(collection(db, 'alumnos', uid, 'accesos'), orderBy('t', 'desc'), limit(n)));
   return s.docs.map(d => d.data());
+}
+// Cuentas de profesor: no vencen y quedan amarradas a sus primeros LIMITE_PROF dispositivos
+export const LIMITE_PROF = 2;
+export const esProfesor = a => !!a && a.rol === 'profesor';
+// Dispositivos de la cuenta en el orden en que entraron por primera vez (los permitidos son los primeros)
+export function equiposEnOrden(accesos) {
+  const primero = new Map();
+  accesos.forEach(a => { const t = a.t && a.t.toMillis ? a.t.toMillis() : Date.now(); if (!primero.has(a.disp) || t < primero.get(a.disp)) primero.set(a.disp, t); });
+  return [...primero.entries()].sort((x, y) => x[1] - y[1]).map(x => x[0]);
+}
+// ¿Este dispositivo puede abrir clases con esta cuenta de profesor? (registra el acceso antes)
+export async function equipoPermitido(user, clase) {
+  try {
+    await addDoc(collection(db, 'alumnos', user.uid, 'accesos'), { disp: dispositivo(), equipo: equipo(), ip: await miIP(), clase: clase || '', t: serverTimestamp() });
+    // los primeros 100 accesos (en orden de llegada) bastan para saber cuáles fueron sus 2 primeros equipos, y gastan menos lecturas
+    const s = await getDocs(query(collection(db, 'alumnos', user.uid, 'accesos'), orderBy('t', 'asc'), limit(100)));
+    const orden = equiposEnOrden(s.docs.map(d => d.data()));
+    return orden.indexOf(dispositivo()) < LIMITE_PROF;
+  } catch (e) { return true; }
 }
 // Registra el acceso actual y devuelve el resumen (para avisar al alumno)
 export async function registrar(user, clase) {
