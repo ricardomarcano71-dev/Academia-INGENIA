@@ -14,19 +14,26 @@ export const correo = u => { u = u.trim().toLowerCase(); return u.includes('@') 
 export const PLANES = ['primaria', 'teen', 'campus'];
 export const NOMBRE_PLAN = { primaria: 'INGENIA Kids (primaria)', teen: 'INGENIA Teen (bachillerato)', campus: 'INGENIA Campus (universidad)' };
 export const PLAN_DE_NIVEL = { Primaria: 'primaria', Bachillerato: 'teen', Universidad: 'campus' };
-export const planesDeClase = c => [...new Set((c.niveles || []).map(n => PLAN_DE_NIVEL[n]).filter(Boolean))];
+// Colegios ("Mi colegio"): cada uno tiene su llave (secreto/col-<id>); el alumno la recibe si su ficha tiene el colegio en "colegios"
+export const COLEGIOS = { idea: 'col-idea', fatima: 'col-fatima' };
+export const NOMBRE_COLEGIO = { idea: 'Colegio IDEA (1.º grado)', fatima: 'Colegio Nra. Sra. de Fátima' };
+export const ADMIN = 'ricardomarcano7.1@gmail.com';
+export const planesDeClase = c => [...new Set((c.niveles || []).map(n => PLAN_DE_NIVEL[n]).concat((c.colegios || []).map(x => COLEGIOS[x])).filter(Boolean))];
 
-// Devuelve {estado:'fuera'|'vencido'|'ok', alumno, planes, llaves:{plan:[clave, anterior]}}
+// Devuelve {estado:'fuera'|'vencido'|'ok', alumno, planes, colegios:['idea'…], llaves:{plan:[clave, anterior]}}
 export async function revisar(user) {
   if (!user) return { estado: 'fuera' };
   let alumno = null;
   try { const a = await getDoc(doc(db, 'alumnos', user.uid)); alumno = a.exists() ? a.data() : null; } catch (e) {}
   const planes = (alumno && Array.isArray(alumno.planes)) ? alumno.planes : PLANES, llaves = {};
-  await Promise.all(planes.map(async p => {
+  // colegios del alumno (el administrador ve todos)
+  const colegios = user.email === ADMIN ? Object.values(COLEGIOS) : ((alumno && Array.isArray(alumno.colegios)) ? alumno.colegios : []);
+  await Promise.all(planes.concat(colegios).map(async p => {
     try { const s = await getDoc(doc(db, 'secreto', p)); if (s.exists()) { const d = s.data(); llaves[p] = [d.clave, d.anterior].filter(Boolean); } } catch (e) {}
   }));
-  if (Object.keys(llaves).length) return { estado: 'ok', alumno, planes, llaves };
-  return { estado: 'vencido', alumno, planes };
+  const cols = Object.keys(COLEGIOS).filter(c => colegios.includes(COLEGIOS[c]));
+  if (Object.keys(llaves).length) return { estado: 'ok', alumno, planes, colegios: cols, llaves };
+  return { estado: 'vencido', alumno, planes, colegios: cols };
 }
 export const listo = () => new Promise(r => { const off = onAuthStateChanged(auth, u => { off(); r(u); }); });
 export const entrar = (u, p) => signInWithEmailAndPassword(auth, correo(u), p);

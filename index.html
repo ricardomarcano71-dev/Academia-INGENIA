@@ -230,13 +230,36 @@ body.m-campus .btn.y{color:#fff;background:#2b8f83;box-shadow:0 4px 0 #1d6a61}
 body.m-campus .card{background:#fff;background-image:none;border-radius:12px}
 body.m-campus .gr,body.m-campus .chip,body.m-campus .cl,body.m-campus .buscar{border-radius:10px}
 body.m-campus h2.t,body.m-campus .mhero h1{font-family:'Nunito',sans-serif;font-weight:900;letter-spacing:-.5px}
+/* Mi colegio */
+.colband{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:26px;background:#fff;border:3px dashed #cfd8e3;border-radius:22px;padding:18px 20px}
+.colband h3{font-size:22px;color:var(--navy)}.colband p{font-weight:700;color:#4a5a6e;font-size:16px}
+.coles{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:22px}
+.cole{display:flex;flex-direction:column;gap:6px;text-decoration:none;border-radius:22px;padding:22px 20px;color:#fff;box-shadow:0 10px 24px rgba(13,43,69,.18);transition:transform .15s}
+.cole:hover{transform:translateY(-3px)}.cole .em{font-size:44px;line-height:1}.cole h3{font-family:'Baloo 2',sans-serif;font-size:26px;line-height:1.05}
+.cole small{font-weight:800;opacity:.9;font-size:15px}.cole .ir{margin-top:8px;align-self:flex-start;background:#fff;color:var(--navy);font-weight:900;font-size:15px;border-radius:30px;padding:6px 14px}
+#micolegio{display:none;padding-top:0}
+body.m-colegio #micolegio{display:block}
+body.m-colegio .hero,body.m-colegio #mundos,body.m-colegio #como,body.m-colegio #muestra,body.m-colegio #clases,body.m-colegio #ask,body.m-colegio #herramientas,body.m-colegio #planes{display:none}
+.chero{color:#fff;border-radius:0 0 28px 28px;padding:26px 0 30px;margin-bottom:26px;background:linear-gradient(150deg,var(--c1,#0d2b45),var(--c2,#123a5c))}
+.chero .volver{display:inline-block;font-weight:900;font-size:16px;text-decoration:none;background:rgba(255,255,255,.18);padding:7px 14px;border-radius:30px;color:#fff}
+.chero h1{font-family:'Baloo 2',sans-serif;font-size:clamp(36px,6vw,64px);line-height:1;margin:14px 0 6px}
+.chero h1 small{display:block;font-family:'Nunito';font-size:clamp(17px,2.3vw,22px);font-weight:900;opacity:.92;margin-top:6px}
+.chero p{font-size:clamp(17px,2.1vw,20px);font-weight:700;max-width:640px;opacity:.95}
+.chero .fila{display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between}
+.pizarrita{background:#fbfdff;color:#1d2a3a;border:10px solid #c7ced6;border-radius:12px;padding:12px 18px;font-family:'Caveat',cursive;font-size:26px;line-height:1.2;box-shadow:inset 0 0 18px rgba(0,0,0,.08),0 10px 24px rgba(0,0,0,.25);transform:rotate(-1.5deg);min-width:240px}
+.pizarrita em{display:block;font-family:'Nunito';font-style:normal;font-size:12px;font-weight:900;color:#8a96a6;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.cdia{margin-top:28px;font-family:'Baloo 2',sans-serif;font-size:24px;color:var(--navy);display:flex;align-items:center;gap:10px}
+.cdia:after{content:"";flex:1;height:3px;border-radius:3px;background:#e2e8ef}
+.caviso{margin-top:18px;background:#fff8e1;border:2px solid var(--yel);border-radius:16px;padding:14px 16px;font-weight:800;color:#5c4400;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.caviso .btn{font-size:16px;padding:10px 16px}
+@media(max-width:560px){.pizarrita{font-size:21px;min-width:0;width:100%}.chero h1 small{font-size:15px}}
 </style>
 </head>
 <body class="portada">
 
 <header><div class="wrap">
   <a class="logo" href="#inicio">INGE<span>NIA</span><em id="lmundo" style="font-style:normal;font-size:.62em;margin-left:6px"></em></a>
-  <nav><a href="#kids">Kids</a><a href="#teen">Teen</a><a href="#campus">Campus</a><a href="#muestra">Gratis</a><a href="herramientas.html">Herramientas</a><a href="#planes">Planes</a><a href="#prueba">Clase gratis</a></nav>
+  <nav><a href="#kids">Kids</a><a href="#teen">Teen</a><a href="#campus">Campus</a><a href="#colegio">Mi colegio</a><a href="#muestra">Gratis</a><a href="herramientas.html">Herramientas</a><a href="#planes">Planes</a><a href="#prueba">Clase gratis</a></nav>
   <button class="keypill" id="pill" onclick="pillClick()">🔑 Entrar</button>
 </div></header>
 
@@ -254,6 +277,7 @@ body.m-campus h2.t,body.m-campus .mhero h1{font-family:'Nunito',sans-serif;font-
     <div class="cta">
       <a class="btn y" href="#mundos">📚 Ver las clases</a>
       <button class="btn o" onclick="abrirClave()">🔑 Entrar a mis clases</button>
+      <a class="btn o" href="#colegio">🏫 Mi colegio</a>
       <button class="btn o inst" id="instalar" hidden onclick="instalar()">📲 Instalar la app en tu teléfono</button>
     </div>
   </div>
@@ -280,7 +304,10 @@ body.m-campus h2.t,body.m-campus .mhero h1{font-family:'Nunito',sans-serif;font-
     <a class="mundo teen" href="#teen"><span class="em">🚀</span><h3>INGENIA Teen<small>Bachillerato · 1.º a 5.º año</small></h3><p>Matemática, Física y Química paso a paso, con ejercicios resueltos para aprobar con confianza.</p><span class="ir">Entrar a Teen →</span></a>
     <a class="mundo campus" href="#campus"><span class="em">🎓</span><h3>INGENIA Campus<small>Universidad · ciclo básico</small></h3><p>Cálculo, Física y Química de ingeniería (UNEG, UNEXPO, UDO, UCAB, UBA) y tus guías resueltas.</p><span class="ir">Entrar a Campus →</span></a>
   </div>
+  <div class="colband"><div><h3>🏫 ¿Vienes de un colegio con INGENIA?</h3><p>Elige tu colegio y encuentra las clases y tareas de tu salón, en orden de fecha.</p></div><a class="btn y" href="#colegio">🏫 Mi colegio</a></div>
 </div></section>
+
+<section id="micolegio"><div id="chero"></div><div class="wrap" id="ccuerpo"></div></section>
 
 <section id="como"><div class="wrap">
   <h2 class="t">¿Cómo <span class="y">funciona?</span></h2>
@@ -393,7 +420,8 @@ document.querySelectorAll('.wa-link').forEach(a=>{a.href='https://wa.me/'+WA+'?t
 let DATOS=null, PROG=null, pendiente=null, nivel='Bachillerato', materia='Todas', SES={estado:'fuera'};
 function guardada(){return SES.estado==='ok'}
 const PLAN_DE_NIVEL={Primaria:'primaria',Bachillerato:'teen',Universidad:'campus'},NOMBRE_PLAN={primaria:'INGENIA Kids',teen:'INGENIA Teen',campus:'INGENIA Campus'};
-const planesDe=c=>[...new Set((c.niveles||[]).map(n=>PLAN_DE_NIVEL[n]).filter(Boolean))];
+const COL_PLAN={idea:'col-idea',fatima:'col-fatima'};
+const planesDe=c=>[...new Set((c.niveles||[]).map(n=>PLAN_DE_NIVEL[n]).concat((c.colegios||[]).map(x=>COL_PLAN[x])).filter(Boolean))];
 // ¿Puede abrir esta clase? Gratis siempre; las demás solo si su plan incluye el nivel de la clase
 function puede(c){return !!c.gratis||(SES.estado==='ok'&&planesDe(c).some(p=>SES.llaves&&SES.llaves[p]))}
 function pintarPill(){const p=document.getElementById('pill');p.classList.toggle('ok',SES.estado==='ok');
@@ -415,7 +443,7 @@ async function probar(){
 function abrir(c){
   if(c.gratis){location.href='c/'+c.id+'.html';return}
   if(SES.estado!=='ok'){abrirClave(c.id);return}
-  if(!puede(c)){const ps=planesDe(c).map(p=>NOMBRE_PLAN[p]).join(' o ');
+  if(!puede(c)){const ps=planesDe(c).map(p=>NOMBRE_PLAN[p]||'los alumnos de '+((DATOS.colegios||[]).find(k=>COL_PLAN[k.id]===p)||{}).corto).join(' o ');
     if(confirm('Esta clase es de '+ps+' y tu plan no la incluye.\n\n¿Quieres pedir por WhatsApp que te agreguemos ese nivel?'))window.open('https://wa.me/'+WA+'?text='+encodeURIComponent('¡Hola INGENIA! Quiero agregar '+ps+' a mi plan.'),'_blank');return}
   location.href='ver.html?c='+c.id;
 }
@@ -436,7 +464,39 @@ function pintarFiltros(){
   ['Todas'].concat(N.materias.map(m=>m.m)).forEach(m=>mk(m==='Todas'?'Todas las materias':m,materia===m,()=>{materia=m;pintarFiltros();pintar()}));
 }
 const sinTilde=t=>t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+// ---- Mi colegio: una página por colegio con sus clases por fecha ----
+let COLEGIO=null;
+const DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function fechaLarga(f){if(!f)return 'Sin fecha';const [a,m,d]=f.split('-').map(Number),x=new Date(a,m-1,d);const t=DIAS[x.getDay()]+' '+d+' de '+MESES[m-1]+' de '+a;return t[0].toUpperCase()+t.slice(1)}
+function pintarColegio(){
+  const H=document.getElementById('chero'),B=document.getElementById('ccuerpo'),L=DATOS.colegios||[],mios=SES.colegios||[];
+  const K=COLEGIO&&L.find(x=>x.id===COLEGIO);
+  if(!K){
+    if(COLEGIO===null&&mios.length===1&&!SES.vistoCol){SES.vistoCol=1;location.replace('#colegio/'+mios[0]);return}
+    document.title='Mi colegio · INGENIA';document.documentElement.style.removeProperty('--c1');
+    H.innerHTML=`<div class="chero"><div class="wrap"><a class="volver" href="#inicio">← Inicio INGENIA</a><h1>🏫 Mi colegio<small>Elige tu colegio</small></h1><p>Cada colegio tiene su espacio con las clases y tareas de su salón, en orden de fecha y con el encabezado como lo escriben en la pizarra.</p></div></div>`;
+    B.innerHTML='<div class="coles"></div><p class="lead" style="margin-top:22px">¿Tu colegio no está? <a class="wa-link" target="_blank" rel="noopener" href="https://wa.me/'+WA+'?text='+encodeURIComponent('¡Hola INGENIA! Quiero clases para mi colegio.')+'"><b>Escríbenos por WhatsApp</b></a> y lo agregamos.</p>';
+    L.forEach(k=>{const a=document.createElement('a');a.className='cole';a.href='#colegio/'+k.id;a.style.background=`linear-gradient(150deg,${k.color},${k.color2})`;
+      const n=DATOS.clases.filter(c=>(c.colegios||[]).includes(k.id)).length;
+      a.innerHTML=`<span class="em">${k.icono}</span><h3>${esc(k.corto)}</h3><small>${esc(k.ciudad)} · ${esc(k.grupo)}</small><small>${n} ${n===1?'clase':'clases'}${mios.includes(k.id)?' · ✔ tu colegio':''}</small><span class="ir">Entrar →</span>`;
+      B.querySelector('.coles').appendChild(a)});
+    return;
+  }
+  document.title=K.corto+' · Mi colegio · INGENIA';
+  H.innerHTML=`<div class="chero" style="--c1:${K.color};--c2:${K.color2}"><div class="wrap"><a class="volver" href="#colegio">← Mi colegio</a>
+    <div class="fila"><div><h1>${K.icono} ${esc(K.corto)}<small>${esc(K.nombre)} · ${esc(K.ciudad)} · ${esc(K.grupo)}</small></h1><p>${esc(K.txt)}</p></div>
+    <div class="pizarrita"><em>Así empieza cada clase</em>${K.encabezado.map(esc).join('<br>')}</div></div></div></div>`;
+  const cs=DATOS.clases.filter(c=>(c.colegios||[]).includes(K.id)).sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||'')||a.titulo.localeCompare(b.titulo));
+  B.innerHTML='';
+  if(SES.estado!=='ok'){const v=document.createElement('div');v.className='caviso';v.innerHTML='<span>🔑 Entra con tu usuario para abrir las clases de tu colegio.</span>';const b=document.createElement('button');b.className='btn y';b.textContent='Entrar';b.onclick=()=>abrirClave();v.appendChild(b);B.appendChild(v)}
+  else if(!mios.includes(K.id)){const v=document.createElement('div');v.className='caviso';v.innerHTML='<span>Estas clases son solo para los alumnos del '+esc(K.corto)+'. ¿Estudias ahí?</span><a class="btn y" target="_blank" rel="noopener" href="https://wa.me/'+WA+'?text='+encodeURIComponent('¡Hola INGENIA! Estudio en el '+K.corto+' y quiero ver sus clases.')+'">Pídelo por WhatsApp</a>';B.appendChild(v)}
+  if(!cs.length){B.insertAdjacentHTML('beforeend','<p class="empty">Todavía no hay clases de este colegio. ¡Muy pronto!</p>');return}
+  let dia=null,g=null;
+  cs.forEach(c=>{if(c.fecha!==dia){dia=c.fecha;const h=document.createElement('h3');h.className='cdia';h.textContent='📅 '+fechaLarga(dia);B.appendChild(h);g=document.createElement('div');g.className='grid';B.appendChild(g)}
+    g.appendChild(tarjeta(c,guardada()))});
+}
 function pintar(){
+  if(document.body.classList.contains('m-colegio'))return pintarColegio();
   const ok=guardada(),C={};DATOS.clases.forEach(c=>C[c.id]=c);
   const g=document.getElementById('gratis');g.innerHTML='';
   const MM=MUNDO&&MUNDOS[MUNDO];
@@ -513,6 +573,8 @@ const MUNDOS={
 let MUNDO=null;
 function ponerMundo(){
   const partes=location.hash.slice(1).split('/').map(x=>{try{return decodeURIComponent(x)}catch(e){return x}}),h=partes[0];
+  if(h==='colegio'){MUNDO=null;RUTA=[];COLEGIO=partes[1]||null;document.body.className='m-colegio';document.getElementById('lmundo').textContent='Colegio';
+    document.querySelector('meta[name=theme-color]').content='#0d2b45';if(DATOS)pintar();window.scrollTo(0,0);return}
   if(h&&h!=='inicio'&&!MUNDOS[h])return;
   const antes=MUNDO;MUNDO=MUNDOS[h]?h:null;const M=MUNDOS[MUNDO];RUTA=M?partes.slice(1).filter(Boolean):[];
   document.body.className=M?'m-'+MUNDO:'portada';

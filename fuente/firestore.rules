@@ -31,8 +31,13 @@ service cloud.firestore {
     function planes() {
       return alumno().get('planes', ['primaria', 'teen', 'campus']);
     }
+    // Mi colegio: cada colegio tiene su llave (secreto/col-idea, secreto/col-fatima…); la lee quien tenga
+    // ese plan en alumnos/{uid}.colegios (lo marca el panel). Sin ese campo, ningún colegio.
+    function colegios() {
+      return alumno().get('colegios', []);
+    }
     match /secreto/{d} {
-      allow read: if esAdmin() || (vigente() && d in planes());
+      allow read: if esAdmin() || (vigente() && (d in planes() || d in colegios()));
       allow write: if esAdmin();
     }
   }

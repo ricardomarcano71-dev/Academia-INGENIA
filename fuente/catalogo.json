@@ -830,5 +830,20 @@
   "tipo": "Pizarra con voz",
   "icono": "📐",
   "archivo": "clases-programa/bachillerato/4-ano/matematica/b4-mat-inec-ejercicios.html"
+ },
+ {
+  "id": "idea-2026-11-02-sociales-derechos-deberes",
+  "titulo": "Derechos y deberes de los niños",
+  "desc": "Dictado de tres derechos y tres deberes de los niños, y un dibujo. Con el encabezado como en la pizarra del colegio.",
+  "materia": "Cs. Sociales",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "🤲",
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-02",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-02-sociales-derechos-deberes.html"
  }
 ]

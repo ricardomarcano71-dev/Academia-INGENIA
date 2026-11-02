@@ -63,6 +63,8 @@ button.g{background:#25d366;color:#fff}
     </div>
     <label>Niveles que contrató (solo abre las clases de esos niveles, más las gratis)</label>
     <div class="planes" id="nPlanes"><label><input type="checkbox" value="primaria"> 🎈 Kids (primaria)</label><label><input type="checkbox" value="teen"> 🚀 Teen (bachillerato)</label><label><input type="checkbox" value="campus"> 🎓 Campus (universidad)</label></div>
+    <label>Mi colegio (ve también las clases de su colegio, en la sección "Mi colegio")</label>
+    <div class="planes" id="nColegios"><label><input type="checkbox" value="col-idea"> 🏫 IDEA 1.º grado</label><label><input type="checkbox" value="col-fatima"> ⛪ Nra. Sra. de Fátima</label></div>
     <div style="margin-top:12px"><button id="bNuevo">Crear alumno</button></div>
     <div class="msg" id="mNuevo"></div>
   </div>
@@ -74,11 +76,13 @@ button.g{background:#25d366;color:#fff}
   </div>
 
   <div class="card">
-    <h2>🔐 Llaves de las clases (una por nivel)</h2>
+    <h2>🔐 Llaves de las clases (una por nivel y una por colegio)</h2>
     <p style="font-size:15px;color:#4a5a6e;font-weight:600">Cada nivel tiene su llave. Los alumnos con acceso vigente reciben solas las llaves de sus niveles. Solo se cambian si Claude vuelve a cifrar las clases con otras.</p>
     <label>🎈 Kids (primaria)</label><input id="k_primaria" autocomplete="off">
     <label>🚀 Teen (bachillerato)</label><input id="k_teen" autocomplete="off">
     <label>🎓 Campus (universidad)</label><input id="k_campus" autocomplete="off">
+    <label>🏫 Colegio IDEA (Mi colegio)</label><input id="k_col-idea" autocomplete="off">
+    <label>⛪ Colegio Nra. Sra. de Fátima (Mi colegio)</label><input id="k_col-fatima" autocomplete="off">
     <div style="margin-top:10px"><button id="bClave">Guardar llaves</button></div>
     <div class="msg" id="mClave"></div>
   </div>
@@ -91,7 +95,8 @@ import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWith
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, Timestamp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 import { firebaseConfig } from './firebase-config.js';
 import { app, auth, db, correo, DOMINIO, accesosDe, resumen, LIMITE_DISP, PLANES } from './fb.js';
-const CORTO = { primaria: '🎈 Kids', teen: '🚀 Teen', campus: '🎓 Campus' };
+const CORTO = { primaria: '🎈 Kids', teen: '🚀 Teen', campus: '🎓 Campus', 'col-idea': '🏫 IDEA', 'col-fatima': '⛪ Fátima' };
+const COLS = ['col-idea', 'col-fatima'], LLAVES = PLANES.concat(COLS);
 
 const $ = id => document.getElementById(id);
 const say = (el, txt, ok) => { $(el).textContent = txt; $(el).className = 'msg ' + (ok ? 'ok' : 'err'); };
@@ -126,17 +131,17 @@ onAuthStateChanged(auth, async u => {
   $('quien').innerHTML = u.email + ' <button class="s" id="bSalir">Salir</button>';
   $('bSalir').onclick = () => signOut(auth);
   try {
-    for (const p of PLANES) { const k = await getDoc(doc(db, 'secreto', p)); $('k_' + p).value = k.exists() ? k.data().clave : ''; }
+    for (const p of LLAVES) { const k = await getDoc(doc(db, 'secreto', p)); $('k_' + p).value = k.exists() ? k.data().clave : ''; }
   } catch (e) { say('mLogin', 'Esta cuenta no es de administrador o faltan las reglas de seguridad.'); return; }
   $('vLogin').classList.add('hide'); $('vPanel').classList.remove('hide');
   cargar();
 });
 
 $('bClave').onclick = async () => {
-  const L = {}; for (const p of PLANES) L[p] = $('k_' + p).value.trim().toUpperCase();
-  if (PLANES.some(p => !L[p])) return say('mClave', 'Escribe las tres llaves.');
+  const L = {}; for (const p of LLAVES) L[p] = $('k_' + p).value.trim().toUpperCase();
+  if (PLANES.some(p => !L[p])) return say('mClave', 'Escribe las tres llaves de los niveles.');
   try {
-    for (const p of PLANES) { await setDoc(doc(db, 'secreto', p), { clave: L[p] }, { merge: true }); $('k_' + p).value = L[p]; }
+    for (const p of LLAVES.filter(p => L[p])) { await setDoc(doc(db, 'secreto', p), { clave: L[p] }, { merge: true }); $('k_' + p).value = L[p]; }
     say('mClave', 'Llaves guardadas.', true);
   } catch (e) { say('mClave', 'No se pudieron guardar: ' + (e.code || e.message)); }
 };
@@ -147,15 +152,16 @@ $('bNuevo').onclick = async () => {
   if (!/^[a-z0-9._-]{3,}$/.test(usuario)) return say('mNuevo', 'El usuario solo puede tener letras sin acentos, números, punto o guion (mínimo 3).');
   if (pass.length < 6) return say('mNuevo', 'La contraseña debe tener al menos 6 caracteres.');
   const planes = [...document.querySelectorAll('#nPlanes input:checked')].map(i => i.value);
-  if (!planes.length) return say('mNuevo', 'Marca al menos un nivel (Kids, Teen o Campus).');
+  const colegios = [...document.querySelectorAll('#nColegios input:checked')].map(i => i.value);
+  if (!planes.length && !colegios.length) return say('mNuevo', 'Marca al menos un nivel (Kids, Teen o Campus) o un colegio.');
   $('bNuevo').disabled = true;
   try {
     const r = await createUserWithEmailAndPassword(auth2, correo(usuario), pass);
     const vence = Timestamp.fromMillis(Date.now() + (+$('nDias').value) * DIA);
-    await setDoc(doc(db, 'alumnos', r.user.uid), { nombre, usuario, vence, activo: true, planes, creado: Timestamp.now() });
+    await setDoc(doc(db, 'alumnos', r.user.uid), { nombre, usuario, vence, activo: true, planes, colegios, creado: Timestamp.now() });
     await signOut(auth2);
-    say('mNuevo', `Listo: ${nombre} · usuario ${usuario} · contraseña ${pass} · ${planes.map(p => CORTO[p]).join(', ')}`, true);
-    document.querySelectorAll('#nPlanes input').forEach(i => i.checked = false);
+    say('mNuevo', `Listo: ${nombre} · usuario ${usuario} · contraseña ${pass} · ${planes.concat(colegios).map(p => CORTO[p]).join(', ')}`, true);
+    document.querySelectorAll('#nPlanes input, #nColegios input').forEach(i => i.checked = false);
     const txt = `¡Hola ${nombre.split(' ')[0]}! Ya tienes acceso a la plataforma INGENIA 🎉\nEntra en ${location.href.replace(/admin\.html.*$/, '')}\nUsuario: ${usuario}\nContraseña: ${pass}`;
     const b = document.createElement('button'); b.className = 'g'; b.textContent = '📋 Copiar mensaje para WhatsApp'; b.style.marginTop = '8px';
     b.onclick = () => { navigator.clipboard.writeText(txt); b.textContent = '✔ Copiado'; };
@@ -188,6 +194,7 @@ function pintar() {
       <span class="pill ${vig ? 'v' : 'x'}">${vig ? 'Vigente' : a.activo ? 'Vencido' : 'Desactivado'}</span>
       ${a.res ? `<span class="pill ${a.res.compartida ? 'w' : 'i'}" title="Dispositivos distintos en 7 días">${a.res.compartida ? '⚠️ Posible cuenta compartida · ' : '📱 '}${a.res.dispositivos} disp. · ${a.res.ips} IP</span>` : ''}
       <div class="btns" title="Niveles: toca para dar o quitar acceso">${PLANES.map(p => `<button class="pp ${(a.planes || PLANES).includes(p) ? 'on' : ''}" data-p="${p}">${CORTO[p]}</button>`).join('')}${a.planes ? '' : '<span class="pill w">Sin nivel marcado: ve los 3</span>'}</div>
+      <div class="btns" title="Mi colegio: toca para dar o quitar las clases de su colegio">${COLS.map(p => `<button class="pp ${(a.colegios || []).includes(p) ? 'on' : ''}" data-c="${p}">${CORTO[p]}</button>`).join('')}</div>
       <div class="btns"><button class="s" data-d="7">+1 semana</button><button class="s" data-d="30">+1 mes</button>
       <button class="s ${a.activo ? 'r' : ''}" data-t="1">${a.activo ? 'Desactivar' : 'Activar'}</button>
       ${a.acc && a.acc.length ? '<button class="s" data-v="1">Ver accesos</button>' : ''}</div>
@@ -199,8 +206,12 @@ function pintar() {
     });
     d.querySelectorAll('[data-p]').forEach(b => b.onclick = async () => {
       const cur = new Set(a.planes || PLANES); cur.has(b.dataset.p) ? cur.delete(b.dataset.p) : cur.add(b.dataset.p);
-      if (!cur.size) return alert('El alumno debe tener al menos un nivel. Para quitarle el acceso usa Desactivar.');
+      if (!cur.size && !(a.colegios || []).length) return alert('El alumno debe tener al menos un nivel o un colegio. Para quitarle el acceso usa Desactivar.');
       await updateDoc(doc(db, 'alumnos', a.id), { planes: PLANES.filter(p => cur.has(p)) }); cargar();
+    });
+    d.querySelectorAll('[data-c]').forEach(b => b.onclick = async () => {
+      const cur = new Set(a.colegios || []); cur.has(b.dataset.c) ? cur.delete(b.dataset.c) : cur.add(b.dataset.c);
+      await updateDoc(doc(db, 'alumnos', a.id), { colegios: COLS.filter(p => cur.has(p)) }); cargar();
     });
     const bv = d.querySelector('[data-v]'); if (bv) bv.onclick = () => d.querySelector('.acc').classList.toggle('hide');
     d.querySelector('[data-t]').onclick = async () => { await updateDoc(doc(db, 'alumnos', a.id), { activo: !a.activo }); cargar(); };
