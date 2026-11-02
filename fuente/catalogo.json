@@ -804,5 +804,18 @@
   "tipo": "Pizarra con voz",
   "icono": "📐",
   "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-unidades.html"
+ },
+ {
+  "id": "p1-lec-vocal-i",
+  "titulo": "La vocal I",
+  "desc": "La vocal I: su sonido, palabras con i y trazarla con el dedo (libro p. 18).",
+  "materia": "Lenguaje y Lectura",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🔤",
+  "archivo": "clases-programa/primaria/1-grado/lectura/p1-lec-vocal-i.html"
  }
 ]
