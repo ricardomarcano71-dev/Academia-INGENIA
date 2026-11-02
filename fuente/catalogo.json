@@ -193,5 +193,18 @@
   "tipo": "Pizarra con voz",
   "icono": "🔢",
   "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-contar.html"
+ },
+ {
+  "id": "p1-mat-valor",
+  "titulo": "Valor posicional: unidades, decenas y centenas",
+  "desc": "La casa de los números: unidades, decenas y centenas con bloques en 3D.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🏠",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-valor.html"
  }
 ]

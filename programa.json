@@ -19,7 +19,10 @@
          ]
         },
         {
-         "t": "Valor posicional: unidades, decenas y centenas"
+         "t": "Valor posicional: unidades, decenas y centenas",
+         "c": [
+          "p1-mat-valor"
+         ]
         },
         {
          "t": "Números ordinales"
