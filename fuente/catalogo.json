@@ -234,19 +234,6 @@
   "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-materia.html"
  },
  {
-  "id": "p1-lec-vocal-i",
-  "titulo": "La vocal I",
-  "desc": "La vocal I: su sonido, palabras con i y trazarla con el dedo (libro p. 18).",
-  "materia": "Lenguaje y Lectura",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "1.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "🔤",
-  "archivo": "clases-programa/primaria/1-grado/lectura/p1-lec-vocal-i.html"
- },
- {
   "id": "p1-mat-contar",
   "titulo": "Contar, comparar y ordenar hasta 100",
   "desc": "Contar, decenas en 3D, comparar con el cocodrilo y ordenar hasta 100.",
@@ -817,5 +804,18 @@
   "tipo": "Pizarra con voz",
   "icono": "🔺",
   "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-triangulos.html"
+ },
+ {
+  "id": "p1-lec-vocal-i",
+  "titulo": "La vocal I",
+  "desc": "La vocal I: su sonido, palabras con i, encerrar, colorear y escribir (libro p. 18).",
+  "materia": "Lenguaje y Lectura",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Clase con voz sobre el libro",
+  "icono": "🔤",
+  "archivo": "clases-programa/primaria/1-grado/lectura/p1-lec-vocal-i.html"
  }
 ]
