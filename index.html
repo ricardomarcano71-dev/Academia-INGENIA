@@ -171,7 +171,41 @@ body.m-kids .mhero,body.m-teen .mhero,body.m-campus .mhero{display:block}
 body.m-kids .hero,body.m-teen .hero,body.m-campus .hero,body.m-kids #mundos,body.m-teen #mundos,body.m-campus #mundos,body.m-kids #como,body.m-teen #como,body.m-campus #como{display:none}
 body.portada #clases,body.portada #ask{display:none}
 body.m-kids .ing,body.m-teen .ing{display:none}
-body:not(.portada) #niveles{display:none}
+body:not(.portada) #niveles,body:not(.portada) #filtros{display:none}
+/* programa por pasos */
+#clases{scroll-margin-top:62px}
+.ruta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:14px;font-weight:800;color:#8a96a6}
+.ruta:empty{display:none}
+.ruta button{font-family:inherit;font-weight:900;font-size:15px;border:0;background:none;color:var(--navy);cursor:pointer;padding:4px 2px}
+.ruta .volv{background:var(--navy);color:#fff;border-radius:30px;padding:7px 14px;margin-right:6px}
+.ruta .miga.on{text-decoration:underline;text-decoration-color:var(--yel);text-decoration-thickness:3px;text-underline-offset:5px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;margin-top:20px}
+.tiles.grados{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.tile{font-family:inherit;cursor:pointer;background:#fff;border:3px solid var(--navy);border-radius:22px;padding:18px 12px;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;color:var(--navy);box-shadow:0 6px 0 var(--navy);transition:transform .12s}
+.tile:hover{transform:translateY(-3px)}.tile:active{transform:translateY(4px);box-shadow:0 2px 0 var(--navy)}
+.tile .big{font-family:'Baloo 2',sans-serif;font-size:54px;line-height:1;font-weight:800}
+.tile .tic{font-size:46px;line-height:1}
+.tile b{font-size:19px;font-weight:900;line-height:1.15}
+.tile em{font-style:normal;font-size:12.5px;font-weight:700;color:#6b7a8c;line-height:1.25}
+.tile small{margin-top:4px;font-size:13.5px;font-weight:900;background:var(--yel);color:var(--navy);padding:3px 10px;border-radius:20px}
+.tile.vacio{opacity:.75}.tile.vacio small{background:#e7ecf2;color:#6b7a8c}
+.tiles.asig .tile{min-height:150px}
+.temas{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:20px}
+.tema{background:#f6f8fb;border:2px dashed #cfd8e3;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:8px;position:relative}
+.tema.listo{background:#fff;border:3px solid var(--navy);border-style:solid}
+.tema .num{position:absolute;top:-11px;left:14px;background:var(--yel);color:var(--navy);font-weight:900;font-size:13px;border-radius:20px;padding:2px 10px}
+.tema h4{font-size:17px;font-weight:900;color:#1d2b3d;line-height:1.2;margin-top:4px;flex:1}
+.tema .cl{text-align:left}
+@media(max-width:560px){.tiles{grid-template-columns:repeat(2,1fr);gap:12px}.tiles.grados{grid-template-columns:repeat(3,1fr)}.tile{min-height:120px;padding:12px 6px}.tile .big{font-size:40px}.tile .tic{font-size:36px}.tile b{font-size:16px}}
+body.m-kids .tile{border-radius:28px}
+body.m-kids .tiles.grados .tile:nth-child(6n+1){background:#ffe7e7;border-color:#ff6b6b;box-shadow:0 6px 0 #e04f4f;color:#c0392b}
+body.m-kids .tiles.grados .tile:nth-child(6n+2){background:#fff4cc;border-color:#f5b800;box-shadow:0 6px 0 #d49b00;color:#9a6b00}
+body.m-kids .tiles.grados .tile:nth-child(6n+3){background:#dcf7f4;border-color:#2bb5a8;box-shadow:0 6px 0 #1f8f85;color:#11756c}
+body.m-kids .tiles.grados .tile:nth-child(6n+4){background:#ece6ff;border-color:#7b5ce0;box-shadow:0 6px 0 #5b3cc4;color:#5b3cc4}
+body.m-kids .tiles.grados .tile:nth-child(6n+5){background:#e3f0ff;border-color:#4a90e2;box-shadow:0 6px 0 #2f6fbf;color:#2a5ea8}
+body.m-kids .tiles.grados .tile:nth-child(6n){background:#ffe9d6;border-color:#ff8e53;box-shadow:0 6px 0 #e06a2e;color:#b9531e}
+body.m-campus .tile,body.m-campus .tema{border-radius:10px;box-shadow:0 3px 0 var(--navy)}
+body.m-campus .tile .big{font-family:'Nunito'}
 /* Kids: colorida e infantil */
 body.m-kids{--navy:#5b3cc4;--navy2:#7b5ce0;--yel:#ffd93d;--yel2:#e0a800;background:#fff9ec}
 body.m-kids .mhero{background:radial-gradient(circle at 92% 18%,#ffd93d 0 70px,transparent 71px),radial-gradient(circle at 6% 100%,#4ecdc4 0 110px,transparent 111px),radial-gradient(circle at 70% 110%,#ff6b6b 0 90px,transparent 91px),linear-gradient(150deg,#7b5ce0,#5b3cc4)}
@@ -266,7 +300,8 @@ body.m-campus h2.t,body.m-campus .mhero h1{font-family:'Nunito',sans-serif;font-
 
 <section id="clases" style="background:#fff"><div class="wrap">
   <h2 class="t">Programa de <span class="y">estudio</span></h2>
-  <p class="lead">Elige tu nivel y tu materia. Están todos los temas del programa oficial: los que tienen ▶ ya tienen clase, y los demás los vamos agregando.</p>
+  <p class="lead" id="plead">Elige tu nivel y tu materia. Están todos los temas del programa oficial: los que tienen ▶ ya tienen clase, y los demás los vamos agregando.</p>
+  <div class="ruta" id="ruta"></div>
   <div class="niveles" id="niveles"></div>
   <div class="filters" id="filtros"></div>
   <input class="buscar" id="buscar" type="search" placeholder="🔍 Busca un tema, por ejemplo: fracciones, derivadas, enlaces…" oninput="pintar()">
@@ -401,6 +436,8 @@ function pintar(){
   const MM=MUNDO&&MUNDOS[MUNDO];
   DATOS.clases.filter(c=>c.gratis&&(!MM||(c.niveles||[]).includes(MM.nivel))).sort((a,b)=>(a.orden||99)-(b.orden||99)).forEach(c=>g.appendChild(tarjeta(c,ok)));
   const q=sinTilde(document.getElementById('buscar').value.trim()),P=document.getElementById('programa');P.innerHTML='';let n=0;
+  document.getElementById('ruta').innerHTML='';
+  if(MM&&!q){pintarPasos(C,ok);document.getElementById('vacio').hidden=true;document.getElementById('muestra').hidden=!g.children.length;return}
   const niveles=q?PROG.niveles:PROG.niveles.filter(x=>x.n===nivel);
   const NN=PROG.niveles.find(x=>x.n===nivel),no=document.getElementById('nota');no.hidden=!!q||!NN.nota;no.textContent=NN.nota||'';
   niveles.forEach(N=>N.materias.filter(m=>q||materia==='Todas'||m.m===materia).forEach(M=>M.grados.forEach(G=>{
@@ -418,6 +455,50 @@ function pintar(){
   document.getElementById('vacio').hidden=n>0;
   document.getElementById('muestra').hidden=!g.children.length;
 }
+// ---- Programa por pasos: grado ▸ materia ▸ temas (Campus: materia ▸ asignatura ▸ temas) ----
+const ICM={'Matemática':'🔢','Ciencias Naturales':'🌱','Lenguaje y Lectura':'📖','Física':'🧲','Química':'⚗️'};
+let RUTA=[];
+const nums=g=>(g.match(/\d+(?=\.º)/g)||[]).map(Number);
+const cuenta=(temas,C)=>temas.reduce((s,t)=>s+(t.c||[]).filter(i=>C[i]).length,0);
+function ir(...r){location.hash=[MUNDO].concat(r).map(encodeURIComponent).join('/')}
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function pintarPasos(C,ok){
+  const P=document.getElementById('programa'),N=PROG.niveles.find(x=>x.n===nivel),uni=N.n==='Universidad',ud=N.n==='Primaria'?'grado':'año';
+  const [a,b]=RUTA, R=document.getElementById('ruta'), lead=document.getElementById('plead');
+  const migas=[[N.n,[]]];
+  const tiles=(arr,cls)=>{const w=document.createElement('div');w.className='tiles '+(cls||'');arr.forEach(x=>{const t=document.createElement('button');t.className='tile'+(x.n?'':' vacio');
+      t.innerHTML=(x.big?`<span class="big">${x.big}</span>`:`<span class="tic">${x.ic||'📘'}</span>`)+`<b>${esc(x.t)}</b>`+(x.sub?`<em>${esc(x.sub)}</em>`:'')+`<small>${x.n?'▶ '+x.n+(x.n===1?' clase':' clases'):'Próximamente'}</small>`;
+      t.onclick=x.go;w.appendChild(t)});P.appendChild(w)};
+  if(!a){
+    lead.textContent=uni?'Elige la materia, luego la asignatura y verás sus temas.':'Elige tu '+ud+', luego la materia y verás sus temas.';
+    if(uni)tiles(N.materias.map(M=>({ic:ICM[M.m],t:M.m,sub:M.grados.length+' asignaturas',n:M.grados.reduce((s,G)=>s+cuenta(G.temas,C),0),go:()=>ir(M.m)})));
+    else tiles([...new Set(N.materias.flatMap(M=>M.grados.flatMap(G=>nums(G.g))))].sort((x,y)=>x-y).map(k=>({big:k+'.º',t:ud,
+      n:N.materias.reduce((s,M)=>s+M.grados.filter(G=>nums(G.g).includes(k)).reduce((q,G)=>q+cuenta(G.temas,C),0),0),go:()=>ir(String(k))})),'grados');
+  }else if(!b){
+    if(uni){const M=N.materias.find(m=>m.m===a);if(!M){RUTA=[];return pintarPasos(C,ok)}
+      migas.push([a,[a]]);lead.textContent='Elige la asignatura.';
+      tiles(M.grados.map(G=>({ic:ICM[M.m],t:G.g,sub:G.eq,n:cuenta(G.temas,C),go:()=>ir(a,G.g)})),'asig');}
+    else{const k=+a;migas.push([k+'.º '+ud,[a]]);lead.textContent='Elige la materia.';
+      tiles(N.materias.filter(M=>M.grados.some(G=>nums(G.g).includes(k))).map(M=>{const T=M.grados.filter(G=>nums(G.g).includes(k)).flatMap(G=>G.temas);
+        return {ic:ICM[M.m],t:M.m,sub:T.length+' temas',n:cuenta(T,C),go:()=>ir(a,M.m)}}));}
+  }else{
+    let T=[],ctx;
+    if(uni){const M=N.materias.find(m=>m.m===a),G=M&&M.grados.find(g=>g.g===b);if(!G){RUTA=[];return pintarPasos(C,ok)}
+      T=G.temas;ctx=b;migas.push([a,[a]],[b,[a,b]]);if(G.eq){const e=document.createElement('p');e.className='nota';e.textContent=G.eq;P.appendChild(e)}}
+    else{const k=+a,M=N.materias.find(m=>m.m===b);if(!M){RUTA=[a];return pintarPasos(C,ok)}
+      T=M.grados.filter(G=>nums(G.g).includes(k)).flatMap(G=>G.temas);ctx=b+', '+k+'.º '+ud;migas.push([k+'.º '+ud,[a]],[b,[a,b]]);}
+    lead.textContent='Toca una clase para abrirla. Los temas que dicen "Próximamente" los puedes pedir.';
+    const w=document.createElement('div');w.className='temas';
+    T.forEach((t,i)=>{const cs=(t.c||[]).map(x=>C[x]).filter(Boolean),d=document.createElement('div');d.className='tema'+(cs.length?' listo':'');
+      d.innerHTML=`<span class="num">${i+1}</span><h4>${esc(t.t)}</h4>`;
+      cs.forEach(c=>{const bt=document.createElement('button');bt.className='cl'+(c.gratis?' g':'');const mismo=sinTilde(c.titulo)===sinTilde(t.t)||cs.length===1&&sinTilde(c.titulo).includes(sinTilde(t.t));bt.textContent=(c.gratis||ok?'▶ ':'🔒 ')+(mismo?'Ver la clase':c.titulo)+(c.gratis?' · gratis':'');bt.onclick=()=>abrir(c);d.appendChild(bt)});
+      if(!cs.length){const s=document.createElement('span');s.className='pr';s.innerHTML=`Próximamente · <a target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent('¡Hola INGENIA! Quiero la clase de '+t.t+' ('+N.n+', '+ctx+').')}">pídela</a>`;d.appendChild(s)}
+      w.appendChild(d)});
+    P.appendChild(w);
+  }
+  if(migas.length>1){const atras=migas[migas.length-2][1];const v=document.createElement('button');v.className='volv';v.textContent='← Volver';v.onclick=()=>ir(...atras);R.appendChild(v);
+    migas.forEach(([t,r],i)=>{if(i)R.appendChild(Object.assign(document.createElement('span'),{textContent:'›'}));const x=document.createElement('button');x.className='miga'+(i===migas.length-1?' on':'');x.textContent=t;x.onclick=()=>ir(...r);R.appendChild(x)})}
+}
 // ---- Mundos: portada, Kids, Teen, Campus (un solo sitio) ----
 const MUNDOS={
   kids:{nivel:'Primaria',nombre:'Kids',titulo:'INGENIA Kids',sub:'Primaria · 1.º a 6.º grado',txt:'¡Aprender es una aventura! Clases con voz, dibujos y figuras 3D para contar, sumar, leer y descubrir el mundo. 🎈',color:'#5b3cc4'},
@@ -425,16 +506,16 @@ const MUNDOS={
   campus:{nivel:'Universidad',nombre:'Campus',titulo:'INGENIA Campus',sub:'Universidad · ciclo básico de ingeniería',txt:'Cálculo, Física, Química y más del ciclo básico de UNEG, UNEXPO, UDO, UCAB y UBA. ¿Tienes una guía de ejercicios? Te la resolvemos con explicación.',color:'#1c2733'}};
 let MUNDO=null;
 function ponerMundo(){
-  const h=location.hash.slice(1);
+  const partes=location.hash.slice(1).split('/').map(x=>{try{return decodeURIComponent(x)}catch(e){return x}}),h=partes[0];
   if(h&&h!=='inicio'&&!MUNDOS[h])return;
-  MUNDO=MUNDOS[h]?h:null;const M=MUNDOS[MUNDO];
+  const antes=MUNDO;MUNDO=MUNDOS[h]?h:null;const M=MUNDOS[MUNDO];RUTA=M?partes.slice(1).filter(Boolean):[];
   document.body.className=M?'m-'+MUNDO:'portada';
   document.getElementById('lmundo').textContent=M?M.nombre:'';
   document.querySelector('meta[name=theme-color]').content=M?M.color:'#0d2b45';
   document.title=M?M.titulo+' · '+M.sub:'INGENIA · Plataforma de clases online';
   if(M){document.getElementById('mh1').innerHTML=M.titulo+'<small>'+M.sub+'</small>';document.getElementById('mp').textContent=M.txt;nivel=M.nivel;materia='Todas'}
-  window.scrollTo(0,0);
   if(PROG){pintarFiltros();pintar()}
+  if(M&&(RUTA.length||antes===MUNDO))document.getElementById('clases').scrollIntoView({block:'start'});else window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',ponerMundo);ponerMundo();
 
