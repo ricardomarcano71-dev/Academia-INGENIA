@@ -22,7 +22,8 @@ jobs:
       - name: Revisar permiso de Firebase
         id: sa
         env: { FIREBASE_SA: '${{ secrets.FIREBASE_SA }}' }
-        run: if [ -n "$FIREBASE_SA" ]; then echo "ok=1" >> $GITHUB_OUTPUT; else echo "Falta el secreto FIREBASE_SA: no hago nada."; fi
+        run: |
+          if [ -n "$FIREBASE_SA" ]; then echo "ok=1" >> $GITHUB_OUTPUT; else echo "Falta el secreto FIREBASE_SA: no hago nada."; fi
       - uses: actions/setup-python@v5
         if: steps.sa.outputs.ok == '1'
         with: { python-version: '3.12' }
