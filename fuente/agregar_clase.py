@@ -7,7 +7,8 @@ La clase .json debe traer un bloque "plataforma":
 y su .html ya armado con motor/build.py al lado (mismo nombre).
 - Si el repo ya tiene fuente/publica.pem, cifra con la llave pública (como subir_clases.py) y
   GitHub Actions la pasa a la llave vigente.
-- Si no, cifra directo con la llave de /mnt/project-files/plataforma/llave-privada.txt.
+- Si no, la cifra con la llave de su nivel (Kids, Teen o Campus), tomada de
+  /mnt/project-files/plataforma/llaves-por-nivel.json (nunca se sube al repo).
 Nunca sube la clase sin cifrar, salvo con --gratis."""
 import sys, os, json, base64
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
@@ -42,11 +43,11 @@ elif os.path.exists(os.path.join(repo, 'fuente', 'publica.pem')):
     open(os.path.join(repo, 'entrantes', cid + '.enc'), 'wb').write(len(w).to_bytes(2, 'big') + w + iv + AESGCM(k).encrypt(iv, data, None))
     print('cifrada con la llave pública: GitHub Actions la activa al hacer push')
 else:
+    from llaves import ARCHIVO_LLAVES, aes_planes, verificar, cifrar, planes_de
     D = json.load(open(os.path.join(repo, 'datos.json'), encoding='utf-8'))
-    clave = open('/mnt/project-files/plataforma/llave-privada.txt').read().strip().upper()
-    aes = AESGCM(PBKDF2HMAC(hashes.SHA256(), 32, base64.b64decode(D['salt']), D['iter']).derive(clave.encode()))
-    chk = base64.b64decode(D['check']); assert aes.decrypt(chk[:12], chk[12:], None) == b'INGENIA-OK', 'la llave no coincide'
-    iv = os.urandom(12); open(os.path.join(repo, 'c', cid + '.bin'), 'wb').write(iv + aes.encrypt(iv, data, None))
+    aes = aes_planes(json.load(open(ARCHIVO_LLAVES)), D); verificar(aes, D)
+    open(os.path.join(repo, 'c', cid + '.bin'), 'wb').write(cifrar(data, aes, planes_de(P['niveles'])))
+    print('cifrada para:', ', '.join(planes_de(P['niveles'])))
 
 # 2) catálogo y datos.json
 e = {"id": cid, "titulo": C['titulo'], "desc": P['desc'], "materia": P['materia'], "niveles": P['niveles'],

@@ -26,8 +26,13 @@ service cloud.firestore {
         allow delete: if esAdmin();
       }
     }
+    // Una llave por nivel: secreto/primaria (Kids), secreto/teen y secreto/campus.
+    // Cada alumno solo lee las llaves de sus planes; sin campo "planes" (alumnos de antes) lee las tres.
+    function planes() {
+      return alumno().get('planes', ['primaria', 'teen', 'campus']);
+    }
     match /secreto/{d} {
-      allow read: if esAdmin() || vigente();
+      allow read: if esAdmin() || (vigente() && d in planes());
       allow write: if esAdmin();
     }
   }
