@@ -41,10 +41,13 @@ nav a:hover{color:var(--yel)}
 .hero h1 .y{color:var(--yel)}
 .hero .sub{font-size:clamp(18px,2.4vw,23px);font-weight:700;color:#d8e6f2;max-width:560px}
 .hero .sub b{color:#fff}
-.ribbon{display:inline-block;background:#fff;color:var(--navy);font-weight:900;font-size:15px;padding:6px 14px;border-radius:8px;margin-top:16px}
-.tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-.tag{background:rgba(255,255,255,.1);border:2px solid rgba(255,201,60,.55);border-radius:30px;padding:6px 14px;font-weight:800;font-size:15px}
-.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.ribbon{display:flex;flex-wrap:wrap;gap:4px 0;color:#d8e6f2;font-weight:800;font-size:15px;margin-top:14px;max-width:560px}.ribbon span{white-space:nowrap}.ribbon span+span:before{content:"·";margin:0 8px;color:var(--yel)}
+.tags{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;max-width:560px}
+.tag{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;background:rgba(255,255,255,.08);border:2px solid rgba(255,201,60,.55);border-radius:16px;padding:10px 6px;font-weight:900;font-size:16px;line-height:1.15;transition:background .15s}
+.tag:hover{background:rgba(255,201,60,.18)}.tag i{font-style:normal;font-size:24px}.tag small{font-size:12.5px;font-weight:800;color:var(--yel);letter-spacing:.4px;margin-top:2px}
+.cta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;max-width:560px}
+.cta .btn{justify-content:center}.cta .inst{grid-column:1/-1;font-size:16px;padding:10px 16px;border-width:1px;border-style:dashed}
+@media(max-width:420px){.cta{grid-template-columns:1fr}.tag{font-size:14px}}
 .btn{display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:18px;padding:14px 22px;border-radius:14px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
 .btn.y{background:var(--yel);color:var(--navy);box-shadow:0 5px 0 var(--yel2)}
 .btn.w{background:var(--wa);color:#fff;box-shadow:0 5px 0 #179447}
@@ -208,12 +211,16 @@ body.m-campus h2.t,body.m-campus .mhero h1{font-family:'Nunito',sans-serif;font-
     <span class="desc">Clases de refuerzo y asesorías académicas</span>
     <h1>Aquí sí se <span class="y">entiende.</span></h1>
     <p class="sub"><b>Entiende en clase. Repasa en casa. Aprueba con confianza.</b><br>Clases 100% online de Matemática, Física, Química y más, con ejercicios resueltos paso a paso que puedes repetir las veces que quieras.</p>
-    <span class="ribbon">Clases particulares · Refuerzo escolar · Preparación para exámenes</span>
-    <div class="tags"><span class="tag">🎒 Primaria</span><span class="tag">📘 Bachillerato 1.º a 6.º año</span><span class="tag">🎓 Universidad</span><span class="tag">💻 100% online</span></div>
+    <div class="tags">
+      <a class="tag" href="#kids"><i>🎈</i>Primaria<small>Kids</small></a>
+      <a class="tag" href="#teen"><i>🚀</i>Bachillerato<small>Teen</small></a>
+      <a class="tag" href="#campus"><i>🎓</i>Universidad<small>Campus</small></a>
+    </div>
+    <p class="ribbon"><span>💻 100% online</span><span>Clases particulares</span><span>Refuerzo escolar</span><span>Exámenes</span></p>
     <div class="cta">
       <a class="btn y" href="#mundos">📚 Ver las clases</a>
       <button class="btn o" onclick="abrirClave()">🔑 Entrar a mis clases</button>
-      <button class="btn o" id="instalar" hidden onclick="instalar()">📲 Instalar la app</button>
+      <button class="btn o inst" id="instalar" hidden onclick="instalar()">📲 Instalar la app en tu teléfono</button>
     </div>
   </div>
   <div class="gift" id="prueba">
