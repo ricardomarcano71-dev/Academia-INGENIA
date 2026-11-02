@@ -59,8 +59,9 @@ button.g{background:#25d366;color:#fff}
       <div><label>Nombre y apellido</label><input id="nNombre" placeholder="María Pérez"></div>
       <div><label>Usuario (sin espacios)</label><input id="nUsuario" placeholder="mariaperez" autocapitalize="none"></div>
       <div><label>Contraseña</label><input id="nPass"></div>
-      <div><label>Acceso por</label><select id="nDias"><option value="7">1 semana</option><option value="14">2 semanas</option><option value="30">1 mes</option></select></div>
+      <div><label>Acceso por</label><select id="nDias"><option value="7">1 semana</option><option value="14">2 semanas</option><option value="30">1 mes</option><option value="prof">👩‍🏫 Profesor: gratis y sin vencimiento</option></select></div>
     </div>
+    <p id="nProfNota" class="hide" style="margin-top:8px;font-size:14px;font-weight:700;color:#4a5a6e">👩‍🏫 Cuenta de profesor: no vence (solo se da de baja con Desactivar) y queda amarrada a sus 2 primeros equipos. En un tercer equipo las clases no le abren. Marca los niveles y su colegio.</p>
     <label>Niveles que contrató (solo abre las clases de esos niveles, más las gratis)</label>
     <div class="planes" id="nPlanes"><label><input type="checkbox" value="primaria"> 🎈 Kids (primaria)</label><label><input type="checkbox" value="teen"> 🚀 Teen (bachillerato)</label><label><input type="checkbox" value="campus"> 🎓 Campus (universidad)</label></div>
     <label>Mi colegio (ve también las clases de su colegio, en la sección "Mi colegio")</label>
@@ -92,9 +93,9 @@ button.g{background:#25d366;color:#fff}
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
-import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, Timestamp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs, Timestamp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 import { firebaseConfig } from './firebase-config.js';
-import { app, auth, db, correo, DOMINIO, accesosDe, resumen, LIMITE_DISP, PLANES } from './fb.js';
+import { app, auth, db, correo, DOMINIO, accesosDe, resumen, LIMITE_DISP, PLANES, LIMITE_PROF, esProfesor, equiposEnOrden } from './fb.js';
 const CORTO = { primaria: '🎈 Kids', teen: '🚀 Teen', campus: '🎓 Campus', 'col-idea': '🏫 IDEA', 'col-fatima': '⛪ Fátima' };
 const COLS = ['col-idea', 'col-fatima'], LLAVES = PLANES.concat(COLS);
 
@@ -105,6 +106,8 @@ const DIA = 864e5;
 const genPass = () => { const s = 'abcdefghjkmnpqrstuvwxyz23456789'; let p = ''; for (let i = 0; i < 8; i++) p += s[Math.floor(Math.random() * s.length)]; return p; };
 $('nPass').value = genPass();
 let ALUMNOS = [];
+$('nDias').onchange = () => { const prof = $('nDias').value === 'prof'; $('nProfNota').classList.toggle('hide', !prof);
+  if (prof) document.querySelectorAll('#nPlanes input').forEach(i => i.checked = true); };
 
 $('bEntrar').onclick = async () => {
   try { await signInWithEmailAndPassword(auth, $('aEmail').value.trim(), $('aPass').value); }
@@ -157,8 +160,9 @@ $('bNuevo').onclick = async () => {
   $('bNuevo').disabled = true;
   try {
     const r = await createUserWithEmailAndPassword(auth2, correo(usuario), pass);
-    const vence = Timestamp.fromMillis(Date.now() + (+$('nDias').value) * DIA);
-    await setDoc(doc(db, 'alumnos', r.user.uid), { nombre, usuario, vence, activo: true, planes, colegios, creado: Timestamp.now() });
+    const prof = $('nDias').value === 'prof';
+    const vence = prof ? Timestamp.fromDate(new Date('2100-01-01T00:00:00Z')) : Timestamp.fromMillis(Date.now() + (+$('nDias').value) * DIA);
+    await setDoc(doc(db, 'alumnos', r.user.uid), Object.assign({ nombre, usuario, vence, activo: true, planes, colegios, creado: Timestamp.now() }, prof ? { rol: 'profesor' } : {}));
     await signOut(auth2);
     say('mNuevo', `Listo: ${nombre} · usuario ${usuario} · contraseña ${pass} · ${planes.concat(colegios).map(p => CORTO[p]).join(', ')}`, true);
     document.querySelectorAll('#nPlanes input, #nColegios input').forEach(i => i.checked = false);
@@ -176,9 +180,9 @@ $('bNuevo').onclick = async () => {
 
 async function cargar() {
   const s = await getDocs(collection(db, 'alumnos'));
-  ALUMNOS = s.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => a.nombre.localeCompare(b.nombre));
+  ALUMNOS = s.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => esProfesor(b) - esProfesor(a) || a.nombre.localeCompare(b.nombre));
   pintar();
-  await Promise.all(ALUMNOS.map(async a => { try { a.acc = await accesosDe(a.id); a.res = resumen(a.acc); } catch (e) { a.acc = []; } }));
+  await Promise.all(ALUMNOS.map(async a => { try { a.acc = await accesosDe(a.id, esProfesor(a) ? 300 : 40); a.res = resumen(a.acc); if (esProfesor(a)) a.eq = equiposEnOrden(a.acc).length; } catch (e) { a.acc = []; } }));
   ALUMNOS.sort((a, b) => ((b.res && b.res.compartida) - (a.res && a.res.compartida)) || a.nombre.localeCompare(b.nombre));
   pintar();
 }
@@ -188,14 +192,15 @@ function pintar() {
   const v = ALUMNOS.filter(a => !q || a.nombre.toLowerCase().includes(q) || a.usuario.includes(q));
   if (!v.length) { L.innerHTML = '<p class="msg">Todavía no hay alumnos.</p>'; return; }
   v.forEach(a => {
-    const vence = a.vence.toDate(), vig = a.activo && vence > new Date();
+    const vence = a.vence.toDate(), vig = a.activo && vence > new Date(), prof = esProfesor(a);
     const d = document.createElement('div'); d.className = 'al';
-    d.innerHTML = `<div><div class="n">${a.nombre}</div><div class="d">usuario: ${a.usuario} · vence ${vence.toLocaleDateString('es-VE', { weekday: 'short', day: 'numeric', month: 'short' })}</div></div>
+    d.innerHTML = `<div><div class="n">${a.nombre}</div><div class="d">usuario: ${a.usuario} · ${prof ? '👩‍🏫 profesor · no vence' : 'vence ' + vence.toLocaleDateString('es-VE', { weekday: 'short', day: 'numeric', month: 'short' })}</div></div>
       <span class="pill ${vig ? 'v' : 'x'}">${vig ? 'Vigente' : a.activo ? 'Vencido' : 'Desactivado'}</span>
-      ${a.res ? `<span class="pill ${a.res.compartida ? 'w' : 'i'}" title="Dispositivos distintos en 7 días">${a.res.compartida ? '⚠️ Posible cuenta compartida · ' : '📱 '}${a.res.dispositivos} disp. · ${a.res.ips} IP</span>` : ''}
+      ${prof && a.eq !== undefined ? `<span class="pill ${a.eq > LIMITE_PROF ? 'w' : 'i'}" title="Equipos distintos que usaron la cuenta">${a.eq > LIMITE_PROF ? '⚠️ Intentaron abrirla en ' + a.eq + ' equipos (bloqueados desde el ' + (LIMITE_PROF + 1) + '.º)' : '💻 ' + a.eq + ' de ' + LIMITE_PROF + ' equipos'}</span>` : ''}
+      ${a.res && !prof ? `<span class="pill ${a.res.compartida ? 'w' : 'i'}" title="Dispositivos distintos en 7 días">${a.res.compartida ? '⚠️ Posible cuenta compartida · ' : '📱 '}${a.res.dispositivos} disp. · ${a.res.ips} IP</span>` : ''}
       <div class="btns" title="Niveles: toca para dar o quitar acceso">${PLANES.map(p => `<button class="pp ${(a.planes || PLANES).includes(p) ? 'on' : ''}" data-p="${p}">${CORTO[p]}</button>`).join('')}${a.planes ? '' : '<span class="pill w">Sin nivel marcado: ve los 3</span>'}</div>
       <div class="btns" title="Mi colegio: toca para dar o quitar las clases de su colegio">${COLS.map(p => `<button class="pp ${(a.colegios || []).includes(p) ? 'on' : ''}" data-c="${p}">${CORTO[p]}</button>`).join('')}</div>
-      <div class="btns"><button class="s" data-d="7">+1 semana</button><button class="s" data-d="30">+1 mes</button>
+      <div class="btns">${prof ? '<button class="s" data-lib="1">Liberar equipos</button>' : '<button class="s" data-d="7">+1 semana</button><button class="s" data-d="30">+1 mes</button>'}
       <button class="s ${a.activo ? 'r' : ''}" data-t="1">${a.activo ? 'Desactivar' : 'Activar'}</button>
       ${a.acc && a.acc.length ? '<button class="s" data-v="1">Ver accesos</button>' : ''}</div>
       <div class="acc hide">${(a.acc || []).map(x => `<div>${x.t && x.t.toDate ? x.t.toDate().toLocaleString('es-VE', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : ''} · ${x.equipo || ''} · disp ${String(x.disp || '').slice(0, 4)} · IP ${x.ip || '¿?'} · ${x.clase || ''}</div>`).join('')}</div>`;
@@ -213,6 +218,10 @@ function pintar() {
       const cur = new Set(a.colegios || []); cur.has(b.dataset.c) ? cur.delete(b.dataset.c) : cur.add(b.dataset.c);
       await updateDoc(doc(db, 'alumnos', a.id), { colegios: COLS.filter(p => cur.has(p)) }); cargar();
     });
+    const bl = d.querySelector('[data-lib]'); if (bl) bl.onclick = async () => {
+      if (!confirm('¿Liberar los equipos de ' + a.nombre + '? Borra su historial de accesos y podrá entrar desde 2 equipos nuevos.')) return;
+      const s = await getDocs(collection(db, 'alumnos', a.id, 'accesos')); await Promise.all(s.docs.map(x => deleteDoc(x.ref))); cargar();
+    };
     const bv = d.querySelector('[data-v]'); if (bv) bv.onclick = () => d.querySelector('.acc').classList.toggle('hide');
     d.querySelector('[data-t]').onclick = async () => { await updateDoc(doc(db, 'alumnos', a.id), { activo: !a.activo }); cargar(); };
     $('lista').appendChild(d);

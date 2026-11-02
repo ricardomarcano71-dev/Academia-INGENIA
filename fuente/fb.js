@@ -64,6 +64,23 @@ export async function accesosDe(uid, n = 40) {
   const s = await getDocs(query(collection(db, 'alumnos', uid, 'accesos'), orderBy('t', 'desc'), limit(n)));
   return s.docs.map(d => d.data());
 }
+// Cuentas de profesor: no vencen y quedan amarradas a sus primeros LIMITE_PROF dispositivos
+export const LIMITE_PROF = 2;
+export const esProfesor = a => !!a && a.rol === 'profesor';
+// Dispositivos de la cuenta en el orden en que entraron por primera vez (los permitidos son los primeros)
+export function equiposEnOrden(accesos) {
+  const primero = new Map();
+  accesos.forEach(a => { const t = a.t && a.t.toMillis ? a.t.toMillis() : Date.now(); if (!primero.has(a.disp) || t < primero.get(a.disp)) primero.set(a.disp, t); });
+  return [...primero.entries()].sort((x, y) => x[1] - y[1]).map(x => x[0]);
+}
+// ¿Este dispositivo puede abrir clases con esta cuenta de profesor? (registra el acceso antes)
+export async function equipoPermitido(user, clase) {
+  try {
+    await addDoc(collection(db, 'alumnos', user.uid, 'accesos'), { disp: dispositivo(), equipo: equipo(), ip: await miIP(), clase: clase || '', t: serverTimestamp() });
+    const orden = equiposEnOrden(await accesosDe(user.uid, 300));
+    return orden.indexOf(dispositivo()) < LIMITE_PROF;
+  } catch (e) { return true; }
+}
 // Registra el acceso actual y devuelve el resumen (para avisar al alumno)
 export async function registrar(user, clase) {
   if (!user) return null;
