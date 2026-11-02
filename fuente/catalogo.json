@@ -182,6 +182,71 @@
   "archivo": "enlaces-quimicos/de-donde-salen-los-sp.html"
  },
  {
+  "id": "p1-cie-agua",
+  "titulo": "El agua",
+  "desc": "El agua es vida: dónde está, cómo es, qué flota y cómo cuidarla.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "💧",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-agua.html"
+ },
+ {
+  "id": "p1-cie-energia",
+  "titulo": "Tipos de energía",
+  "desc": "Sol, electricidad, viento, calor y alimentos, con un molino que enciende un bombillo.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "⚡",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-energia.html"
+ },
+ {
+  "id": "p1-cie-fuerzas",
+  "titulo": "Movimiento y fuerzas",
+  "desc": "Empujar, jalar, frenar, el roce y la gravedad con un carrito interactivo.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "💪",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-fuerzas.html"
+ },
+ {
+  "id": "p1-cie-materia",
+  "titulo": "Estados de la materia",
+  "desc": "Sólido, líquido y gas con bolitas que se mueven, y los cambios de estado.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🧊",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-materia.html"
+ },
+ {
+  "id": "p1-lec-vocal-i",
+  "titulo": "La vocal I",
+  "desc": "La vocal I: su sonido, palabras con i y trazarla con el dedo (libro p. 18).",
+  "materia": "Lenguaje y Lectura",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🔤",
+  "archivo": "clases-programa/primaria/1-grado/lectura/p1-lec-vocal-i.html"
+ },
+ {
   "id": "p1-mat-contar",
   "titulo": "Contar, comparar y ordenar hasta 100",
   "desc": "Contar, decenas en 3D, comparar con el cocodrilo y ordenar hasta 100.",
@@ -193,58 +258,6 @@
   "tipo": "Pizarra con voz",
   "icono": "🔢",
   "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-contar.html"
- },
- {
-  "id": "p1-mat-valor",
-  "titulo": "Valor posicional: unidades, decenas y centenas",
-  "desc": "La casa de los números: unidades, decenas y centenas con bloques en 3D.",
-  "materia": "Matemática",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "1.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "🏠",
-  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-valor.html"
- },
- {
-  "id": "p1-mat-ordinales",
-  "titulo": "Números ordinales",
-  "desc": "Primero, segundo, tercero… con la fila, el podio 3D y el edificio.",
-  "materia": "Matemática",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "1.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "🥇",
-  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-ordinales.html"
- },
- {
-  "id": "p1-mat-suma",
-  "titulo": "La suma",
-  "desc": "Juntar, saltos en la recta, sumar en columnas y llevar, con bloques en 3D.",
-  "materia": "Matemática",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "1.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "➕",
-  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-suma.html"
- },
- {
-  "id": "p1-mat-resta",
-  "titulo": "La resta",
-  "desc": "Quitar, saltos hacia atrás, cuánto falta y restar en columnas con bloques en 3D.",
-  "materia": "Matemática",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "1.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "➖",
-  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-resta.html"
  },
  {
   "id": "p1-mat-figuras",
@@ -273,6 +286,19 @@
   "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-medidas.html"
  },
  {
+  "id": "p1-mat-ordinales",
+  "titulo": "Números ordinales",
+  "desc": "Primero, segundo, tercero… con la fila, el podio 3D y el edificio.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🥇",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-ordinales.html"
+ },
+ {
   "id": "p1-mat-pictogramas",
   "titulo": "Pictogramas",
   "desc": "Recoger datos con palitos, hacer y leer pictogramas, con votación interactiva.",
@@ -286,56 +312,56 @@
   "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-pictogramas.html"
  },
  {
-  "id": "p1-cie-materia",
-  "titulo": "Estados de la materia",
-  "desc": "Sólido, líquido y gas con bolitas que se mueven, y los cambios de estado.",
-  "materia": "Ciencias Naturales",
+  "id": "p1-mat-resta",
+  "titulo": "La resta",
+  "desc": "Quitar, saltos hacia atrás, cuánto falta y restar en columnas con bloques en 3D.",
+  "materia": "Matemática",
   "niveles": [
    "Primaria"
   ],
   "grado": "1.º grado",
   "tipo": "Pizarra con voz",
-  "icono": "🧊",
-  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-materia.html"
+  "icono": "➖",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-resta.html"
  },
  {
-  "id": "p1-cie-agua",
-  "titulo": "El agua",
-  "desc": "El agua es vida: dónde está, cómo es, qué flota y cómo cuidarla.",
-  "materia": "Ciencias Naturales",
+  "id": "p1-mat-suma",
+  "titulo": "La suma",
+  "desc": "Juntar, saltos en la recta, sumar en columnas y llevar, con bloques en 3D.",
+  "materia": "Matemática",
   "niveles": [
    "Primaria"
   ],
   "grado": "1.º grado",
   "tipo": "Pizarra con voz",
-  "icono": "💧",
-  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-agua.html"
+  "icono": "➕",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-suma.html"
  },
  {
-  "id": "p1-cie-fuerzas",
-  "titulo": "Movimiento y fuerzas",
-  "desc": "Empujar, jalar, frenar, el roce y la gravedad con un carrito interactivo.",
-  "materia": "Ciencias Naturales",
+  "id": "p1-mat-valor",
+  "titulo": "Valor posicional: unidades, decenas y centenas",
+  "desc": "La casa de los números: unidades, decenas y centenas con bloques en 3D.",
+  "materia": "Matemática",
   "niveles": [
    "Primaria"
   ],
   "grado": "1.º grado",
   "tipo": "Pizarra con voz",
-  "icono": "💪",
-  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-fuerzas.html"
+  "icono": "🏠",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-valor.html"
  },
  {
-  "id": "p1-cie-energia",
-  "titulo": "Tipos de energía",
-  "desc": "Sol, electricidad, viento, calor y alimentos, con un molino que enciende un bombillo.",
+  "id": "p2-cie-ciclo-agua",
+  "titulo": "El ciclo del agua",
+  "desc": "Evaporación, condensación, precipitación y escurrimiento con animación interactiva y experimentos de casa.",
   "materia": "Ciencias Naturales",
   "niveles": [
    "Primaria"
   ],
-  "grado": "1.º grado",
+  "grado": "2.º grado",
   "tipo": "Pizarra con voz",
-  "icono": "⚡",
-  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-energia.html"
+  "icono": "🌧️",
+  "archivo": "clases-programa/primaria/2-grado/ciencias/p2-cie-ciclo-agua.html"
  },
  {
   "id": "p2-cie-energias",
@@ -349,6 +375,19 @@
   "tipo": "Pizarra con voz",
   "icono": "♻️",
   "archivo": "clases-programa/primaria/2-grado/ciencias/p2-cie-energias.html"
+ },
+ {
+  "id": "p2-cie-petroleo",
+  "titulo": "El petróleo y sus derivados",
+  "desc": "Qué es, el pozo en 3D, la torre de la refinería interactiva y los derivados del petróleo.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🛢️",
+  "archivo": "clases-programa/primaria/2-grado/ciencias/p2-cie-petroleo.html"
  },
  {
   "id": "p2-mat-barras",
@@ -455,30 +494,56 @@
   "archivo": "clases-programa/primaria/2-grado/matematica/p2-mat-valor-millar.html"
  },
  {
-  "id": "p2-cie-ciclo-agua",
-  "titulo": "El ciclo del agua",
-  "desc": "Evaporación, condensación, precipitación y escurrimiento con animación interactiva y experimentos de casa.",
+  "id": "p3-cie-gravedad",
+  "titulo": "La gravedad, la caída libre y el peso",
+  "desc": "La pluma y el martillo con y sin aire, y el peso en la Luna, Marte y Júpiter.",
   "materia": "Ciencias Naturales",
   "niveles": [
    "Primaria"
   ],
-  "grado": "2.º grado",
+  "grado": "3.º grado",
   "tipo": "Pizarra con voz",
-  "icono": "🌧️",
-  "archivo": "clases-programa/primaria/2-grado/ciencias/p2-cie-ciclo-agua.html"
+  "icono": "🍎",
+  "archivo": "clases-programa/primaria/3-grado/ciencias/p3-cie-gravedad.html"
  },
  {
-  "id": "p2-cie-petroleo",
-  "titulo": "El petróleo y sus derivados",
-  "desc": "Qué es, el pozo en 3D, la torre de la refinería interactiva y los derivados del petróleo.",
+  "id": "p3-cie-mezclas",
+  "titulo": "Mezclas homogéneas y heterogéneas",
+  "desc": "Vaso interactivo para mezclar, pabellón y papelón en 3D, ¿veo las partes?",
   "materia": "Ciencias Naturales",
   "niveles": [
    "Primaria"
   ],
-  "grado": "2.º grado",
+  "grado": "3.º grado",
   "tipo": "Pizarra con voz",
-  "icono": "🛢️",
-  "archivo": "clases-programa/primaria/2-grado/ciencias/p2-cie-petroleo.html"
+  "icono": "🧪",
+  "archivo": "clases-programa/primaria/3-grado/ciencias/p3-cie-mezclas.html"
+ },
+ {
+  "id": "p3-cie-separar",
+  "titulo": "Cómo separar mezclas",
+  "desc": "Tamizar, imantar, filtrar, decantar y evaporar, cada método animado.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "3.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🧲",
+  "archivo": "clases-programa/primaria/3-grado/ciencias/p3-cie-separar.html"
+ },
+ {
+  "id": "p3-mat-circulo",
+  "titulo": "Círculo y circunferencia",
+  "desc": "Compás interactivo, centro, radio y diámetro, y cosas redondas en 3D.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "3.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "⭕",
+  "archivo": "clases-programa/primaria/3-grado/matematica/p3-mat-circulo.html"
  },
  {
   "id": "p3-mat-numeros",
@@ -494,19 +559,6 @@
   "archivo": "clases-programa/primaria/3-grado/matematica/p3-mat-numeros.html"
  },
  {
-  "id": "p3-mat-por10",
-  "titulo": "Multiplicar por 10, 100 y 1.000",
-  "desc": "Bloques de base 10 en 3D, tabla de puestos animada y la regla de los ceros.",
-  "materia": "Matemática",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "3.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "🔟",
-  "archivo": "clases-programa/primaria/3-grado/matematica/p3-mat-por10.html"
- },
- {
   "id": "p3-mat-poligonos",
   "titulo": "Polígonos y ángulos",
   "desc": "Polígonos en 3D, sus partes y nombres, y ángulos con transportador interactivo.",
@@ -520,17 +572,17 @@
   "archivo": "clases-programa/primaria/3-grado/matematica/p3-mat-poligonos.html"
  },
  {
-  "id": "p3-mat-circulo",
-  "titulo": "Círculo y circunferencia",
-  "desc": "Compás interactivo, centro, radio y diámetro, y cosas redondas en 3D.",
+  "id": "p3-mat-por10",
+  "titulo": "Multiplicar por 10, 100 y 1.000",
+  "desc": "Bloques de base 10 en 3D, tabla de puestos animada y la regla de los ceros.",
   "materia": "Matemática",
   "niveles": [
    "Primaria"
   ],
   "grado": "3.º grado",
   "tipo": "Pizarra con voz",
-  "icono": "⭕",
-  "archivo": "clases-programa/primaria/3-grado/matematica/p3-mat-circulo.html"
+  "icono": "🔟",
+  "archivo": "clases-programa/primaria/3-grado/matematica/p3-mat-por10.html"
  },
  {
   "id": "p3-mat-punto-recta",
@@ -572,43 +624,69 @@
   "archivo": "clases-programa/primaria/3-grado/matematica/p3-mat-tablas.html"
  },
  {
-  "id": "p3-cie-mezclas",
-  "titulo": "Mezclas homogéneas y heterogéneas",
-  "desc": "Vaso interactivo para mezclar, pabellón y papelón en 3D, ¿veo las partes?",
+  "id": "p4-cie-atomo",
+  "titulo": "El átomo",
+  "desc": "Átomo interactivo que se arma con botones y átomos en 3D.",
   "materia": "Ciencias Naturales",
   "niveles": [
    "Primaria"
   ],
-  "grado": "3.º grado",
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "⚛️",
+  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-atomo.html"
+ },
+ {
+  "id": "p4-cie-elementos",
+  "titulo": "Elementos, compuestos y mezclas",
+  "desc": "Moléculas en 3D, partículas animadas y vaso de mezclas.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
   "tipo": "Pizarra con voz",
   "icono": "🧪",
-  "archivo": "clases-programa/primaria/3-grado/ciencias/p3-cie-mezclas.html"
+  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-elementos.html"
  },
  {
-  "id": "p3-cie-separar",
-  "titulo": "Cómo separar mezclas",
-  "desc": "Tamizar, imantar, filtrar, decantar y evaporar, cada método animado.",
+  "id": "p4-cie-instrumentos",
+  "titulo": "Instrumentos de medida",
+  "desc": "Instrumentos interactivos: regla, cinta, balanza, termómetro, probeta y cronómetro.",
   "materia": "Ciencias Naturales",
   "niveles": [
    "Primaria"
   ],
-  "grado": "3.º grado",
+  "grado": "4.º grado",
   "tipo": "Pizarra con voz",
-  "icono": "🧲",
-  "archivo": "clases-programa/primaria/3-grado/ciencias/p3-cie-separar.html"
+  "icono": "📏",
+  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-instrumentos.html"
  },
  {
-  "id": "p3-cie-gravedad",
-  "titulo": "La gravedad, la caída libre y el peso",
-  "desc": "La pluma y el martillo con y sin aire, y el peso en la Luna, Marte y Júpiter.",
+  "id": "p4-cie-masa-volumen",
+  "titulo": "Masa, volumen y longitud",
+  "desc": "Balanza de platos, cubitos en 3D, probeta y acuario.",
   "materia": "Ciencias Naturales",
   "niveles": [
    "Primaria"
   ],
-  "grado": "3.º grado",
+  "grado": "4.º grado",
   "tipo": "Pizarra con voz",
-  "icono": "🍎",
-  "archivo": "clases-programa/primaria/3-grado/ciencias/p3-cie-gravedad.html"
+  "icono": "⚖️",
+  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-masa-volumen.html"
+ },
+ {
+  "id": "p4-cie-unidades",
+  "titulo": "Unidades y conversiones",
+  "desc": "Escalera de unidades interactiva, litro en 3D, jarra y reloj.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📐",
+  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-unidades.html"
  },
  {
   "id": "p4-mat-bisectriz",
@@ -739,83 +817,5 @@
   "tipo": "Pizarra con voz",
   "icono": "🔺",
   "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-triangulos.html"
- },
- {
-  "id": "p4-cie-atomo",
-  "titulo": "El átomo",
-  "desc": "Átomo interactivo que se arma con botones y átomos en 3D.",
-  "materia": "Ciencias Naturales",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "4.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "⚛️",
-  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-atomo.html"
- },
- {
-  "id": "p4-cie-elementos",
-  "titulo": "Elementos, compuestos y mezclas",
-  "desc": "Moléculas en 3D, partículas animadas y vaso de mezclas.",
-  "materia": "Ciencias Naturales",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "4.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "🧪",
-  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-elementos.html"
- },
- {
-  "id": "p4-cie-instrumentos",
-  "titulo": "Instrumentos de medida",
-  "desc": "Instrumentos interactivos: regla, cinta, balanza, termómetro, probeta y cronómetro.",
-  "materia": "Ciencias Naturales",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "4.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "📏",
-  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-instrumentos.html"
- },
- {
-  "id": "p4-cie-masa-volumen",
-  "titulo": "Masa, volumen y longitud",
-  "desc": "Balanza de platos, cubitos en 3D, probeta y acuario.",
-  "materia": "Ciencias Naturales",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "4.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "⚖️",
-  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-masa-volumen.html"
- },
- {
-  "id": "p4-cie-unidades",
-  "titulo": "Unidades y conversiones",
-  "desc": "Escalera de unidades interactiva, litro en 3D, jarra y reloj.",
-  "materia": "Ciencias Naturales",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "4.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "📐",
-  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-unidades.html"
- },
- {
-  "id": "p1-lec-vocal-i",
-  "titulo": "La vocal I",
-  "desc": "La vocal I: su sonido, palabras con i y trazarla con el dedo (libro p. 18).",
-  "materia": "Lenguaje y Lectura",
-  "niveles": [
-   "Primaria"
-  ],
-  "grado": "1.º grado",
-  "tipo": "Pizarra con voz",
-  "icono": "🔤",
-  "archivo": "clases-programa/primaria/1-grado/lectura/p1-lec-vocal-i.html"
  }
 ]
