@@ -284,5 +284,57 @@
   "tipo": "Pizarra con voz",
   "icono": "📊",
   "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-pictogramas.html"
+ },
+ {
+  "id": "p1-cie-materia",
+  "titulo": "Estados de la materia",
+  "desc": "Sólido, líquido y gas con bolitas que se mueven, y los cambios de estado.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🧊",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-materia.html"
+ },
+ {
+  "id": "p1-cie-agua",
+  "titulo": "El agua",
+  "desc": "El agua es vida: dónde está, cómo es, qué flota y cómo cuidarla.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "💧",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-agua.html"
+ },
+ {
+  "id": "p1-cie-fuerzas",
+  "titulo": "Movimiento y fuerzas",
+  "desc": "Empujar, jalar, frenar, el roce y la gravedad con un carrito interactivo.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "💪",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-fuerzas.html"
+ },
+ {
+  "id": "p1-cie-energia",
+  "titulo": "Tipos de energía",
+  "desc": "Sol, electricidad, viento, calor y alimentos, con un molino que enciende un bombillo.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "⚡",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-energia.html"
  }
 ]
