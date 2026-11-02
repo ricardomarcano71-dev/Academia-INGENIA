@@ -193,5 +193,148 @@
   "tipo": "Pizarra con voz",
   "icono": "🔢",
   "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-contar.html"
+ },
+ {
+  "id": "p1-mat-valor",
+  "titulo": "Valor posicional: unidades, decenas y centenas",
+  "desc": "La casa de los números: unidades, decenas y centenas con bloques en 3D.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🏠",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-valor.html"
+ },
+ {
+  "id": "p1-mat-ordinales",
+  "titulo": "Números ordinales",
+  "desc": "Primero, segundo, tercero… con la fila, el podio 3D y el edificio.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🥇",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-ordinales.html"
+ },
+ {
+  "id": "p1-mat-suma",
+  "titulo": "La suma",
+  "desc": "Juntar, saltos en la recta, sumar en columnas y llevar, con bloques en 3D.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "➕",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-suma.html"
+ },
+ {
+  "id": "p1-mat-resta",
+  "titulo": "La resta",
+  "desc": "Quitar, saltos hacia atrás, cuánto falta y restar en columnas con bloques en 3D.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "➖",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-resta.html"
+ },
+ {
+  "id": "p1-mat-figuras",
+  "titulo": "Figuras planas y cuerpos",
+  "desc": "Figuras planas y cuerpos geométricos en 3D: cubo, esfera, cilindro, cono y pirámide.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🔺",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-figuras.html"
+ },
+ {
+  "id": "p1-mat-medidas",
+  "titulo": "Medidas y el dinero",
+  "desc": "Regla, balanza interactiva, capacidad, el reloj y contar bolívares.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📏",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-medidas.html"
+ },
+ {
+  "id": "p1-mat-pictogramas",
+  "titulo": "Pictogramas",
+  "desc": "Recoger datos con palitos, hacer y leer pictogramas, con votación interactiva.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📊",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-pictogramas.html"
+ },
+ {
+  "id": "p1-cie-materia",
+  "titulo": "Estados de la materia",
+  "desc": "Sólido, líquido y gas con bolitas que se mueven, y los cambios de estado.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🧊",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-materia.html"
+ },
+ {
+  "id": "p1-cie-agua",
+  "titulo": "El agua",
+  "desc": "El agua es vida: dónde está, cómo es, qué flota y cómo cuidarla.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "💧",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-agua.html"
+ },
+ {
+  "id": "p1-cie-fuerzas",
+  "titulo": "Movimiento y fuerzas",
+  "desc": "Empujar, jalar, frenar, el roce y la gravedad con un carrito interactivo.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "💪",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-fuerzas.html"
+ },
+ {
+  "id": "p1-cie-energia",
+  "titulo": "Tipos de energía",
+  "desc": "Sol, electricidad, viento, calor y alimentos, con un molino que enciende un bombillo.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "⚡",
+  "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-energia.html"
  }
 ]

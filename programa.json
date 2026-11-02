@@ -19,25 +19,46 @@
          ]
         },
         {
-         "t": "Valor posicional: unidades, decenas y centenas"
+         "t": "Valor posicional: unidades, decenas y centenas",
+         "c": [
+          "p1-mat-valor"
+         ]
         },
         {
-         "t": "Números ordinales"
+         "t": "Números ordinales",
+         "c": [
+          "p1-mat-ordinales"
+         ]
         },
         {
-         "t": "La suma"
+         "t": "La suma",
+         "c": [
+          "p1-mat-suma"
+         ]
         },
         {
-         "t": "La resta"
+         "t": "La resta",
+         "c": [
+          "p1-mat-resta"
+         ]
         },
         {
-         "t": "Figuras planas y cuerpos"
+         "t": "Figuras planas y cuerpos",
+         "c": [
+          "p1-mat-figuras"
+         ]
         },
         {
-         "t": "Medidas y el dinero"
+         "t": "Medidas y el dinero",
+         "c": [
+          "p1-mat-medidas"
+         ]
         },
         {
-         "t": "Pictogramas"
+         "t": "Pictogramas",
+         "c": [
+          "p1-mat-pictogramas"
+         ]
         }
        ]
       },
@@ -204,16 +225,28 @@
        "g": "1.º grado",
        "temas": [
         {
-         "t": "Estados de la materia"
+         "t": "Estados de la materia",
+         "c": [
+          "p1-cie-materia"
+         ]
         },
         {
-         "t": "El agua"
+         "t": "El agua",
+         "c": [
+          "p1-cie-agua"
+         ]
         },
         {
-         "t": "Movimiento y fuerzas"
+         "t": "Movimiento y fuerzas",
+         "c": [
+          "p1-cie-fuerzas"
+         ]
         },
         {
-         "t": "Tipos de energía"
+         "t": "Tipos de energía",
+         "c": [
+          "p1-cie-energia"
+         ]
         }
        ]
       },
