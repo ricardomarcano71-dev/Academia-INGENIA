@@ -849,5 +849,18 @@
   ],
   "fecha": "2026-10-27",
   "archivo": "clases-programa/bachillerato/4-ano/matematica/b4-mat-inec-ejercicios.html"
+ },
+ {
+  "id": "p1-mat-vamos-contar",
+  "titulo": "¡Vamos a contar! Del 1 al 10",
+  "desc": "¡Vamos a contar!: contar dibujos del 1 al 10 y escribir el número en el cuadrito.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Clase con voz sobre una ficha",
+  "icono": "🍎",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-vamos-contar.html"
  }
 ]
