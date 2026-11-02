@@ -3,7 +3,7 @@
   python3 fuente/rotar.py reglas     -> publica fuente/firestore.rules en Firebase
   python3 fuente/rotar.py entrantes  -> cifra con la llave de su nivel las clases nuevas de entrantes/
   python3 fuente/rotar.py rotar      -> crea llaves nuevas (una por nivel) y vuelve a cifrar todas las clases
-Las llaves viven en Firestore: secreto/primaria, secreto/teen y secreto/campus.
+Las llaves viven en Firestore: secreto/primaria, secreto/teen, secreto/campus y una por colegio (secreto/col-idea…).
 Necesita la variable FIREBASE_SA con el JSON de la cuenta de servicio de Firebase."""
 import os, sys, json, glob, base64, secrets, datetime, requests
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
@@ -11,7 +11,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from llaves import PLANES, aes_planes, cifrar, descifrar, planes_de, checks
+from llaves import PLANES, NIVELES, aes_planes, cifrar, descifrar, planes_clase, checks
 from google.oauth2 import service_account
 import google.auth.transport.requests as gtr
 
@@ -24,7 +24,9 @@ b64 = lambda b: base64.b64encode(b).decode()
 def leer_llaves():
     out = {}
     for p in PLANES:
-        r = requests.get(DOC + p, headers=H); r.raise_for_status(); out[p] = r.json()['fields']['clave']['stringValue']
+        r = requests.get(DOC + p, headers=H)
+        if r.status_code == 404 and p not in NIVELES: continue  # colegio cuya llave aún no se guardó en el panel
+        r.raise_for_status(); out[p] = r.json()['fields']['clave']['stringValue']
     return out
 def guardar_llave(plan, nueva, anterior):
     body = {'fields': {'clave': {'stringValue': nueva}, 'anterior': {'stringValue': anterior},
@@ -58,7 +60,7 @@ def entrantes():
         k = priv.decrypt(raw[2:2 + L], padding.OAEP(mgf=padding.MGF1(hashes.SHA256()), algorithm=hashes.SHA256(), label=None))
         rest = raw[2 + L:]; html = AESGCM(k).decrypt(rest[:12], rest[12:], None)
         cid = os.path.basename(f)[:-4]
-        open(f'c/{cid}.bin', 'wb').write(cifrar(html, aes, planes_de(C[cid]['niveles']))); os.remove(f); n += 1
+        open(f'c/{cid}.bin', 'wb').write(cifrar(html, aes, planes_clase(C[cid]))); os.remove(f); n += 1
         print('clase lista:', cid)
     print(n, 'clases nuevas cifradas')
 
@@ -71,10 +73,10 @@ def rotar():
         planos[f] = descifrar(open(f, 'rb').read(), vieja)
     D['salt'] = b64(os.urandom(16)); nueva = aes_planes(nuevas, D)
     # 1) Firebase primero: la página prueba la llave nueva y la anterior, así nadie queda sin acceso
-    for p in PLANES: guardar_llave(p, nuevas[p], viejas[p])
+    for p in PLANES: guardar_llave(p, nuevas[p], viejas.get(p, ''))
     for f, html in planos.items():
         cid = os.path.basename(f)[:-4]
-        open(f, 'wb').write(cifrar(html, nueva, planes_de(C[cid]['niveles'])))
+        open(f, 'wb').write(cifrar(html, nueva, planes_clase(C[cid])))
     D['checks'] = checks(nueva); D.pop('check', None)
     D['llave_cambiada'] = datetime.date.today().isoformat()
     json.dump(D, open('datos.json', 'w'), ensure_ascii=False)
