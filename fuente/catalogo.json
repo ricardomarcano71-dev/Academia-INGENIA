@@ -336,5 +336,148 @@
   "tipo": "Pizarra con voz",
   "icono": "⚡",
   "archivo": "clases-programa/primaria/1-grado/ciencias/p1-cie-energia.html"
+ },
+ {
+  "id": "p2-cie-energias",
+  "titulo": "Energía renovable y no renovable",
+  "desc": "Sol, viento y agua frente a petróleo, gas y carbón, con paisaje 3D y un juego para ver cuál se acaba.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "♻️",
+  "archivo": "clases-programa/primaria/2-grado/ciencias/p2-cie-energias.html"
+ },
+ {
+  "id": "p2-mat-barras",
+  "titulo": "Gráficos de barras",
+  "desc": "Encuesta, tabla, partes del gráfico, leerlo y hacer tu propio gráfico interactivo, con barras en 3D.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📊",
+  "archivo": "clases-programa/primaria/2-grado/matematica/p2-mat-barras.html"
+ },
+ {
+  "id": "p2-mat-medidas",
+  "titulo": "Medidas de longitud, masa, capacidad y tiempo",
+  "desc": "Regla, balanza, jarra de un litro y reloj interactivos: cm y m, g y kg, litros, horas y calendario.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📏",
+  "archivo": "clases-programa/primaria/2-grado/matematica/p2-mat-medidas.html"
+ },
+ {
+  "id": "p2-mat-multiplicacion",
+  "titulo": "Introducción a la multiplicación",
+  "desc": "Grupos iguales, saltos en la recta, filas y columnas en 3D, doble, triple y tabla del 2.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "✖️",
+  "archivo": "clases-programa/primaria/2-grado/matematica/p2-mat-multiplicacion.html"
+ },
+ {
+  "id": "p2-mat-numeros",
+  "titulo": "Números hasta 1.000",
+  "desc": "Contar de 100 en 100 en 3D, leer y escribir, la recta, comparar, ordenar, antecesor y sucesor.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🔢",
+  "archivo": "clases-programa/primaria/2-grado/matematica/p2-mat-numeros.html"
+ },
+ {
+  "id": "p2-mat-resta",
+  "titulo": "La resta",
+  "desc": "Quitar, la recta hacia atrás, restar en columnas y pedir prestado con bloques en 3D, y comprobar.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "➖",
+  "archivo": "clases-programa/primaria/2-grado/matematica/p2-mat-resta.html"
+ },
+ {
+  "id": "p2-mat-series",
+  "titulo": "Series que suben y bajan",
+  "desc": "Series que suben y bajan con escaleras en 3D, saltos en la recta y el detective de la regla.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🪜",
+  "archivo": "clases-programa/primaria/2-grado/matematica/p2-mat-series.html"
+ },
+ {
+  "id": "p2-mat-suma",
+  "titulo": "La suma y sus propiedades",
+  "desc": "Sumar de tres cifras llevando, con bloques en 3D, y las propiedades conmutativa, asociativa y el cero.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "➕",
+  "archivo": "clases-programa/primaria/2-grado/matematica/p2-mat-suma.html"
+ },
+ {
+  "id": "p2-mat-valor-millar",
+  "titulo": "Valor posicional hasta los millares",
+  "desc": "El millar en 3D, la casa de los números, el valor de cada cifra, descomponer y el cero.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🏠",
+  "archivo": "clases-programa/primaria/2-grado/matematica/p2-mat-valor-millar.html"
+ },
+ {
+  "id": "p2-cie-ciclo-agua",
+  "titulo": "El ciclo del agua",
+  "desc": "Evaporación, condensación, precipitación y escurrimiento con animación interactiva y experimentos de casa.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🌧️",
+  "archivo": "clases-programa/primaria/2-grado/ciencias/p2-cie-ciclo-agua.html"
+ },
+ {
+  "id": "p2-cie-petroleo",
+  "titulo": "El petróleo y sus derivados",
+  "desc": "Qué es, el pozo en 3D, la torre de la refinería interactiva y los derivados del petróleo.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "2.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🛢️",
+  "archivo": "clases-programa/primaria/2-grado/ciencias/p2-cie-petroleo.html"
  }
 ]
