@@ -119,25 +119,46 @@
        "g": "3.º grado",
        "temas": [
         {
-         "t": "Números hasta 10.000"
+         "t": "Números hasta 10.000",
+         "c": [
+          "p3-mat-numeros"
+         ]
         },
         {
-         "t": "Multiplicar por 10, 100 y 1.000"
+         "t": "Multiplicar por 10, 100 y 1.000",
+         "c": [
+          "p3-mat-por10"
+         ]
         },
         {
-         "t": "Polígonos y ángulos"
+         "t": "Polígonos y ángulos",
+         "c": [
+          "p3-mat-poligonos"
+         ]
         },
         {
-         "t": "Círculo y circunferencia"
+         "t": "Círculo y circunferencia",
+         "c": [
+          "p3-mat-circulo"
+         ]
         },
         {
-         "t": "Punto, recta y plano"
+         "t": "Punto, recta y plano",
+         "c": [
+          "p3-mat-punto-recta"
+         ]
         },
         {
-         "t": "Submúltiplos de las medidas"
+         "t": "Submúltiplos de las medidas",
+         "c": [
+          "p3-mat-submultiplos"
+         ]
         },
         {
-         "t": "Tablas de datos"
+         "t": "Tablas de datos",
+         "c": [
+          "p3-mat-tablas"
+         ]
         }
        ]
       },
@@ -301,13 +322,22 @@
        "g": "3.º grado",
        "temas": [
         {
-         "t": "Mezclas homogéneas y heterogéneas"
+         "t": "Mezclas homogéneas y heterogéneas",
+         "c": [
+          "p3-cie-mezclas"
+         ]
         },
         {
-         "t": "Cómo separar mezclas"
+         "t": "Cómo separar mezclas",
+         "c": [
+          "p3-cie-separar"
+         ]
         },
         {
-         "t": "La gravedad, la caída libre y el peso"
+         "t": "La gravedad, la caída libre y el peso",
+         "c": [
+          "p3-cie-gravedad"
+         ]
         }
        ]
       },
