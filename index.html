@@ -392,6 +392,10 @@ document.querySelectorAll('.wa-link').forEach(a=>{a.href='https://wa.me/'+WA+'?t
 
 let DATOS=null, PROG=null, pendiente=null, nivel='Bachillerato', materia='Todas', SES={estado:'fuera'};
 function guardada(){return SES.estado==='ok'}
+const PLAN_DE_NIVEL={Primaria:'primaria',Bachillerato:'teen',Universidad:'campus'},NOMBRE_PLAN={primaria:'INGENIA Kids',teen:'INGENIA Teen',campus:'INGENIA Campus'};
+const planesDe=c=>[...new Set((c.niveles||[]).map(n=>PLAN_DE_NIVEL[n]).filter(Boolean))];
+// ¿Puede abrir esta clase? Gratis siempre; las demás solo si su plan incluye el nivel de la clase
+function puede(c){return !!c.gratis||(SES.estado==='ok'&&planesDe(c).some(p=>SES.llaves&&SES.llaves[p]))}
 function pintarPill(){const p=document.getElementById('pill');p.classList.toggle('ok',SES.estado==='ok');
   p.textContent=SES.estado==='ok'?'🔓 '+((SES.alumno&&SES.alumno.nombre||'').split(' ')[0]||'Mi cuenta')+' · Salir':SES.estado==='vencido'?'⏳ Acceso vencido · Salir':'🔑 Entrar'}
 async function pillClick(){if(SES.estado==='fuera')return abrirClave();if(confirm('¿Cerrar tu sesión?')){await window.FB.salir();SES={estado:'fuera'};pintarPill();pintar()}}
@@ -411,6 +415,8 @@ async function probar(){
 function abrir(c){
   if(c.gratis){location.href='c/'+c.id+'.html';return}
   if(SES.estado!=='ok'){abrirClave(c.id);return}
+  if(!puede(c)){const ps=planesDe(c).map(p=>NOMBRE_PLAN[p]).join(' o ');
+    if(confirm('Esta clase es de '+ps+' y tu plan no la incluye.\n\n¿Quieres pedir por WhatsApp que te agreguemos ese nivel?'))window.open('https://wa.me/'+WA+'?text='+encodeURIComponent('¡Hola INGENIA! Quiero agregar '+ps+' a mi plan.'),'_blank');return}
   location.href='ver.html?c='+c.id;
 }
 function tarjeta(c,ok){
@@ -448,7 +454,7 @@ function pintar(){
     d.innerHTML=`<summary><span>${q?N.n+' · ':''}${M.m} · ${G.g}${G.eq?'<em class="eq">'+G.eq+'</em>':''}</span><small>${listos?'▶ '+listos+' con clase · ':''}${G.temas.length} temas</small></summary>`;
     temas.forEach(t=>{const r=document.createElement('div');r.className='tm';r.innerHTML=`<span class="tt">${t.t}</span>`;
       (t.c||[]).forEach(i=>{const c=C[i];if(!c)return;const b=document.createElement('button');b.className='cl'+(c.gratis?' g':'');
-        b.textContent=(c.gratis?'▶ ':ok?'▶ ':'🔒 ')+c.titulo+(c.gratis?' · gratis':'');b.onclick=()=>abrir(c);r.appendChild(b)});
+        b.textContent=(puede(c)?'▶ ':'🔒 ')+c.titulo+(c.gratis?' · gratis':'');b.onclick=()=>abrir(c);r.appendChild(b)});
       if(!(t.c||[]).length){const s=document.createElement('span');s.className='pr';s.innerHTML=`Próximamente · <a target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent('¡Hola INGENIA! Quiero la clase de '+t.t+' ('+N.n+', '+M.m+', '+G.g+').')}">pídela</a>`;r.appendChild(s)}
       d.appendChild(r)});
     P.appendChild(d)})));
@@ -491,7 +497,7 @@ function pintarPasos(C,ok){
     const w=document.createElement('div');w.className='temas';
     T.forEach((t,i)=>{const cs=(t.c||[]).map(x=>C[x]).filter(Boolean),d=document.createElement('div');d.className='tema'+(cs.length?' listo':'');
       d.innerHTML=`<span class="num">${i+1}</span><h4>${esc(t.t)}</h4>`;
-      cs.forEach(c=>{const bt=document.createElement('button');bt.className='cl'+(c.gratis?' g':'');const mismo=sinTilde(c.titulo)===sinTilde(t.t)||cs.length===1&&sinTilde(c.titulo).includes(sinTilde(t.t));bt.textContent=(c.gratis||ok?'▶ ':'🔒 ')+(mismo?'Ver la clase':c.titulo)+(c.gratis?' · gratis':'');bt.onclick=()=>abrir(c);d.appendChild(bt)});
+      cs.forEach(c=>{const bt=document.createElement('button');bt.className='cl'+(c.gratis?' g':'');const mismo=sinTilde(c.titulo)===sinTilde(t.t)||cs.length===1&&sinTilde(c.titulo).includes(sinTilde(t.t));bt.textContent=(puede(c)?'▶ ':'🔒 ')+(mismo?'Ver la clase':c.titulo)+(c.gratis?' · gratis':'');bt.onclick=()=>abrir(c);d.appendChild(bt)});
       if(!cs.length){const s=document.createElement('span');s.className='pr';s.innerHTML=`Próximamente · <a target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent('¡Hola INGENIA! Quiero la clase de '+t.t+' ('+N.n+', '+ctx+').')}">pídela</a>`;d.appendChild(s)}
       w.appendChild(d)});
     P.appendChild(w);

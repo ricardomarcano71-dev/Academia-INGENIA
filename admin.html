@@ -33,6 +33,8 @@ button.g{background:#25d366;color:#fff}
 .btns{display:flex;flex-wrap:wrap;gap:6px}
 .hide{display:none}
 #buscar{margin-top:0}
+.planes{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:6px}.planes label{display:flex;align-items:center;gap:6px;margin:0;font-size:16px;color:#1d2a3a;cursor:pointer}.planes input{width:auto;margin:0;transform:scale(1.3)}
+.pp{font-size:13px;font-weight:900;padding:3px 9px;border-radius:20px;border:2px solid #cfdbe7;background:#fff;color:#8a96a6;cursor:pointer}.pp.on{background:#0d2b45;border-color:#0d2b45;color:#fff}
 </style>
 </head>
 <body>
@@ -59,6 +61,8 @@ button.g{background:#25d366;color:#fff}
       <div><label>Contraseña</label><input id="nPass"></div>
       <div><label>Acceso por</label><select id="nDias"><option value="7">1 semana</option><option value="14">2 semanas</option><option value="30">1 mes</option></select></div>
     </div>
+    <label>Niveles que contrató (solo abre las clases de esos niveles, más las gratis)</label>
+    <div class="planes" id="nPlanes"><label><input type="checkbox" value="primaria"> 🎈 Kids (primaria)</label><label><input type="checkbox" value="teen"> 🚀 Teen (bachillerato)</label><label><input type="checkbox" value="campus"> 🎓 Campus (universidad)</label></div>
     <div style="margin-top:12px"><button id="bNuevo">Crear alumno</button></div>
     <div class="msg" id="mNuevo"></div>
   </div>
@@ -70,10 +74,12 @@ button.g{background:#25d366;color:#fff}
   </div>
 
   <div class="card">
-    <h2>🔐 Llave de las clases</h2>
-    <p style="font-size:15px;color:#4a5a6e;font-weight:600">Es la llave con la que están cifradas las clases. Los alumnos con acceso vigente la reciben solos. Solo se cambia si Claude vuelve a cifrar las clases con otra.</p>
-    <label>Llave actual</label><input id="kClave" autocomplete="off">
-    <div style="margin-top:10px"><button id="bClave">Guardar llave</button></div>
+    <h2>🔐 Llaves de las clases (una por nivel)</h2>
+    <p style="font-size:15px;color:#4a5a6e;font-weight:600">Cada nivel tiene su llave. Los alumnos con acceso vigente reciben solas las llaves de sus niveles. Solo se cambian si Claude vuelve a cifrar las clases con otras.</p>
+    <label>🎈 Kids (primaria)</label><input id="k_primaria" autocomplete="off">
+    <label>🚀 Teen (bachillerato)</label><input id="k_teen" autocomplete="off">
+    <label>🎓 Campus (universidad)</label><input id="k_campus" autocomplete="off">
+    <div style="margin-top:10px"><button id="bClave">Guardar llaves</button></div>
     <div class="msg" id="mClave"></div>
   </div>
 </div>
@@ -84,7 +90,8 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/fireba
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, Timestamp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 import { firebaseConfig } from './firebase-config.js';
-import { app, auth, db, correo, DOMINIO, accesosDe, resumen, LIMITE_DISP } from './fb.js';
+import { app, auth, db, correo, DOMINIO, accesosDe, resumen, LIMITE_DISP, PLANES } from './fb.js';
+const CORTO = { primaria: '🎈 Kids', teen: '🚀 Teen', campus: '🎓 Campus' };
 
 const $ = id => document.getElementById(id);
 const say = (el, txt, ok) => { $(el).textContent = txt; $(el).className = 'msg ' + (ok ? 'ok' : 'err'); };
@@ -119,18 +126,19 @@ onAuthStateChanged(auth, async u => {
   $('quien').innerHTML = u.email + ' <button class="s" id="bSalir">Salir</button>';
   $('bSalir').onclick = () => signOut(auth);
   try {
-    const k = await getDoc(doc(db, 'secreto', 'clave'));
-    $('kClave').value = k.exists() ? k.data().clave : '';
+    for (const p of PLANES) { const k = await getDoc(doc(db, 'secreto', p)); $('k_' + p).value = k.exists() ? k.data().clave : ''; }
   } catch (e) { say('mLogin', 'Esta cuenta no es de administrador o faltan las reglas de seguridad.'); return; }
   $('vLogin').classList.add('hide'); $('vPanel').classList.remove('hide');
   cargar();
 });
 
 $('bClave').onclick = async () => {
-  const c = $('kClave').value.trim().toUpperCase();
-  if (!c) return say('mClave', 'Escribe la llave.');
-  await setDoc(doc(db, 'secreto', 'clave'), { clave: c }, { merge: true });
-  $('kClave').value = c; say('mClave', 'Llave guardada.', true);
+  const L = {}; for (const p of PLANES) L[p] = $('k_' + p).value.trim().toUpperCase();
+  if (PLANES.some(p => !L[p])) return say('mClave', 'Escribe las tres llaves.');
+  try {
+    for (const p of PLANES) { await setDoc(doc(db, 'secreto', p), { clave: L[p] }, { merge: true }); $('k_' + p).value = L[p]; }
+    say('mClave', 'Llaves guardadas.', true);
+  } catch (e) { say('mClave', 'No se pudieron guardar: ' + (e.code || e.message)); }
 };
 
 $('bNuevo').onclick = async () => {
@@ -138,13 +146,16 @@ $('bNuevo').onclick = async () => {
   if (!nombre || !usuario) return say('mNuevo', 'Escribe el nombre y el usuario.');
   if (!/^[a-z0-9._-]{3,}$/.test(usuario)) return say('mNuevo', 'El usuario solo puede tener letras sin acentos, números, punto o guion (mínimo 3).');
   if (pass.length < 6) return say('mNuevo', 'La contraseña debe tener al menos 6 caracteres.');
+  const planes = [...document.querySelectorAll('#nPlanes input:checked')].map(i => i.value);
+  if (!planes.length) return say('mNuevo', 'Marca al menos un nivel (Kids, Teen o Campus).');
   $('bNuevo').disabled = true;
   try {
     const r = await createUserWithEmailAndPassword(auth2, correo(usuario), pass);
     const vence = Timestamp.fromMillis(Date.now() + (+$('nDias').value) * DIA);
-    await setDoc(doc(db, 'alumnos', r.user.uid), { nombre, usuario, vence, activo: true, creado: Timestamp.now() });
+    await setDoc(doc(db, 'alumnos', r.user.uid), { nombre, usuario, vence, activo: true, planes, creado: Timestamp.now() });
     await signOut(auth2);
-    say('mNuevo', `Listo: ${nombre} · usuario ${usuario} · contraseña ${pass}`, true);
+    say('mNuevo', `Listo: ${nombre} · usuario ${usuario} · contraseña ${pass} · ${planes.map(p => CORTO[p]).join(', ')}`, true);
+    document.querySelectorAll('#nPlanes input').forEach(i => i.checked = false);
     const txt = `¡Hola ${nombre.split(' ')[0]}! Ya tienes acceso a la plataforma INGENIA 🎉\nEntra en ${location.href.replace(/admin\.html.*$/, '')}\nUsuario: ${usuario}\nContraseña: ${pass}`;
     const b = document.createElement('button'); b.className = 'g'; b.textContent = '📋 Copiar mensaje para WhatsApp'; b.style.marginTop = '8px';
     b.onclick = () => { navigator.clipboard.writeText(txt); b.textContent = '✔ Copiado'; };
@@ -176,6 +187,7 @@ function pintar() {
     d.innerHTML = `<div><div class="n">${a.nombre}</div><div class="d">usuario: ${a.usuario} · vence ${vence.toLocaleDateString('es-VE', { weekday: 'short', day: 'numeric', month: 'short' })}</div></div>
       <span class="pill ${vig ? 'v' : 'x'}">${vig ? 'Vigente' : a.activo ? 'Vencido' : 'Desactivado'}</span>
       ${a.res ? `<span class="pill ${a.res.compartida ? 'w' : 'i'}" title="Dispositivos distintos en 7 días">${a.res.compartida ? '⚠️ Posible cuenta compartida · ' : '📱 '}${a.res.dispositivos} disp. · ${a.res.ips} IP</span>` : ''}
+      <div class="btns" title="Niveles: toca para dar o quitar acceso">${PLANES.map(p => `<button class="pp ${(a.planes || PLANES).includes(p) ? 'on' : ''}" data-p="${p}">${CORTO[p]}</button>`).join('')}${a.planes ? '' : '<span class="pill w">Sin nivel marcado: ve los 3</span>'}</div>
       <div class="btns"><button class="s" data-d="7">+1 semana</button><button class="s" data-d="30">+1 mes</button>
       <button class="s ${a.activo ? 'r' : ''}" data-t="1">${a.activo ? 'Desactivar' : 'Activar'}</button>
       ${a.acc && a.acc.length ? '<button class="s" data-v="1">Ver accesos</button>' : ''}</div>
@@ -184,6 +196,11 @@ function pintar() {
       const base = Math.max(Date.now(), vence.getTime());
       await updateDoc(doc(db, 'alumnos', a.id), { vence: Timestamp.fromMillis(base + (+b.dataset.d) * DIA), activo: true });
       cargar();
+    });
+    d.querySelectorAll('[data-p]').forEach(b => b.onclick = async () => {
+      const cur = new Set(a.planes || PLANES); cur.has(b.dataset.p) ? cur.delete(b.dataset.p) : cur.add(b.dataset.p);
+      if (!cur.size) return alert('El alumno debe tener al menos un nivel. Para quitarle el acceso usa Desactivar.');
+      await updateDoc(doc(db, 'alumnos', a.id), { planes: PLANES.filter(p => cur.has(p)) }); cargar();
     });
     const bv = d.querySelector('[data-v]'); if (bv) bv.onclick = () => d.querySelector('.acc').classList.toggle('hide');
     d.querySelector('[data-t]').onclick = async () => { await updateDoc(doc(db, 'alumnos', a.id), { activo: !a.activo }); cargar(); };

@@ -10,16 +10,23 @@ export const db = getFirestore(app);
 export const DOMINIO = '@alumnos.ingenia.app';
 export const correo = u => { u = u.trim().toLowerCase(); return u.includes('@') ? u : u + DOMINIO; };
 
-// Devuelve {estado:'fuera'|'vencido'|'ok', alumno, clave}
+// Planes (niveles con llave propia): primaria = INGENIA Kids, teen = bachillerato, campus = universidad
+export const PLANES = ['primaria', 'teen', 'campus'];
+export const NOMBRE_PLAN = { primaria: 'INGENIA Kids (primaria)', teen: 'INGENIA Teen (bachillerato)', campus: 'INGENIA Campus (universidad)' };
+export const PLAN_DE_NIVEL = { Primaria: 'primaria', Bachillerato: 'teen', Universidad: 'campus' };
+export const planesDeClase = c => [...new Set((c.niveles || []).map(n => PLAN_DE_NIVEL[n]).filter(Boolean))];
+
+// Devuelve {estado:'fuera'|'vencido'|'ok', alumno, planes, llaves:{plan:[clave, anterior]}}
 export async function revisar(user) {
   if (!user) return { estado: 'fuera' };
   let alumno = null;
   try { const a = await getDoc(doc(db, 'alumnos', user.uid)); alumno = a.exists() ? a.data() : null; } catch (e) {}
-  try {
-    const s = await getDoc(doc(db, 'secreto', 'clave'));
-    if (s.exists()) { const d = s.data(); return { estado: 'ok', alumno, clave: d.clave, anterior: d.anterior || null }; }
-  } catch (e) {}
-  return { estado: 'vencido', alumno };
+  const planes = (alumno && Array.isArray(alumno.planes)) ? alumno.planes : PLANES, llaves = {};
+  await Promise.all(planes.map(async p => {
+    try { const s = await getDoc(doc(db, 'secreto', p)); if (s.exists()) { const d = s.data(); llaves[p] = [d.clave, d.anterior].filter(Boolean); } } catch (e) {}
+  }));
+  if (Object.keys(llaves).length) return { estado: 'ok', alumno, planes, llaves };
+  return { estado: 'vencido', alumno, planes };
 }
 export const listo = () => new Promise(r => { const off = onAuthStateChanged(auth, u => { off(); r(u); }); });
 export const entrar = (u, p) => signInWithEmailAndPassword(auth, correo(u), p);

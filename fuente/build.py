@@ -17,6 +17,7 @@ def quitar_descarga(html):
     return html[:i] + SIN_DESCARGA + html[i:] if i >= 0 else SIN_DESCARGA + html
 
 if __name__ == '__main__':
+    sys.exit('build.py ya no se usa para cifrar: las clases van con una llave por nivel. Usa agregar_clase.py (o subir_clases.py si existe fuente/publica.pem).')
     clave = sys.argv[1].strip().upper()
     src = sys.argv[2] if len(sys.argv) > 2 else '/mnt/project-files'
     out = sys.argv[3] if len(sys.argv) > 3 else os.path.join(here, 'sitio')

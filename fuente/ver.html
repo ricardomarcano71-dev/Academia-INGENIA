@@ -36,6 +36,26 @@ async function bajar(url){
   for(;;){const {done,value}=await rd.read();if(done)break;partes.push(value);n+=value.length;if(total)document.getElementById('p').style.width=(100*n/total)+'%'}
   const out=new Uint8Array(n);let o=0;for(const p of partes){out.set(p,o);o+=p.length}return out;
 }
+// Formato por nivel (IG2): la llave de la clase va cifrada una vez por cada plan que puede abrirla
+const COD={1:'primaria',2:'teen',3:'campus'};
+async function abrirIG2(data,llaves,D){
+  if(data[0]!==73||data[1]!==71||data[2]!==50)return null;
+  const n=data[3];let pos=4,k=null;
+  for(let i=0;i<n;i++,pos+=61){
+    const plan=COD[data[pos]],iv=data.slice(pos+1,pos+13),w=data.slice(pos+13,pos+61);
+    for(const clave of (llaves[plan]||[])){
+      if(k)break;
+      try{
+        const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(clave),'PBKDF2',false,['deriveKey']);
+        const kp=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(D.salt),iterations:D.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+        k=await crypto.subtle.decrypt({name:'AES-GCM',iv},kp,w);
+      }catch(e){}
+    }
+  }
+  if(!k)return null;
+  const kc=await crypto.subtle.importKey('raw',k,'AES-GCM',false,['decrypt']);
+  return crypto.subtle.decrypt({name:'AES-GCM',iv:data.slice(pos,pos+12)},kc,data.slice(pos+12));
+}
 (async()=>{
   if(!/^[a-z0-9-]+$/.test(id))return fallo('Esta clase no existe.');
   let D;try{D=await (await fetch('datos.json',{cache:'no-store'})).json()}catch(e){return fallo('No se pudo conectar. Revisa tu internet.')}
@@ -47,20 +67,15 @@ async function bajar(url){
   const ses=await FB.revisar(await FB.listo());
   if(ses.estado==='fuera'){location.replace('./#clases');return}
   if(ses.estado!=='ok')return fallo('Tu acceso venció. Escríbenos por WhatsApp al 0416-2054982 para renovarlo.');
+  const planes=FB.planesDeClase(c);
+  if(!planes.some(p=>ses.llaves&&ses.llaves[p]))return fallo('Esta clase es de '+planes.map(p=>FB.NOMBRE_PLAN[p]).join(' o ')+' y tu plan no la incluye. Escríbenos por WhatsApp al 0416-2054982 para agregarla.');
   const user=FB.auth.currentUser;
   FB.registrar(user,id).then(r=>{if(r&&r.compartida)aviso(r)});
   t.textContent='Abriendo “'+c.titulo+'”…';
   try{
     const data=await bajar('c/'+id+'.bin');
     t.textContent='Preparando la clase…';
-    let html=null;
-    for(const clave of [ses.clave,ses.anterior].filter(Boolean)){
-      try{
-        const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(clave),'PBKDF2',false,['deriveKey']);
-        const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(D.salt),iterations:D.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
-        html=await crypto.subtle.decrypt({name:'AES-GCM',iv:data.slice(0,12)},k,data.slice(12));break;
-      }catch(e){}
-    }
+    const html=await abrirIG2(data,ses.llaves||{},D);
     if(!html)throw new Error('llave');
     const f=document.getElementById('f');
     f.src=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));
