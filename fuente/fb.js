@@ -77,7 +77,9 @@ export function equiposEnOrden(accesos) {
 export async function equipoPermitido(user, clase) {
   try {
     await addDoc(collection(db, 'alumnos', user.uid, 'accesos'), { disp: dispositivo(), equipo: equipo(), ip: await miIP(), clase: clase || '', t: serverTimestamp() });
-    const orden = equiposEnOrden(await accesosDe(user.uid, 300));
+    // los primeros 100 accesos (en orden de llegada) bastan para saber cuáles fueron sus 2 primeros equipos, y gastan menos lecturas
+    const s = await getDocs(query(collection(db, 'alumnos', user.uid, 'accesos'), orderBy('t', 'asc'), limit(100)));
+    const orden = equiposEnOrden(s.docs.map(d => d.data()));
     return orden.indexOf(dispositivo()) < LIMITE_PROF;
   } catch (e) { return true; }
 }

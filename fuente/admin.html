@@ -61,7 +61,7 @@ button.g{background:#25d366;color:#fff}
       <div><label>Contraseña</label><input id="nPass"></div>
       <div><label>Acceso por</label><select id="nDias"><option value="7">1 semana</option><option value="14">2 semanas</option><option value="30">1 mes</option><option value="prof">👩‍🏫 Profesor: gratis y sin vencimiento</option></select></div>
     </div>
-    <p id="nProfNota" class="hide" style="margin-top:8px;font-size:14px;font-weight:700;color:#4a5a6e">👩‍🏫 Cuenta de profesor: no vence (solo se da de baja con Desactivar) y queda amarrada a sus 2 primeros equipos. En un tercer equipo las clases no le abren. Marca los niveles y su colegio.</p>
+    <p id="nProfNota" class="hide" style="margin-top:8px;font-size:14px;font-weight:700;color:#4a5a6e">👩‍🏫 Cuenta de profesor: no vence (solo se da de baja con Desactivar) y queda amarrada a sus 2 primeros equipos. En un tercer equipo las clases no le abren. Ve todos los niveles y todos los colegios (puedes desmarcar).</p>
     <label>Niveles que contrató (solo abre las clases de esos niveles, más las gratis)</label>
     <div class="planes" id="nPlanes"><label><input type="checkbox" value="primaria"> 🎈 Kids (primaria)</label><label><input type="checkbox" value="teen"> 🚀 Teen (bachillerato)</label><label><input type="checkbox" value="campus"> 🎓 Campus (universidad)</label></div>
     <label>Mi colegio (ve también las clases de su colegio, en la sección "Mi colegio")</label>
@@ -107,7 +107,7 @@ const genPass = () => { const s = 'abcdefghjkmnpqrstuvwxyz23456789'; let p = '';
 $('nPass').value = genPass();
 let ALUMNOS = [];
 $('nDias').onchange = () => { const prof = $('nDias').value === 'prof'; $('nProfNota').classList.toggle('hide', !prof);
-  if (prof) document.querySelectorAll('#nPlanes input').forEach(i => i.checked = true); };
+  if (prof) document.querySelectorAll('#nPlanes input, #nColegios input').forEach(i => i.checked = true); };
 
 $('bEntrar').onclick = async () => {
   try { await signInWithEmailAndPassword(auth, $('aEmail').value.trim(), $('aPass').value); }
@@ -182,7 +182,7 @@ async function cargar() {
   const s = await getDocs(collection(db, 'alumnos'));
   ALUMNOS = s.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => esProfesor(b) - esProfesor(a) || a.nombre.localeCompare(b.nombre));
   pintar();
-  await Promise.all(ALUMNOS.map(async a => { try { a.acc = await accesosDe(a.id, esProfesor(a) ? 300 : 40); a.res = resumen(a.acc); if (esProfesor(a)) a.eq = equiposEnOrden(a.acc).length; } catch (e) { a.acc = []; } }));
+  await Promise.all(ALUMNOS.map(async a => { try { a.acc = await accesosDe(a.id, esProfesor(a) ? 100 : 40); a.res = resumen(a.acc); if (esProfesor(a)) a.eq = equiposEnOrden(a.acc).length; } catch (e) { a.acc = []; } }));
   ALUMNOS.sort((a, b) => ((b.res && b.res.compartida) - (a.res && a.res.compartida)) || a.nombre.localeCompare(b.nombre));
   pintar();
 }
