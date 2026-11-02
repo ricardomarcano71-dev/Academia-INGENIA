@@ -806,6 +806,19 @@
   "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-triangulos.html"
  },
  {
+  "id": "b4-mat-inec-ejercicios",
+  "titulo": "Inecuaciones y sistemas: ejercicios con la parrilla",
+  "desc": "Sistemas de inecuaciones e inecuaciones racionales resueltas con la parrilla (tabla de signos).",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "5.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "📐",
+  "archivo": "clases-programa/bachillerato/4-ano/matematica/b4-mat-inec-ejercicios.html"
+ },
+ {
   "id": "p1-lec-vocal-i",
   "titulo": "La vocal I",
   "desc": "La vocal I: su sonido, palabras con i, encerrar, colorear y escribir (libro p. 18).",
