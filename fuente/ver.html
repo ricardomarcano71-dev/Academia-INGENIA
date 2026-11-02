@@ -37,7 +37,7 @@ async function bajar(url){
   const out=new Uint8Array(n);let o=0;for(const p of partes){out.set(p,o);o+=p.length}return out;
 }
 // Formato por nivel (IG2): la llave de la clase va cifrada una vez por cada plan que puede abrirla
-const COD={1:'primaria',2:'teen',3:'campus'};
+const COD={1:'primaria',2:'teen',3:'campus',4:'col-idea',5:'col-fatima'};
 async function abrirIG2(data,llaves,D){
   if(data[0]!==73||data[1]!==71||data[2]!==50)return null;
   const n=data[3];let pos=4,k=null;
@@ -61,6 +61,7 @@ async function abrirIG2(data,llaves,D){
   let D;try{D=await (await fetch('datos.json',{cache:'no-store'})).json()}catch(e){return fallo('No se pudo conectar. Revisa tu internet.')}
   const c=D.clases.find(x=>x.id===id);if(!c)return fallo('Esta clase no existe.');
   document.title='INGENIA · '+c.titulo;
+  if((c.colegios||[]).length)document.getElementById('volver').href='./#colegio/'+c.colegios[0];
   if(c.gratis){location.replace('c/'+id+'.html');return}
   t.textContent='Revisando tu acceso…';
   let FB;try{FB=await import('./fb.js')}catch(e){return fallo('No se pudo conectar. Revisa tu internet.')}
@@ -68,9 +69,15 @@ async function abrirIG2(data,llaves,D){
   if(ses.estado==='fuera'){location.replace('./#clases');return}
   if(ses.estado!=='ok')return fallo('Tu acceso venció. Escríbenos por WhatsApp al 0416-2054982 para renovarlo.');
   const planes=FB.planesDeClase(c);
-  if(!planes.some(p=>ses.llaves&&ses.llaves[p]))return fallo('Esta clase es de '+planes.map(p=>FB.NOMBRE_PLAN[p]).join(' o ')+' y tu plan no la incluye. Escríbenos por WhatsApp al 0416-2054982 para agregarla.');
+  if(!planes.some(p=>ses.llaves&&ses.llaves[p])){
+    const nom=(c.niveles||[]).length?planes.filter(p=>FB.NOMBRE_PLAN[p]).map(p=>FB.NOMBRE_PLAN[p]):[];
+    (c.colegios||[]).forEach(x=>nom.push('los alumnos del '+FB.NOMBRE_COLEGIO[x]));
+    return fallo('Esta clase es de '+nom.join(' o ')+' y tu plan no la incluye. Escríbenos por WhatsApp al 0416-2054982 para agregarla.')}
   const user=FB.auth.currentUser;
-  FB.registrar(user,id).then(r=>{if(r&&r.compartida)aviso(r)});
+  if(FB.esProfesor(ses.alumno)){
+    t.textContent='Revisando este equipo…';
+    if(!await FB.equipoPermitido(user,id))return fallo('Esta cuenta de profesor ya está activa en otros '+FB.LIMITE_PROF+' equipos y es personal. Si cambiaste de teléfono o computadora, escríbenos por WhatsApp al 0416-2054982 para liberarla.');
+  }else FB.registrar(user,id).then(r=>{if(r&&r.compartida)aviso(r)});
   t.textContent='Abriendo “'+c.titulo+'”…';
   try{
     const data=await bajar('c/'+id+'.bin');
