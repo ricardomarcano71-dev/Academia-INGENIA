@@ -806,19 +806,6 @@
   "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-triangulos.html"
  },
  {
-  "id": "b4-mat-inec-ejercicios",
-  "titulo": "Inecuaciones y sistemas: ejercicios con la parrilla",
-  "desc": "Sistemas de inecuaciones e inecuaciones racionales resueltas con la parrilla (tabla de signos).",
-  "materia": "Matemática",
-  "niveles": [
-   "Bachillerato"
-  ],
-  "grado": "5.º año",
-  "tipo": "Pizarra con voz",
-  "icono": "📐",
-  "archivo": "clases-programa/bachillerato/4-ano/matematica/b4-mat-inec-ejercicios.html"
- },
- {
   "id": "idea-2026-11-02-sociales-derechos-deberes",
   "titulo": "Derechos y deberes de los niños",
   "desc": "Dictado de tres derechos y tres deberes de los niños, y un dibujo. Con el encabezado como en la pizarra del colegio.",
@@ -845,6 +832,23 @@
   "tipo": "Clase con voz sobre el libro",
   "icono": "🔤",
   "archivo": "clases-programa/primaria/1-grado/lectura/p1-lec-vocal-i.html"
+ },
+ {
+  "id": "b4-mat-inec-ejercicios",
+  "titulo": "Inecuaciones y sistemas: ejercicios con la parrilla",
+  "desc": "Sistemas de inecuaciones e inecuaciones racionales resueltas con la parrilla (tabla de signos).",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "5.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "📐",
+  "colegios": [
+   "fatima"
+  ],
+  "fecha": "2026-10-27",
+  "archivo": "clases-programa/bachillerato/4-ano/matematica/b4-mat-inec-ejercicios.html"
  },
  {
   "id": "p1-mat-vamos-contar",
