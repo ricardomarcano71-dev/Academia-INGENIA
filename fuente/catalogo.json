@@ -609,5 +609,200 @@
   "tipo": "Pizarra con voz",
   "icono": "🍎",
   "archivo": "clases-programa/primaria/3-grado/ciencias/p3-cie-gravedad.html"
+ },
+ {
+  "id": "p4-mat-bisectriz",
+  "titulo": "Ángulos y bisectriz",
+  "desc": "Transportador interactivo, tipos de ángulos y la bisectriz con compás animado.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📐",
+  "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-bisectriz.html"
+ },
+ {
+  "id": "p4-mat-conversion",
+  "titulo": "Conversión de unidades",
+  "desc": "Escalera interactiva de unidades de longitud, masa y capacidad.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📏",
+  "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-conversion.html"
+ },
+ {
+  "id": "p4-mat-decimales",
+  "titulo": "Números decimales",
+  "desc": "Cuadrícula interactiva de décimos y centésimos, la coma y cómo comparar.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🔟",
+  "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-decimales.html"
+ },
+ {
+  "id": "p4-mat-fracciones",
+  "titulo": "Fracciones",
+  "desc": "Pizzas y chocolates en 3D, comparar, equivalentes y fracción de una cantidad.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🍕",
+  "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-fracciones.html"
+ },
+ {
+  "id": "p4-mat-frecuencia",
+  "titulo": "Tablas de frecuencia",
+  "desc": "Tabla de conteo, frecuencia, moda y gráfico de barras con torres en 3D.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📊",
+  "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-frecuencia.html"
+ },
+ {
+  "id": "p4-mat-multiplicar",
+  "titulo": "Multiplicar números grandes",
+  "desc": "Multiplicación en columna por una y dos cifras con el modelo de área en 3D.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "✖️",
+  "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-multiplicar.html"
+ },
+ {
+  "id": "p4-mat-numeros",
+  "titulo": "Números hasta 1.000.000",
+  "desc": "Tabla de valor posicional hasta el millón, leer, escribir y comparar.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🔢",
+  "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-numeros.html"
+ },
+ {
+  "id": "p4-mat-operaciones",
+  "titulo": "Operaciones con decimales y fracciones",
+  "desc": "Coma bajo coma, contar decimales y fracciones de igual denominador.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "➕",
+  "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-operaciones.html"
+ },
+ {
+  "id": "p4-mat-rectas",
+  "titulo": "Rectas, rayos y mediatriz",
+  "desc": "Recta, rayo, segmento, posiciones y la mediatriz con compás animado.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📐",
+  "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-rectas.html"
+ },
+ {
+  "id": "p4-mat-triangulos",
+  "titulo": "Triángulos y cuadriláteros",
+  "desc": "Figuras interactivas, clasificación, suma de ángulos y perímetro.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🔺",
+  "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-triangulos.html"
+ },
+ {
+  "id": "p4-cie-atomo",
+  "titulo": "El átomo",
+  "desc": "Átomo interactivo que se arma con botones y átomos en 3D.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "⚛️",
+  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-atomo.html"
+ },
+ {
+  "id": "p4-cie-elementos",
+  "titulo": "Elementos, compuestos y mezclas",
+  "desc": "Moléculas en 3D, partículas animadas y vaso de mezclas.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🧪",
+  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-elementos.html"
+ },
+ {
+  "id": "p4-cie-instrumentos",
+  "titulo": "Instrumentos de medida",
+  "desc": "Instrumentos interactivos: regla, cinta, balanza, termómetro, probeta y cronómetro.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📏",
+  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-instrumentos.html"
+ },
+ {
+  "id": "p4-cie-masa-volumen",
+  "titulo": "Masa, volumen y longitud",
+  "desc": "Balanza de platos, cubitos en 3D, probeta y acuario.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "⚖️",
+  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-masa-volumen.html"
+ },
+ {
+  "id": "p4-cie-unidades",
+  "titulo": "Unidades y conversiones",
+  "desc": "Escalera de unidades interactiva, litro en 3D, jarra y reloj.",
+  "materia": "Ciencias Naturales",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "4.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "📐",
+  "archivo": "clases-programa/primaria/4-grado/ciencias/p4-cie-unidades.html"
  }
 ]

@@ -166,37 +166,65 @@
        "g": "4.º grado",
        "temas": [
         {
-         "t": "Números hasta 1.000.000"
+         "t": "Números hasta 1.000.000",
+         "c": [
+          "p4-mat-numeros"
+         ]
         },
         {
          "t": "Multiplicar números grandes",
          "c": [
+          "p4-mat-multiplicar",
           "parrilla-mult"
          ]
         },
         {
-         "t": "Números decimales"
+         "t": "Números decimales",
+         "c": [
+          "p4-mat-decimales"
+         ]
         },
         {
-         "t": "Fracciones"
+         "t": "Fracciones",
+         "c": [
+          "p4-mat-fracciones"
+         ]
         },
         {
-         "t": "Suma, resta, multiplicación y división con decimales y fracciones"
+         "t": "Suma, resta, multiplicación y división con decimales y fracciones",
+         "c": [
+          "p4-mat-operaciones"
+         ]
         },
         {
-         "t": "Rectas, rayos y mediatriz"
+         "t": "Rectas, rayos y mediatriz",
+         "c": [
+          "p4-mat-rectas"
+         ]
         },
         {
-         "t": "Ángulos y bisectriz"
+         "t": "Ángulos y bisectriz",
+         "c": [
+          "p4-mat-bisectriz"
+         ]
         },
         {
-         "t": "Triángulos y cuadriláteros"
+         "t": "Triángulos y cuadriláteros",
+         "c": [
+          "p4-mat-triangulos"
+         ]
         },
         {
-         "t": "Conversión de unidades"
+         "t": "Conversión de unidades",
+         "c": [
+          "p4-mat-conversion"
+         ]
         },
         {
-         "t": "Tablas de frecuencia"
+         "t": "Tablas de frecuencia",
+         "c": [
+          "p4-mat-frecuencia"
+         ]
         }
        ]
       },
@@ -345,19 +373,34 @@
        "g": "4.º grado",
        "temas": [
         {
-         "t": "Instrumentos de medida"
+         "t": "Instrumentos de medida",
+         "c": [
+          "p4-cie-instrumentos"
+         ]
         },
         {
-         "t": "Unidades y conversiones"
+         "t": "Unidades y conversiones",
+         "c": [
+          "p4-cie-unidades"
+         ]
         },
         {
-         "t": "Masa, volumen y longitud"
+         "t": "Masa, volumen y longitud",
+         "c": [
+          "p4-cie-masa-volumen"
+         ]
         },
         {
-         "t": "El átomo: protones, neutrones y electrones"
+         "t": "El átomo: protones, neutrones y electrones",
+         "c": [
+          "p4-cie-atomo"
+         ]
         },
         {
-         "t": "Elementos, compuestos y mezclas"
+         "t": "Elementos, compuestos y mezclas",
+         "c": [
+          "p4-cie-elementos"
+         ]
         }
        ]
       },
