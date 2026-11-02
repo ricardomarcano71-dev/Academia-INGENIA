@@ -25,13 +25,22 @@
          ]
         },
         {
-         "t": "Números ordinales"
+         "t": "Números ordinales",
+         "c": [
+          "p1-mat-ordinales"
+         ]
         },
         {
-         "t": "La suma"
+         "t": "La suma",
+         "c": [
+          "p1-mat-suma"
+         ]
         },
         {
-         "t": "La resta"
+         "t": "La resta",
+         "c": [
+          "p1-mat-resta"
+         ]
         },
         {
          "t": "Figuras planas y cuerpos"

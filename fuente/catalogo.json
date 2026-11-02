@@ -206,5 +206,44 @@
   "tipo": "Pizarra con voz",
   "icono": "🏠",
   "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-valor.html"
+ },
+ {
+  "id": "p1-mat-ordinales",
+  "titulo": "Números ordinales",
+  "desc": "Primero, segundo, tercero… con la fila, el podio 3D y el edificio.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "🥇",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-ordinales.html"
+ },
+ {
+  "id": "p1-mat-suma",
+  "titulo": "La suma",
+  "desc": "Juntar, saltos en la recta, sumar en columnas y llevar, con bloques en 3D.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "➕",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-suma.html"
+ },
+ {
+  "id": "p1-mat-resta",
+  "titulo": "La resta",
+  "desc": "Quitar, saltos hacia atrás, cuánto falta y restar en columnas con bloques en 3D.",
+  "materia": "Matemática",
+  "niveles": [
+   "Primaria"
+  ],
+  "grado": "1.º grado",
+  "tipo": "Pizarra con voz",
+  "icono": "➖",
+  "archivo": "clases-programa/primaria/1-grado/matematica/p1-mat-resta.html"
  }
 ]
