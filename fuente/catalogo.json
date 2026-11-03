@@ -2,7 +2,7 @@
  {
   "id": "parrilla-mult",
   "titulo": "Multiplicar con el método de la parrilla",
-  "desc": "Pizarra narrada: multiplicaciones grandes sin perderse, casilla por casilla.",
+  "desc": "Pizarra con voz que avanza sola: multiplicaciones grandes casilla por casilla, por qué funciona en 3D, prácticas y laboratorio.",
   "materia": "Matemática",
   "niveles": [
    "Primaria"
@@ -10,7 +10,7 @@
   "grado": "4.º a 6.º grado",
   "tipo": "Pizarra con voz",
   "icono": "✖️",
-  "archivo": "metodo-parrilla/clase-multiplicacion-parrilla-voz-aoede.html",
+  "archivo": "clases-gratis/parrilla/parrilla-mult.html",
   "gratis": true,
   "orden": 1
  },
@@ -140,7 +140,7 @@
  {
   "id": "carbono-3d",
   "titulo": "El átomo de carbono en 3D",
-  "desc": "Por qué el carbono forma 4 enlaces, visto en 3D y explicado con voz.",
+  "desc": "Clase con voz que avanza sola: por qué el carbono forma 4 enlaces, sp³, sp² y sp, σ y π, con modelos 3D y ejercicios.",
   "materia": "Química",
   "niveles": [
    "Bachillerato",
@@ -149,7 +149,7 @@
   "grado": "4.º–5.º año",
   "tipo": "Clase 3D con voz",
   "icono": "💎",
-  "archivo": "enlaces-quimicos/atomo-carbono-3d-voz-sebastian.html",
+  "archivo": "clases-gratis/carbono/carbono-3d.html",
   "gratis": true,
   "orden": 2
  },
