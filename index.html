@@ -230,6 +230,33 @@ body.m-campus .btn.y{color:#fff;background:#2b8f83;box-shadow:0 4px 0 #1d6a61}
 body.m-campus .card{background:#fff;background-image:none;border-radius:12px}
 body.m-campus .gr,body.m-campus .chip,body.m-campus .cl,body.m-campus .buscar{border-radius:10px}
 body.m-campus h2.t,body.m-campus .mhero h1{font-family:'Nunito',sans-serif;font-weight:900;letter-spacing:-.5px}
+/* Campus: una sección por universidad */
+.uband{margin-top:20px}
+.uband h3,.uhead{font-size:20px;font-weight:900;color:var(--navy);margin-top:26px;display:flex;align-items:center;gap:10px}
+.uband h3:after,.uhead:after{content:"";flex:1;height:3px;border-radius:3px;background:#e2e8ef}
+.unis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:14px}
+.ucard{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;text-decoration:none;color:var(--navy);background:#fff;border:2px solid #d7dee6;border-top:6px solid var(--u1);border-radius:12px;padding:16px 10px 14px;box-shadow:0 3px 0 #c5ced8;transition:transform .12s}
+.ucard:hover{transform:translateY(-3px)}
+.ucard h4{font-size:21px;font-weight:900;line-height:1}
+.ucard small{font-size:12.5px;font-weight:700;color:#5d6b7c;line-height:1.25;flex:1}
+.ucard .n{font-size:13px;font-weight:900;background:#e6f4f2;color:#1d6a61;padding:3px 10px;border-radius:20px}
+.ucard .tuya{font-size:12px;font-weight:900;color:#2b8f83}
+.ulogo{position:relative;width:76px;height:76px;flex:none;border-radius:50%;display:grid;place-items:center;background:linear-gradient(150deg,var(--u1),var(--u2));color:#fff;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--u1)}
+.ulogo b{font-size:15px;font-weight:900;letter-spacing:.3px}
+.ulogo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;border-radius:50%;padding:6px}
+.ulogo.g{width:110px;height:110px}.ulogo.g b{font-size:21px}
+.uhero{display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin-top:18px;background:#fff;border:2px solid #d7dee6;border-left:8px solid var(--u1);border-radius:12px;padding:18px 20px}
+.uhero h3{font-size:clamp(24px,3.4vw,34px);font-weight:900;color:var(--navy);line-height:1.05}
+.uhero h3 small{display:block;font-size:16px;font-weight:800;color:#5d6b7c;margin-top:4px}
+.uhero p{font-weight:700;color:#4a5a6e;font-size:16px;margin-top:6px;max-width:620px}
+.uhero a{color:#1d6a61;font-weight:900}
+.unichips{display:none;flex-wrap:wrap;gap:10px;margin-top:18px}
+body.m-campus .unichips{display:flex}
+.unichips a{display:flex;align-items:center;gap:8px;text-decoration:none;color:#fff;font-weight:900;font-size:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:40px;padding:5px 14px 5px 5px}
+.unichips a:hover{background:rgba(255,255,255,.22)}
+.unichips .ulogo{width:38px;height:38px;box-shadow:0 0 0 2px #fff}.unichips .ulogo b{font-size:8.5px}.unichips .ulogo img{padding:3px}
+@media(max-width:860px){.unis{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.unis{grid-template-columns:repeat(2,1fr)}.ulogo{width:64px;height:64px}.ulogo.g{width:84px;height:84px}}
 /* Mi colegio */
 .colband{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:26px;background:#fff;border:3px dashed #cfd8e3;border-radius:22px;padding:18px 20px}
 .colband h3{font-size:22px;color:var(--navy)}.colband p{font-weight:700;color:#4a5a6e;font-size:16px}
@@ -293,6 +320,7 @@ body.m-colegio .hero,body.m-colegio #mundos,body.m-colegio #como,body.m-colegio 
   <a class="volver" href="#inicio">← Inicio INGENIA</a>
   <h1 id="mh1"></h1>
   <p id="mp"></p>
+  <div class="unichips" id="unichips"></div>
   <div class="cta"><a class="btn y" href="#clases">📚 Ver las clases</a><button class="btn o" onclick="abrirClave()">🔑 Entrar a mis clases</button></div>
 </div></div>
 
@@ -500,6 +528,8 @@ function pintar(){
   const ok=guardada(),C={};DATOS.clases.forEach(c=>C[c.id]=c);
   const g=document.getElementById('gratis');g.innerHTML='';
   const MM=MUNDO&&MUNDOS[MUNDO];
+  const UC=document.getElementById('unichips'),NU=PROG.niveles.find(x=>x.n==='Universidad');
+  if(!UC.children.length&&NU&&NU.universidades)UC.innerHTML=NU.universidades.map(U=>`<a href="#campus/${U.id}" title="${esc(U.nombre)}">${logoUni(U)}${esc(U.sigla)}</a>`).join('');
   DATOS.clases.filter(c=>c.gratis&&(!MM||(c.niveles||[]).includes(MM.nivel))).sort((a,b)=>(a.orden||99)-(b.orden||99)).forEach(c=>g.appendChild(tarjeta(c,ok)));
   const q=sinTilde(document.getElementById('buscar').value.trim()),P=document.getElementById('programa');P.innerHTML='';let n=0;
   document.getElementById('ruta').innerHTML='';
@@ -528,18 +558,41 @@ const nums=g=>(g.match(/\d+(?=\.º)/g)||[]).map(Number);
 const cuenta=(temas,C)=>temas.reduce((s,t)=>s+(t.c||[]).filter(i=>C[i]).length,0);
 function ir(...r){location.hash=[MUNDO].concat(r).map(encodeURIComponent).join('/')}
 function esc(t){return String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+// ---- Campus: una sección por universidad (programa.json › Universidad › universidades; cada asignatura dice en "u" cómo se llama en cada una) ----
+// El logo se toma de img/universidades/<id>.png (o del campo "logo"); si no está, se ve un escudo con la sigla en sus colores.
+const asigDe=(N,U)=>N.materias.flatMap(M=>M.grados.filter(g=>g.u&&g.u[U.id]));
+function logoUni(U,cls){return `<span class="ulogo ${cls||''}" style="--u1:${U.color};--u2:${U.color2}"><b>${esc(U.sigla)}</b><img src="${esc(U.logo||'img/universidades/'+U.id+'.png')}" alt="Logo de la ${esc(U.sigla)}" loading="lazy" onerror="this.remove()"></span>`}
+function uniGuardada(id){try{if(id)localStorage.setItem('ingenia-uni',id);return localStorage.getItem('ingenia-uni')}catch(e){return null}}
+function heroUni(U,N,G){const d=document.createElement('div');d.className='uhero';d.style.setProperty('--u1',U.color);
+  const pide=encodeURIComponent('¡Hola INGENIA! Estudio en la '+U.sigla+(G?' y necesito ayuda con '+G.u[U.id]:'')+'. Les envío mi guía de ejercicios.');
+  d.innerHTML=logoUni(U,'g')+`<div style="flex:1;min-width:220px"><h3>${G?esc(G.u[U.id]):'INGENIA Campus · '+esc(U.sigla)}<small>${esc(U.nombre)}${G&&G.g!==G.u[U.id]?' · '+esc(G.g):''}</small></h3>
+    <p>${G?'Los temas de '+esc(G.u[U.id])+' en la '+esc(U.sigla)+'.':'Clases del ciclo básico de la '+esc(U.sigla)+' con modelos 3D, gráficas que se mueven y ejercicios resueltos paso a paso.'} ¿Tienes la guía de tu profesor? <a target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${pide}">Envíala por WhatsApp</a> y te la resolvemos.</p></div>`;
+  return d}
 function pintarPasos(C,ok){
   const P=document.getElementById('programa'),N=PROG.niveles.find(x=>x.n===nivel),uni=N.n==='Universidad',ud=N.n==='Primaria'?'grado':'año';
-  const [a,b]=RUTA, R=document.getElementById('ruta'), lead=document.getElementById('plead');
+  const [a,b]=RUTA, R=document.getElementById('ruta'), lead=document.getElementById('plead'), UN=uni&&N.universidades||[], U=UN.find(x=>x.id===a);
   const migas=[[N.n,[]]];
   const tiles=(arr,cls)=>{const w=document.createElement('div');w.className='tiles '+(cls||'');arr.forEach(x=>{const t=document.createElement('button');t.className='tile'+(x.n?'':' vacio');
       t.innerHTML=(x.big?`<span class="big">${x.big}</span>`:`<span class="tic">${x.ic||'📘'}</span>`)+`<b>${esc(x.t)}</b>`+(x.sub?`<em>${esc(x.sub)}</em>`:'')+`<small>${x.n?'▶ '+x.n+(x.n===1?' clase':' clases'):'Próximamente'}</small>`;
       t.onclick=x.go;w.appendChild(t)});P.appendChild(w)};
   if(!a){
     lead.textContent=uni?'Elige la materia, luego la asignatura y verás sus temas.':'Elige tu '+ud+', luego la materia y verás sus temas.';
-    if(uni)tiles(N.materias.map(M=>({ic:ICM[M.m],t:M.m,sub:M.grados.length+' asignaturas',n:M.grados.reduce((s,G)=>s+cuenta(G.temas,C),0),go:()=>ir(M.m)})));
+    if(uni){if(UN.length){lead.textContent='Elige tu universidad y verás tus materias con el nombre que tienen allá. O busca directo por materia.';
+        const w=document.createElement('div');w.className='uband';w.innerHTML='<h3>🎓 Elige tu universidad</h3><div class="unis"></div>';
+        const mia=uniGuardada();[...UN].sort((x,y)=>(y.id===mia)-(x.id===mia)).forEach(U=>{const G=asigDe(N,U),k=G.reduce((s,g)=>s+cuenta(g.temas,C),0),x=document.createElement('a');
+          x.className='ucard';x.href='#campus/'+U.id;x.style.setProperty('--u1',U.color);
+          x.innerHTML=logoUni(U)+`<h4>${esc(U.sigla)}</h4><small>${esc(U.nombre)}</small><span class="n">${G.length} asignaturas${k?' · ▶ '+k+(k===1?' clase':' clases'):''}</span>`+(U.id===mia?'<span class="tuya">✔ Tu universidad</span>':'');
+          w.querySelector('.unis').appendChild(x)});
+        P.appendChild(w);P.insertAdjacentHTML('beforeend','<h3 class="uhead">📚 O busca por materia</h3>')}
+      tiles(N.materias.map(M=>({ic:ICM[M.m],t:M.m,sub:M.grados.length+' asignaturas',n:M.grados.reduce((s,G)=>s+cuenta(G.temas,C),0),go:()=>ir(M.m)})));}
     else tiles([...new Set(N.materias.flatMap(M=>M.grados.flatMap(G=>nums(G.g))))].sort((x,y)=>x-y).map(k=>({big:k+'.º',t:ud,
       n:N.materias.reduce((s,M)=>s+M.grados.filter(G=>nums(G.g).includes(k)).reduce((q,G)=>q+cuenta(G.temas,C),0),0),go:()=>ir(String(k))})),'grados');
+  }else if(U&&!b){
+    uniGuardada(U.id);migas.push([U.sigla,[a]]);lead.textContent='Estas son tus materias en la '+U.sigla+', con el nombre que tienen allá. Toca una para ver sus temas.';
+    P.appendChild(heroUni(U,N));
+    N.materias.forEach(M=>{const G=M.grados.filter(g=>g.u&&g.u[U.id]);if(!G.length)return;
+      P.insertAdjacentHTML('beforeend',`<h3 class="uhead">${ICM[M.m]||'📘'} ${esc(M.m)}</h3>`);
+      tiles(G.map(g=>({ic:ICM[M.m],t:g.u[U.id],sub:g.g,n:cuenta(g.temas,C),go:()=>ir(a,g.g)})),'asig')});
   }else if(!b){
     if(uni){const M=N.materias.find(m=>m.m===a);if(!M){RUTA=[];return pintarPasos(C,ok)}
       migas.push([a,[a]]);lead.textContent='Elige la asignatura.';
@@ -549,7 +602,9 @@ function pintarPasos(C,ok){
         return {ic:ICM[M.m],t:M.m,sub:T.length+' temas',n:cuenta(T,C),go:()=>ir(a,M.m)}}));}
   }else{
     let T=[],ctx;
-    if(uni){const M=N.materias.find(m=>m.m===a),G=M&&M.grados.find(g=>g.g===b);if(!G){RUTA=[];return pintarPasos(C,ok)}
+    if(U){const G=asigDe(N,U).find(g=>g.g===b);if(!G){RUTA=[a];return pintarPasos(C,ok)}
+      T=G.temas;ctx=U.sigla+', '+G.u[U.id];migas.push([U.sigla,[a]],[G.u[U.id],[a,b]]);P.appendChild(heroUni(U,N,G));}
+    else if(uni){const M=N.materias.find(m=>m.m===a),G=M&&M.grados.find(g=>g.g===b);if(!G){RUTA=[];return pintarPasos(C,ok)}
       T=G.temas;ctx=b;migas.push([a,[a]],[b,[a,b]]);if(G.eq){const e=document.createElement('p');e.className='nota';e.textContent=G.eq;P.appendChild(e)}}
     else{const k=+a,M=N.materias.find(m=>m.m===b);if(!M){RUTA=[a];return pintarPasos(C,ok)}
       T=M.grados.filter(G=>nums(G.g).includes(k)).flatMap(G=>G.temas);ctx=b+', '+k+'.º '+ud;migas.push([k+'.º '+ud,[a]],[b,[a,b]]);}
