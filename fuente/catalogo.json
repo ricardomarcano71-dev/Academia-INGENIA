@@ -885,22 +885,6 @@
   "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-lenguaje-signos-exclamacion.html"
  },
  {
-  "id": "idea-2026-11-03-lectura-paginas-37-38",
-  "titulo": "Lectura: páginas 37 y 38",
-  "desc": "Repaso de la tarea que dejó la maestra: páginas 37 y 38 del libro Abecé vamos a leer. Unir nombres en letra de molde y cursiva con su dibujo, y escribir el nombre de cada dibujo con las palabras del recuadro.",
-  "materia": "Lectura",
-  "niveles": [],
-  "grado": "1.º grado",
-  "tipo": "Tarea guiada sobre el libro",
-  "icono": "📖",
-  "gratis": true,
-  "colegios": [
-   "idea"
-  ],
-  "fecha": "2026-11-03",
-  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-lectura-paginas-37-38.html"
- },
- {
   "id": "idea-2026-11-03-matematica-numeros-1-29",
   "titulo": "Los números del 1 al 29",
   "desc": "Repaso de lo que la maestra explicó el 3 de noviembre: los números del 1 al 29, la casita del 10 y la del 20, con ejemplos para contar manzanas, pelotas y perritos.",
@@ -915,5 +899,21 @@
   ],
   "fecha": "2026-11-03",
   "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-matematica-numeros-1-29.html"
+ },
+ {
+  "id": "idea-2026-11-03-lectura-paginas-37-38",
+  "titulo": "Lectura: páginas 37 y 38",
+  "desc": "Tarea para la casa que dejó la maestra: páginas 37 y 38 del libro Abecé vamos a leer. Unir nombres en letra de molde y cursiva con su dibujo, y escribir el nombre de cada dibujo con las palabras del recuadro.",
+  "materia": "Lectura",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Tarea guiada sobre el libro",
+  "icono": "📖",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-03",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-lectura-paginas-37-38.html"
  }
 ]
