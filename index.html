@@ -516,8 +516,9 @@ function pintarColegio(){
     <div class="pizarrita"><em>Así empieza cada clase</em>${K.encabezado.map(esc).join('<br>')}</div></div></div></div>`;
   const cs=DATOS.clases.filter(c=>(c.colegios||[]).includes(K.id)).sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||'')||a.titulo.localeCompare(b.titulo));
   B.innerHTML='';
-  if(SES.estado!=='ok'){const v=document.createElement('div');v.className='caviso';v.innerHTML='<span>🔑 Entra con tu usuario para abrir las clases de tu colegio.</span>';const b=document.createElement('button');b.className='btn y';b.textContent='Entrar';b.onclick=()=>abrirClave();v.appendChild(b);B.appendChild(v)}
-  else if(!mios.includes(K.id)){const v=document.createElement('div');v.className='caviso';v.innerHTML='<span>Estas clases son solo para los alumnos del '+esc(K.corto)+'. ¿Estudias ahí?</span><a class="btn y" target="_blank" rel="noopener" href="https://wa.me/'+WA+'?text='+encodeURIComponent('¡Hola INGENIA! Estudio en el '+K.corto+' y quiero ver sus clases.')+'">Pídelo por WhatsApp</a>';B.appendChild(v)}
+  if(SES.estado!=='ok'&&cs.some(c=>!c.gratis)){const v=document.createElement('div');v.className='caviso';v.innerHTML='<span>🔑 Entra con tu usuario para abrir las clases de tu colegio.</span>';const b=document.createElement('button');b.className='btn y';b.textContent='Entrar';b.onclick=()=>abrirClave();v.appendChild(b);B.appendChild(v)}
+  else if(!mios.includes(K.id)&&cs.some(c=>!c.gratis)){const v=document.createElement('div');v.className='caviso';v.innerHTML='<span>Estas clases son solo para los alumnos del '+esc(K.corto)+'. ¿Estudias ahí?</span><a class="btn y" target="_blank" rel="noopener" href="https://wa.me/'+WA+'?text='+encodeURIComponent('¡Hola INGENIA! Estudio en el '+K.corto+' y quiero ver sus clases.')+'">Pídelo por WhatsApp</a>';B.appendChild(v)}
+  if(cs.length&&cs.every(c=>c.gratis))B.insertAdjacentHTML('beforeend','<div class="caviso"><span>🎁 Por ahora todas las clases de este colegio son <b>gratis</b>. ¡Ábrelas cuando quieras!</span></div>');
   if(!cs.length){B.insertAdjacentHTML('beforeend','<p class="empty">Todavía no hay clases de este colegio. ¡Muy pronto!</p>');return}
   let dia=null,g=null;
   cs.forEach(c=>{if(c.fecha!==dia){dia=c.fecha;const h=document.createElement('h3');h.className='cdia';h.textContent='📅 '+fechaLarga(dia);B.appendChild(h);g=document.createElement('div');g.className='grid';B.appendChild(g)}
@@ -530,7 +531,7 @@ function pintar(){
   const MM=MUNDO&&MUNDOS[MUNDO];
   const UC=document.getElementById('unichips'),NU=PROG.niveles.find(x=>x.n==='Universidad');
   if(!UC.children.length&&NU&&NU.universidades)UC.innerHTML=NU.universidades.map(U=>`<a href="#campus/${U.id}" title="${esc(U.nombre)}">${logoUni(U)}${esc(U.sigla)}</a>`).join('');
-  DATOS.clases.filter(c=>c.gratis&&(!MM||(c.niveles||[]).includes(MM.nivel))).sort((a,b)=>(a.orden||99)-(b.orden||99)).forEach(c=>g.appendChild(tarjeta(c,ok)));
+  DATOS.clases.filter(c=>c.gratis&&!(c.colegios||[]).length&&(!MM||(c.niveles||[]).includes(MM.nivel))).sort((a,b)=>(a.orden||99)-(b.orden||99)).forEach(c=>g.appendChild(tarjeta(c,ok)));
   const q=sinTilde(document.getElementById('buscar').value.trim()),P=document.getElementById('programa');P.innerHTML='';let n=0;
   document.getElementById('ruta').innerHTML='';
   if(MM&&!q){pintarPasos(C,ok);document.getElementById('vacio').hidden=true;document.getElementById('muestra').hidden=!g.children.length;return}

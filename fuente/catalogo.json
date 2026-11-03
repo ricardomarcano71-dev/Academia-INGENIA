@@ -636,21 +636,6 @@
   "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-triangulos.html"
  },
  {
-  "id": "idea-2026-11-02-sociales-derechos-deberes",
-  "titulo": "Derechos y deberes de los niños",
-  "desc": "Dictado de tres derechos y tres deberes de los niños, y un dibujo. Con el encabezado como en la pizarra del colegio.",
-  "materia": "Cs. Sociales",
-  "niveles": [],
-  "grado": "1.º grado",
-  "tipo": "Mini clase con voz",
-  "icono": "🤲",
-  "colegios": [
-   "idea"
-  ],
-  "fecha": "2026-11-02",
-  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-02-sociales-derechos-deberes.html"
- },
- {
   "id": "p1-cie-agua",
   "titulo": "El agua",
   "desc": "El agua es vida: dónde está, cómo es, qué flota y cómo cuidarla.",
@@ -866,5 +851,69 @@
   "tipo": "Clase con voz sobre el libro",
   "icono": "🔤",
   "archivo": "clases-programa/primaria/1-grado/lectura/p1-lec-vocal-i.html"
+ },
+ {
+  "id": "idea-2026-11-02-sociales-derechos-deberes",
+  "titulo": "Derechos y deberes de los niños",
+  "desc": "Dictado de tres derechos y tres deberes de los niños, y un dibujo. Con el encabezado como en la pizarra del colegio.",
+  "materia": "Cs. Sociales",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "🤲",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-02",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-02-sociales-derechos-deberes.html"
+ },
+ {
+  "id": "idea-2026-11-03-matematica-numeros-1-29",
+  "titulo": "Los números del 1 al 29",
+  "desc": "Los números del 1 al 29 con barras de diez y cubitos en 3D, la casita del 10 y la del 20. Con el encabezado como en la pizarra del colegio.",
+  "materia": "Matemática",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "🔢",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-03",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-matematica-numeros-1-29.html"
+ },
+ {
+  "id": "idea-2026-11-03-lenguaje-signos-exclamacion",
+  "titulo": "Los signos de exclamación",
+  "desc": "Los signos de exclamación: qué son, cómo se escriben (uno abre y otro cierra) y para qué sirven, con un juego. Con el encabezado como en la pizarra del colegio.",
+  "materia": "Lenguaje",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "❗",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-03",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-lenguaje-signos-exclamacion.html"
+ },
+ {
+  "id": "idea-2026-11-03-lectura-paginas-37-38",
+  "titulo": "Lectura: páginas 37 y 38",
+  "desc": "Tarea del diario: páginas 37 y 38 del libro Abecé vamos a leer. Unir nombres en letra de molde y cursiva con su dibujo, y escribir el nombre de cada dibujo con las palabras del recuadro.",
+  "materia": "Lectura",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Tarea guiada sobre el libro",
+  "icono": "📖",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-03",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-lectura-paginas-37-38.html"
  }
 ]
