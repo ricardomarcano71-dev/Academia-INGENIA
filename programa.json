@@ -1128,6 +1128,43 @@
    "ic": "🎓",
    "sub": "Ciclo básico de ingeniería",
    "nota": "Materias del ciclo básico de UNEG, UNEXPO, UDO, UCAB y UBA. Cada universidad le pone un nombre distinto: debajo de cada materia ves cómo se llama en la tuya.",
+   "universidades": [
+    {
+     "id": "uneg",
+     "sigla": "UNEG",
+     "nombre": "Universidad Nacional Experimental de Guayana",
+     "color": "#0b5394",
+     "color2": "#1c8a5a"
+    },
+    {
+     "id": "unexpo",
+     "sigla": "UNEXPO",
+     "nombre": "Universidad Nacional Experimental Politécnica “Antonio José de Sucre”",
+     "color": "#8c1d18",
+     "color2": "#1d3f7a"
+    },
+    {
+     "id": "udo",
+     "sigla": "UDO",
+     "nombre": "Universidad de Oriente",
+     "color": "#123a7a",
+     "color2": "#c8961e"
+    },
+    {
+     "id": "ucab",
+     "sigla": "UCAB",
+     "nombre": "Universidad Católica Andrés Bello",
+     "color": "#0a3a6b",
+     "color2": "#2a9d8f"
+    },
+    {
+     "id": "uba",
+     "sigla": "UBA",
+     "nombre": "Universidad Bicentenaria de Aragua",
+     "color": "#1a237e",
+     "color2": "#c62828"
+    }
+   ],
    "materias": [
     {
      "m": "Matemática",
@@ -1169,7 +1206,14 @@
         {
          "t": "Regla de L'Hôpital"
         }
-       ]
+       ],
+       "u": {
+        "uneg": "Matemática I",
+        "unexpo": "Matemática I",
+        "uba": "Matemática I",
+        "udo": "Matemáticas I",
+        "ucab": "Cálculo Diferencial"
+       }
       },
       {
        "g": "Matemática II (cálculo integral)",
@@ -1205,7 +1249,14 @@
         {
          "t": "Longitud de arco"
         }
-       ]
+       ],
+       "u": {
+        "uneg": "Matemática II",
+        "unexpo": "Matemática II",
+        "uba": "Matemática II",
+        "udo": "Matemáticas II",
+        "ucab": "Cálculo Integral"
+       }
       },
       {
        "g": "Matemática III (varias variables)",
@@ -1241,7 +1292,13 @@
         {
          "t": "Integrales de línea y teoremas de Green, Stokes y divergencia"
         }
-       ]
+       ],
+       "u": {
+        "uneg": "Matemática III",
+        "unexpo": "Matemática III",
+        "uba": "Matemática III",
+        "udo": "Matemáticas III"
+       }
       },
       {
        "g": "Matemática IV (ecuaciones diferenciales)",
@@ -1271,7 +1328,13 @@
         {
          "t": "Series de Fourier"
         }
-       ]
+       ],
+       "u": {
+        "uneg": "Matemática IV",
+        "unexpo": "Matemática IV",
+        "uba": "Matemática IV",
+        "udo": "Matemáticas IV"
+       }
       },
       {
        "g": "Álgebra lineal",
@@ -1298,7 +1361,12 @@
         {
          "t": "Valores y vectores propios"
         }
-       ]
+       ],
+       "u": {
+        "unexpo": "Álgebra Lineal",
+        "ucab": "Álgebra Lineal",
+        "uba": "Álgebra Lineal"
+       }
       },
       {
        "g": "Geometría analítica y trigonometría",
@@ -1328,7 +1396,11 @@
         {
          "t": "Geometría del espacio"
         }
-       ]
+       ],
+       "u": {
+        "uba": "Geometría Analítica",
+        "ucab": "Álgebra y Trigonometría · Geometría Plana y Espacial"
+       }
       },
       {
        "g": "Lógica matemática",
@@ -1352,7 +1424,11 @@
         {
          "t": "Métodos de demostración"
         }
-       ]
+       ],
+       "u": {
+        "uba": "Lógica Matemática",
+        "ucab": "Lógica"
+       }
       },
       {
        "g": "Estadística y probabilidad",
@@ -1382,7 +1458,14 @@
         {
          "t": "Regresión y correlación"
         }
-       ]
+       ],
+       "u": {
+        "uneg": "Estadística I",
+        "udo": "Estadística I",
+        "unexpo": "Estadística Aplicada",
+        "ucab": "Probabilidades e Inferencias",
+        "uba": "Estadística I y II"
+       }
       },
       {
        "g": "Cálculo numérico",
@@ -1406,7 +1489,10 @@
         {
          "t": "Ecuaciones diferenciales numéricas"
         }
-       ]
+       ],
+       "u": {
+        "uba": "Cálculo Numérico"
+       }
       }
      ]
     },
@@ -1447,7 +1533,14 @@
         {
          "t": "Equilibrio"
         }
-       ]
+       ],
+       "u": {
+        "uneg": "Física I",
+        "unexpo": "Física I",
+        "udo": "Física I",
+        "uba": "Física I",
+        "ucab": "Física General"
+       }
       },
       {
        "g": "Física II (electricidad y magnetismo)",
@@ -1486,7 +1579,14 @@
         {
          "t": "Inducción de Faraday"
         }
-       ]
+       ],
+       "u": {
+        "uneg": "Física II",
+        "unexpo": "Física II",
+        "udo": "Física II",
+        "uba": "Física II · Fundamentos del Electromagnetismo",
+        "ucab": "Fundamentos de Circuitos Eléctricos"
+       }
       },
       {
        "g": "Física III (ondas y óptica)",
@@ -1507,7 +1607,10 @@
         {
          "t": "Interferencia y difracción"
         }
-       ]
+       ],
+       "u": {
+        "udo": "Física III"
+       }
       },
       {
        "g": "Mecánica racional (estática y dinámica)",
@@ -1534,7 +1637,13 @@
         {
          "t": "Dinámica del cuerpo rígido"
         }
-       ]
+       ],
+       "u": {
+        "uneg": "Mecánica Racional",
+        "udo": "Mecánica Racional I y II",
+        "ucab": "Estática y Dinámica",
+        "uba": "Mecánica"
+       }
       },
       {
        "g": "Termodinámica",
@@ -1552,7 +1661,10 @@
         {
          "t": "Ciclos de potencia y refrigeración"
         }
-       ]
+       ],
+       "u": {
+        "ucab": "Termodinámica"
+       }
       },
       {
        "g": "Mecánica de fluidos",
@@ -1573,7 +1685,10 @@
         {
          "t": "Flujo en tuberías"
         }
-       ]
+       ],
+       "u": {
+        "uba": "Mecánica de Fluidos"
+       }
       }
      ]
     },
@@ -1622,7 +1737,14 @@
         {
          "t": "Gases"
         }
-       ]
+       ],
+       "u": {
+        "uneg": "Química General",
+        "unexpo": "Química General",
+        "udo": "Química I",
+        "ucab": "Química",
+        "uba": "Química"
+       }
       },
       {
        "g": "Química II",
@@ -1649,7 +1771,14 @@
         {
          "t": "Termoquímica"
         }
-       ]
+       ],
+       "u": {
+        "udo": "Química II",
+        "uneg": "Química General (2.ª parte)",
+        "unexpo": "Química General (2.ª parte)",
+        "ucab": "Química (2.ª parte)",
+        "uba": "Química (2.ª parte)"
+       }
       }
      ]
     }
