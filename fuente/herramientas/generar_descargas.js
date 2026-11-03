@@ -3,7 +3,7 @@
 const {chromium}=require('playwright');const path=require('path');
 const raiz=path.resolve(__dirname,'..','..'),dir=path.join(raiz,'herramientas');
 // id: [ancho mm, alto mm]
-const HOJAS={'tabla-periodica':[297,210],'tablas-multiplicar':[210,297]};
+const HOJAS={'tabla-periodica':[297,210],'tablas-multiplicar':[210,297],'trigonometria':[210,297],'productos-notables':[210,297],'limites':[210,297],'derivadas':[210,297],'integrales':[210,297]};
 (async()=>{const b=await chromium.launch();
  for(const id of process.argv.slice(2).length?process.argv.slice(2):Object.keys(HOJAS)){const [w,h]=HOJAS[id];
   const pxw=Math.round(w/25.4*96),pxh=Math.round(h/25.4*96);
