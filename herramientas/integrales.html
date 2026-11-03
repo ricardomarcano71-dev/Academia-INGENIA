@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tabla de integrales · INGENIA</title>
+<meta name="theme-color" content="#0d2b45">
+<link rel="icon" type="image/png" href="../icono-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Caveat:wght@600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0d2b45;--yel:#ffc93c;--yel2:#c9971a;--ink:#1d2a3a;--soft:#4a5a6e;--bg:#f4f7fb;--hl:#fff1a8;--azul:#1e6fd9;--rojo:#e0466a;--verde:#1f9c63;--nar:#f08c00;--mor:#7b4bd1}
+html,body{height:100%}
+body{font-family:'Nunito',Arial,sans-serif;color:var(--ink);background:var(--bg);overflow:hidden}
+header{background:var(--navy);color:#fff;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px}
+.logo{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:22px;text-decoration:none;color:#fff}.logo span{color:var(--yel)}
+header h1{font-size:17px;font-weight:900;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dl{display:flex;gap:6px}
+.dl a{background:var(--yel);color:var(--navy);font-weight:900;font-size:14px;padding:7px 11px;border-radius:10px;text-decoration:none;white-space:nowrap}
+.dl a.o{background:transparent;color:#fff;border:2px solid var(--yel)}
+main{height:calc(100% - 52px);display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:12px;padding:10px 12px}
+/* fórmulas */
+.f{font-family:'Nunito',serif;font-weight:800;line-height:1.5}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .12em;font-size:.92em}
+.fr>i{font-style:normal;padding:0 .15em;line-height:1.15}
+.fr>i:first-child{border-bottom:.09em solid currentColor}
+.rz{display:inline-flex;align-items:stretch}
+.rz:before{content:"√";font-size:1.1em;margin-right:-.05em}
+.rz>i{font-style:normal;border-top:.09em solid currentColor;padding:0 .12em}
+.f sup{font-size:.62em;vertical-align:.75em;line-height:0}
+.f sub{font-size:.62em;vertical-align:-.3em;line-height:0}
+.lim{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin-right:.18em}
+.lim>b{font-weight:800}.lim>small{font-size:.55em;font-weight:800;white-space:nowrap}
+.int{display:inline-flex;align-items:center;font-size:1.35em;font-weight:400;font-family:Georgia,serif;margin-right:.05em}
+.ab{display:inline-flex;flex-direction:column;font-size:.5em;line-height:1;margin-right:.15em;font-family:'Nunito'}
+.c1{color:var(--azul)}.c2{color:var(--rojo)}.c3{color:var(--verde)}.c4{color:var(--nar)}.c5{color:var(--mor)}
+/* lista */
+.izq{display:flex;flex-direction:column;min-height:0;gap:8px}
+.grupos{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:30px;padding:4px 11px;font-weight:900;font-size:13.5px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.chip.on{background:var(--navy);color:#fff}
+.lista{flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;align-content:start;padding:2px}
+.it{background:#fff;border:2px solid #e2e8ef;border-radius:14px;padding:8px 10px;cursor:pointer;text-align:left;font-family:inherit;color:var(--ink);display:flex;flex-direction:column;gap:4px;transition:transform .12s,border-color .2s}
+.it:hover{transform:translateY(-2px);border-color:#b9c7d6}
+.it.on{border-color:var(--yel);background:#fffbea;box-shadow:0 0 0 3px rgba(255,201,60,.35)}
+.it small{font-size:12px;font-weight:900;color:var(--soft)}
+.it .f{font-size:16px;color:var(--navy)}
+/* detalle */
+.der{background:#fff;border-radius:18px;box-shadow:0 6px 18px rgba(13,43,69,.1);display:flex;flex-direction:column;min-height:0;padding:10px 14px;gap:6px;overflow:hidden}
+.dt{display:flex;align-items:center;gap:10px}
+.dt h2{font-family:'Baloo 2';font-size:22px;color:var(--navy);line-height:1;flex:1}
+.voz{border:2px solid var(--navy);background:#fff;border-radius:20px;padding:3px 10px;font:inherit;font-weight:900;font-size:13px;cursor:pointer;color:var(--navy)}
+.big{font-size:clamp(20px,2.3vw,30px);color:var(--navy);text-align:center;padding:4px 0}
+.big table{margin:0 auto;border-collapse:collapse;font-weight:800}.big td{padding:2px 10px;text-align:center}.big tr:first-child td{border-bottom:2px solid #e2e8ef}
+.exp{font-size:14.5px;font-weight:700;color:#38506a;background:#eef6ff;border-radius:10px;padding:6px 10px}
+.viz{flex:1;min-height:130px;display:flex;gap:8px}
+.cvw{flex:1;min-width:0;position:relative}
+.cvw canvas{position:absolute;inset:0;width:100%;height:100%;border-radius:12px;background:#fbfdff;border:1px solid #e2e8ef;touch-action:none}
+.ctl{width:190px;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:800;color:var(--soft)}
+.ctl label{display:flex;flex-direction:column;gap:1px}
+.ctl label span{display:flex;justify-content:space-between}
+.ctl label b{color:var(--navy)}
+.ctl input[type=range]{width:100%;accent-color:var(--navy)}
+.info{font-size:13.5px;font-weight:800;color:var(--navy);background:#fff8dc;border-radius:10px;padding:6px 8px;line-height:1.35}
+.info .f{font-size:14px;white-space:normal}
+.info table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.info td{padding:1px 3px;text-align:right;border-top:1px solid #f0e3b0}.info tr:first-child td{color:var(--soft);border-top:0}
+.pasos{border-top:2px dashed #e2e8ef;padding-top:6px;font-size:15px;display:flex;flex-direction:column;gap:3px;max-height:34%;overflow:auto;position:relative}
+.pasos .tt{display:flex;justify-content:space-between;align-items:center;font-weight:900;color:var(--soft);font-size:13px}
+.pasos .tt button{border:0;background:#eef2f7;border-radius:14px;padding:2px 10px;font:inherit;font-weight:900;font-size:12.5px;cursor:pointer;color:var(--navy)}
+.pa{display:flex;gap:8px;align-items:baseline;opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s,background .4s;border-radius:8px;padding:1px 6px}
+.pa.v{opacity:1;transform:none}
+.pa.ac{background:var(--hl)}
+.pa>em{font-style:normal;font-weight:900;color:var(--yel2);min-width:18px}
+.pa .f{font-size:16px;color:var(--navy)}
+.pa .n{font-family:'Caveat',cursive;font-size:19px;color:#2a5d8a;margin-left:6px}
+.marc{position:absolute;width:26px;height:26px;pointer-events:none;transition:left .5s,top .5s;font-size:22px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+@media(max-width:820px){
+ header{height:46px;padding:0 8px;gap:6px}.logo{font-size:19px}header h1{font-size:14px}.dl a{font-size:12px;padding:5px 7px}
+ main{display:flex;flex-direction:column;gap:6px;padding:6px;height:calc(100% - 46px)}
+ .izq{flex:0 0 auto;gap:5px}
+ .grupos{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.grupos::-webkit-scrollbar{display:none}
+ .chip{font-size:12px;padding:3px 9px}
+ .lista{display:flex;overflow-x:auto;overflow-y:hidden;flex:0 0 auto;gap:6px;scroll-snap-type:x mandatory;padding-bottom:3px}
+ .it{flex:0 0 auto;min-width:150px;max-width:80vw;scroll-snap-align:start;padding:5px 8px}
+ .it .f{font-size:14px}
+ .der{flex:1 1 0;padding:8px 10px;gap:5px;border-radius:14px;overflow-y:auto}
+ .der>*{flex-shrink:0}
+ .dt h2{font-size:18px}
+ .big{font-size:20px;padding:0}
+ .exp{font-size:12.5px;padding:5px 8px}
+ .viz{flex-direction:column;min-height:0;flex:0 0 auto}
+ .cvw{flex:0 0 auto;height:min(46vh,230px)}
+ .ctl{width:auto;display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;font-size:11.5px}
+ .ctl .info{grid-column:1/3;font-size:12px;padding:4px 7px}
+ .pasos{font-size:13px;max-height:none;overflow:visible}
+ .pa .f{font-size:14px}.pa .n{font-size:16px}
+}
+/* hoja */
+.hoja{display:none}
+body.imprimir{overflow:visible;background:#fff}
+body.imprimir header,body.imprimir main{display:none}
+body.imprimir .hoja{display:flex;flex-direction:column;width:210mm;height:297mm;padding:9mm 10mm;background:#fff;overflow:hidden}
+.hoja h1{font-family:'Baloo 2';color:var(--navy);font-size:30px;line-height:1;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--yel);padding-bottom:2mm}
+.hoja h1 small{font-family:'Nunito';font-size:11px;color:var(--soft);font-weight:800;text-align:right}
+.hoja .lg{font-family:'Baloo 2';font-weight:800;font-size:16px}.hoja .lg span{color:var(--yel2)}
+.hcols{column-gap:5mm;margin-top:3mm;flex:1;min-height:0;column-fill:auto;overflow:hidden}
+.hg{break-inside:avoid;margin-bottom:2.6mm}
+.hg h3{font-family:'Baloo 2';font-size:14px;background:var(--navy);color:var(--yel);border-radius:5px;padding:0 6px;margin-bottom:1mm}
+.hi{display:flex;flex-direction:column;border-bottom:1px dotted #c9d3de;padding:.6mm 1mm;break-inside:avoid}
+.hi>small{font-size:.6em;font-weight:800;color:#8a96a6;order:-1;line-height:1.1;margin-bottom:-.15em}
+.hi .f{color:var(--navy);white-space:normal}
+.hextra{break-inside:avoid}
+.hpie{text-align:center;font-family:'Caveat',cursive;font-size:20px;color:#b0790c;margin-top:1mm}
+</style>
+</head>
+<body>
+<header>
+ <a class="logo" href="../herramientas.html" title="Volver a Herramientas">INGE<span>NIA</span></a>
+ <h1>∫ Tabla de integrales</h1>
+ <div class="dl"><a href="descargas/integrales.png" download>🖼 Imagen</a><a class="o" href="descargas/integrales.pdf" download>🖨 PDF</a></div>
+</header>
+<main>
+ <div class="izq"><div class="grupos" id="grupos"></div><div class="lista" id="lista"></div></div>
+ <div class="der">
+  <div class="dt"><h2 id="dtit"></h2><button class="voz" onclick="leer()">🔊 Escuchar</button></div>
+  <div class="big" id="dbig"></div>
+  <div class="exp" id="dexp"></div>
+  <div class="viz"><div class="cvw"><canvas id="cv"></canvas></div><div class="ctl" id="ctl"></div></div>
+  <div class="pasos" id="pasos"></div>
+ </div>
+</main>
+<div class="hoja" id="hoja"></div>
+<script>
+// ---------- notación ----------
+const fr=(a,b)=>`<span class="fr"><i>${a}</i><i>${b}</i></span>`;
+const rz=a=>`<span class="rz"><i>${a}</i></span>`;
+const F=s=>`<span class="f">${s}</span>`;
+const lim=(a,s)=>`<span class="lim"><b>lím</b><small>${a}</small></span>${s}`;
+const INT=(s,a,b)=>a!==undefined?`<span class="int">∫</span><span class="ab"><i>${b}</i><i>${a}</i></span>${s}`:`<span class="int">∫</span>${s}`;
+const c=(n,s)=>`<span class="c${n}">${s}</span>`;
+const num=(v,d=3)=>{if(!isFinite(v))return v>0?'∞':v<0?'−∞':'—';const r=Math.abs(v)<1e-12?0:+v.toFixed(d);return String(r).replace('-','−').replace('.',',')};
+const PI=Math.PI,{sin,cos,tan,sqrt,exp,log,abs,atan,asin,acos,pow}=Math;
+// ---------- lienzo ----------
+const cv=document.getElementById('cv'),cx=cv.getContext('2d');
+function P(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;if(cv.width!=Math.round(r.width*d)||cv.height!=Math.round(r.height*d)){cv.width=r.width*d;cv.height=r.height*d}cx.setTransform(d,0,0,d,0,0);
+ const W=r.width,H=r.height;cx.clearRect(0,0,W,H);
+ const p={W,H,x:cx,xr:[-5,5],yr:[-3,3],
+  ejes(xr,yr,o={}){this.xr=xr;this.yr=yr;if(o.igual){const sx=W/(xr[1]-xr[0]),sy=H/(yr[1]-yr[0]);if(sx<sy){const m=(yr[0]+yr[1])/2,h=H/sx/2;this.yr=[m-h,m+h]}else{const m=(xr[0]+xr[1])/2,w=W/sy/2;this.xr=[m-w,m+w]}}
+   const X=this.X.bind(this),Y=this.Y.bind(this);const st=o.paso||paso(this.xr[1]-this.xr[0]),sty=o.pasoy||paso(this.yr[1]-this.yr[0]);
+   cx.lineWidth=1;cx.strokeStyle='#e8eef5';cx.beginPath();
+   for(let v=Math.ceil(this.xr[0]/st)*st;v<=this.xr[1];v+=st){cx.moveTo(X(v),0);cx.lineTo(X(v),H)}
+   for(let v=Math.ceil(this.yr[0]/sty)*sty;v<=this.yr[1];v+=sty){cx.moveTo(0,Y(v));cx.lineTo(W,Y(v))}cx.stroke();
+   cx.strokeStyle='#8a96a6';cx.lineWidth=1.4;cx.beginPath();cx.moveTo(0,Y(0));cx.lineTo(W,Y(0));cx.moveTo(X(0),0);cx.lineTo(X(0),H);cx.stroke();
+   cx.fillStyle='#8a96a6';cx.font='700 10px Nunito,Arial';cx.textAlign='center';
+   if(!o.sinNum){for(let v=Math.ceil(this.xr[0]/st)*st;v<=this.xr[1];v+=st)if(Math.abs(v)>st/2)cx.fillText(o.etx?o.etx(v):num(v,2),X(v),Math.min(H-3,Math.max(11,Y(0)+12)));
+   cx.textAlign='right';for(let v=Math.ceil(this.yr[0]/sty)*sty;v<=this.yr[1];v+=sty)if(Math.abs(v)>sty/2)cx.fillText(num(v,2),Math.max(22,Math.min(W-3,X(0)-4)),Y(v)+3)}
+   cx.textAlign='start';return this},
+  X(v){return (v-this.xr[0])/(this.xr[1]-this.xr[0])*W},Y(v){return H-(v-this.yr[0])/(this.yr[1]-this.yr[0])*H},
+  fn(f,col='#1e6fd9',w=2.6,o={}){const a=o.a??this.xr[0],b=o.b??this.xr[1];cx.strokeStyle=col;cx.lineWidth=w;cx.setLineDash(o.dash||[]);cx.beginPath();let pen=false,prev=null;
+   const n=Math.max(200,W*2);for(let i=0;i<=n;i++){const x=a+(b-a)*i/n,y=f(x);const py=this.Y(y);
+    if(!isFinite(y)||Math.abs(py)>H*6||(prev!==null&&Math.abs(py-prev)>H*1.5)){pen=false;prev=isFinite(y)?py:null;continue}
+    pen?cx.lineTo(this.X(x),py):cx.moveTo(this.X(x),py);pen=true;prev=py}cx.stroke();cx.setLineDash([]);return this},
+  area(f,a,b,col='rgba(30,111,217,.22)',g=0){cx.fillStyle=col;cx.beginPath();cx.moveTo(this.X(a),this.Y(g));const n=200;for(let i=0;i<=n;i++){const x=a+(b-a)*i/n;cx.lineTo(this.X(x),this.Y(f(x)))}cx.lineTo(this.X(b),this.Y(g));cx.closePath();cx.fill();return this},
+  punto(x,y,col='#e0466a',r=5,hueco){cx.beginPath();cx.arc(this.X(x),this.Y(y),r,0,7);if(hueco){cx.fillStyle='#fff';cx.fill();cx.lineWidth=2.4;cx.strokeStyle=col;cx.stroke()}else{cx.fillStyle=col;cx.fill()}return this},
+  seg(x1,y1,x2,y2,col='#0d2b45',w=2,dash){cx.strokeStyle=col;cx.lineWidth=w;cx.setLineDash(dash||[]);cx.beginPath();cx.moveTo(this.X(x1),this.Y(y1));cx.lineTo(this.X(x2),this.Y(y2));cx.stroke();cx.setLineDash([]);return this},
+  txt(s,x,y,col='#0d2b45',o={}){cx.fillStyle=col;cx.font=`${o.peso||800} ${o.t||13}px Nunito,Arial`;cx.textAlign=o.al||'left';cx.textBaseline=o.bl||'alphabetic';cx.fillText(s,this.X(x)+(o.dx||0),this.Y(y)+(o.dy||0));cx.textAlign='start';cx.textBaseline='alphabetic';return this},
+  rect(x,y,w,h,fill,stroke){cx.beginPath();cx.rect(this.X(x),this.Y(y+h),this.X(x+w)-this.X(x),this.Y(y)-this.Y(y+h));if(fill){cx.fillStyle=fill;cx.fill()}if(stroke){cx.strokeStyle=stroke;cx.lineWidth=1.5;cx.stroke()}return this}};
+ return p}
+function paso(r){const t=r/8,e=Math.pow(10,Math.floor(Math.log10(t))),m=t/e;return (m<1.5?1:m<3.5?2:m<7.5?5:10)*e}
+// ---------- datos de la herramienta ----------
+// TITULO: Tabla de integrales
+// ICONO: ∫
+// área bajo la curva: rectángulos que se van afinando hasta dar F(b) − F(a)
+const VA=(f,F,o={})=>{const xr=o.xr||[-1,4];return {sl:[{k:'a',l:'Desde a',min:o.amin??xr[0],max:xr[1],st:.05,v:o.a??.5},{k:'b',l:'Hasta b',min:o.amin??xr[0],max:xr[1],st:.05,v:o.b??2.5},{k:'n',l:'Rectángulos',min:1,max:60,st:1,v:o.n??6,fmt:v=>num(v,0)}],d(p,s){const yr=o.yr||[-1,5];p.ejes(xr,yr);
+ const a=Math.min(s.a,s.b),b=Math.max(s.a,s.b),n=s.n,dx=(b-a)/n;let R=0;
+ for(let i=0;i<n;i++){const xm=a+(i+.5)*dx,y=f(xm);if(!isFinite(y))continue;R+=y*dx;p.rect(a+i*dx,Math.min(0,y),dx,abs(y),y>=0?'rgba(255,201,60,.55)':'rgba(224,70,106,.35)','rgba(201,151,26,.9)')}
+ p.area(f,a,b,'rgba(30,111,217,.18)');p.fn(f,'#1e6fd9',3.2);if(o.verF)p.fn(F,'#1f9c63',2,{dash:[6,4]});p.seg(a,yr[0],a,yr[1],'#0d2b45',1,[3,3]);p.seg(b,yr[0],b,yr[1],'#0d2b45',1,[3,3]);
+ const I=F(b)-F(a);
+ return `Suma de ${n} rectángulos ≈ <b>${num(R,4)}</b><br><span class="c1">Área exacta = F(b) − F(a)<br>= ${num(F(b),4)} − ${F(a)<0?'('+num(F(a),4)+')':num(F(a),4)} = <b>${num(I,4)}</b></span><br>${n<20?'👉 Sube los rectángulos: se acercan al área exacta.':'✅ Con muchos rectángulos casi no hay diferencia.'}${o.verF?'<br><span class="c3">verde punteada: F(x)</span>':''}`}}};
+const C=' + C',dx=' dx',p2='<sup>2</sup>',ln=log;
+const TOOL={hoja:{cols:2,fs:16},grupos:[
+{n:'Inmediatas',items:[
+ {t:'Potencia',f:`${INT('x<sup>n</sup>'+dx)} = ${fr('x<sup>n + 1</sup>','n + 1')}${C} (n ≠ −1)`,x:'Es la derivada al revés: el exponente <b>sube 1</b> y se divide entre el nuevo exponente. No olvides la constante C, porque al derivar los números sueltos desaparecen.',v:VA(x=>x*x,x=>x**3/3,{yr:[-1,8]}),ejt:'∫ x³ dx',ej:[[INT('x<sup>3</sup>'+dx)+' = '+fr('x<sup>4</sup>','4')+C,'sube a 4 y divido entre 4'],['Compruebo: ('+fr('x<sup>4</sup>','4')+')′ = x<sup>3</sup>','✔']]},
+ {t:'Constante',f:`${INT('k'+dx)} = kx${C}`,x:'El área de un rectángulo de altura k y base x.',v:VA(x=>2,x=>2*x,{yr:[-1,4]})},
+ {t:'Uno sobre x',f:`${INT(fr('1','x')+dx)} = ln|x|${C}`,x:'El único caso donde no sirve la regla de la potencia (n = −1). El resultado es el logaritmo natural.',v:VA(x=>1/x,x=>ln(abs(x)),{xr:[.1,5],amin:.2,a:1,b:3,yr:[-.5,4]})},
+ {t:'Exponencial e',f:`${INT('e<sup>x</sup>'+dx)} = e<sup>x</sup>${C}`,x:'Como es su propia derivada, también es su propia integral.',v:VA(x=>exp(x),x=>exp(x),{xr:[-2,2.2],a:0,b:1,yr:[-1,8]})},
+ {t:'Exponencial de base a',f:`${INT('a<sup>x</sup>'+dx)} = ${fr('a<sup>x</sup>','ln a')}${C}`,x:'Se divide entre el logaritmo de la base.',v:VA(x=>2**x,x=>2**x/ln(2),{xr:[-2,3],a:0,b:2,yr:[-1,8]})},
+ {t:'Seno',f:`${INT('sen x'+dx)} = −cos x${C}`,x:'Ojo: aparece un signo menos, porque la derivada de −cos x es sen x.',v:VA(x=>sin(x),x=>-cos(x),{xr:[-1,7],a:0,b:PI,yr:[-1.5,1.5]}),ejt:'∫ de 0 a π de sen x',ej:[['[−cos x] de 0 a π'],['(−cos π) − (−cos 0) = 1 + 1'],['= 2','✔ es el área de la jorobita']]},
+ {t:'Coseno',f:`${INT('cos x'+dx)} = sen x${C}`,x:'La integral del coseno es el seno, sin signo menos.',v:VA(x=>cos(x),x=>sin(x),{xr:[-1,7],a:0,b:PI/2,yr:[-1.5,1.5]})},
+ {t:'Secante al cuadrado',f:`${INT('sec'+p2+'x'+dx)} = tan x${C}`,x:'Porque la derivada de la tangente es sec²x.',v:VA(x=>1/cos(x)**2,x=>tan(x),{xr:[-1.4,1.4],a:0,b:1,yr:[-.5,5]})},
+ {t:'Cosecante al cuadrado',f:`${INT('csc'+p2+'x'+dx)} = −cot x${C}`,x:'Porque la derivada de la cotangente es −csc²x.',v:VA(x=>1/sin(x)**2,x=>-1/tan(x),{xr:[.2,3],amin:.3,a:.8,b:2,yr:[-.5,5]})},
+ {t:'Secante por tangente',f:`${INT('sec x tan x'+dx)} = sec x${C}`,x:'Sale de la derivada de la secante.',v:VA(x=>tan(x)/cos(x),x=>1/cos(x),{xr:[-1.3,1.3],a:0,b:1,yr:[-3,5]})},
+ {t:'Cosecante por cotangente',f:`${INT('csc x cot x'+dx)} = −csc x${C}`,x:'Sale de la derivada de la cosecante.',v:VA(x=>1/(sin(x)*tan(x)),x=>-1/sin(x),{xr:[.2,3],amin:.3,a:.6,b:1.5,yr:[-3,5]})},
+ {t:'Tangente',f:`${INT('tan x'+dx)} = −ln|cos x|${C} = ln|sec x|${C}`,x:'Se escribe tan x = sen x / cos x y se hace el cambio u = cos x.',v:VA(x=>tan(x),x=>-ln(abs(cos(x))),{xr:[-1.4,1.4],a:0,b:1,yr:[-3,4]})},
+ {t:'Cotangente',f:`${INT('cot x'+dx)} = ln|sen x|${C}`,x:'Igual que la tangente, con u = sen x.',v:VA(x=>1/tan(x),x=>ln(abs(sin(x))),{xr:[.1,3],amin:.2,a:.5,b:1.5,yr:[-3,4]})},
+ {t:'Secante',f:`${INT('sec x'+dx)} = ln|sec x + tan x|${C}`,x:'Se multiplica arriba y abajo por (sec x + tan x): es un truco famoso.',v:VA(x=>1/cos(x),x=>ln(abs(1/cos(x)+tan(x))),{xr:[-1.4,1.4],a:0,b:1,yr:[-1,5]})},
+ {t:'Cosecante',f:`${INT('csc x'+dx)} = −ln|csc x + cot x|${C}`,x:'Mismo truco que la secante.',v:VA(x=>1/sin(x),x=>-ln(abs(1/sin(x)+1/tan(x))),{xr:[.1,3],amin:.2,a:.5,b:2,yr:[-1,5]})}]},
+{n:'Con raíces y fracciones',items:[
+ {t:'Arcotangente',f:`${INT(fr('1','1 + x'+p2)+dx)} = arctan x${C}`,x:'Sale al revés de la derivada del arcotangente. El área total bajo esta "campana" es π.',v:VA(x=>1/(1+x*x),x=>atan(x),{xr:[-4,4],a:-1,b:1,yr:[-.3,1.3]})},
+ {t:'Arcoseno',f:`${INT(fr('1',rz('1 − x'+p2))+dx)} = arcsen x${C}`,x:'Sale al revés de la derivada del arcoseno.',v:VA(x=>1/sqrt(1-x*x),x=>asin(x),{xr:[-1,1],a:-.5,b:.5,yr:[-.3,4]})},
+ {t:'Con a² + x²',f:`${INT(fr('1','a'+p2+' + x'+p2)+dx)} = ${fr('1','a')} arctan ${fr('x','a')}${C}`,x:'Como la del arcotangente, pero con un número a².',v:VA(x=>1/(4+x*x),x=>atan(x/2)/2,{xr:[-5,5],a:-2,b:2,yr:[-.1,.4]}),ejt:'∫ dx/(9 + x²)',ej:[['a'+p2+' = 9 → a = 3'],[fr('1','3')+' arctan '+fr('x','3')+C,'✔']]},
+ {t:'Con √(a² − x²)',f:`${INT(fr('1',rz('a'+p2+' − x'+p2))+dx)} = arcsen ${fr('x','a')}${C}`,x:'Como la del arcoseno, con a.',v:VA(x=>1/sqrt(4-x*x),x=>asin(x/2),{xr:[-2,2],a:-1,b:1,yr:[-.2,2]})},
+ {t:'Con x² − a²',f:`${INT(fr('1','x'+p2+' − a'+p2)+dx)} = ${fr('1','2a')} ln|${fr('x − a','x + a')}|${C}`,x:'Se resuelve con fracciones parciales.',v:VA(x=>1/(x*x-1),x=>ln(abs((x-1)/(x+1)))/2,{xr:[1.1,5],amin:1.2,a:2,b:4,yr:[-.2,1]})},
+ {t:'Con √(x² ± a²)',f:`${INT(fr('1',rz('x'+p2+' ± a'+p2))+dx)} = ln|x + ${rz('x'+p2+' ± a'+p2)}|${C}`,x:'Sale con una sustitución trigonométrica (o hiperbólica).',v:VA(x=>1/sqrt(x*x+1),x=>ln(x+sqrt(x*x+1)),{xr:[-3,3],a:0,b:2,yr:[-.2,1.3]})}]},
+{n:'Métodos',items:[
+ {t:'Sustitución (cambio de variable)',f:`${INT('f(g(x)) g′(x)'+dx)} = ${INT('f(u) du')} · u = g(x)`,x:'Si dentro ves una función y afuera (casi) su derivada, llámala u. Es la regla de la cadena al revés.',v:VA(x=>2*x*cos(x*x),x=>sin(x*x),{xr:[-.5,2.5],a:0,b:1.2,yr:[-3,3]}),ejt:'∫ 2x cos(x²) dx',ej:[['u = x'+p2+' → du = 2x dx'],[INT('cos u du')+' = sen u'+C],['= sen(x'+p2+')'+C,'✔']]},
+ {t:'Por partes',f:`${INT('u dv')} = u v − ${INT('v du')}`,x:'Para productos de dos funciones distintas. Para elegir u usa <b>ILATE</b>: Inversas, Logaritmos, Algebraicas, Trigonométricas, Exponenciales (la que aparece primero es u).',v:VA(x=>x*exp(x),x=>(x-1)*exp(x),{xr:[-2,2],a:0,b:1,yr:[-1,8]}),ejt:'∫ x eˣ dx',ej:[['u = x → du = dx · dv = e<sup>x</sup>dx → v = e<sup>x</sup>'],['x e<sup>x</sup> − '+INT('e<sup>x</sup>'+dx)],['= x e<sup>x</sup> − e<sup>x</sup>'+C+' = e<sup>x</sup>(x − 1)'+C,'✔']]},
+ {t:'Fracciones parciales',f:`${fr('1','(x − a)(x − b)')} = ${fr('A','x − a')} + ${fr('B','x − b')}`,x:'Una fracción complicada se parte en fracciones sencillitas, y cada una da un logaritmo.',v:VA(x=>1/(x*(x+1)),x=>ln(abs(x/(x+1))),{xr:[.1,4],amin:.2,a:1,b:3,yr:[-.2,2]}),ejt:'∫ dx/(x(x + 1))',ej:[[fr('1','x(x + 1)')+' = '+fr('1','x')+' − '+fr('1','x + 1')],['ln|x| − ln|x + 1|'+C],['= ln|'+fr('x','x + 1')+'|'+C,'✔']]},
+ {t:'Sustitución trigonométrica',f:`${rz('a'+p2+' − x'+p2)}: x = a sen θ · ${rz('a'+p2+' + x'+p2)}: x = a tan θ · ${rz('x'+p2+' − a'+p2)}: x = a sec θ`,x:'Con estas raíces se cambia x por una función trigonométrica y la raíz desaparece gracias a la identidad pitagórica.',v:VA(x=>sqrt(1-x*x),x=>(asin(x)+x*sqrt(1-x*x))/2,{xr:[-1,1],a:-1,b:1,yr:[-.2,1.2],n:10}),ejt:'∫ de −1 a 1 de √(1 − x²)',ej:[['x = sen θ → '+rz('1 − sen'+p2+'θ')+' = cos θ'],[INT('cos'+p2+'θ dθ')+' de −π/2 a π/2'],['= '+fr('π','2')+' ≈ 1,571','✔ ¡es medio círculo!']]},
+ {t:'Teorema fundamental del cálculo',f:`${INT('f(x)'+dx,'a','b')} = F(b) − F(a)`,x:'El área bajo la curva entre a y b se calcula con la integral F: se evalúa arriba, se evalúa abajo y se restan. Los rectángulos amarillos muestran que es la misma área.',v:VA(x=>x*x,x=>x**3/3,{yr:[-1,8],verF:true}),ejt:'∫ de 0 a 2 de x² dx',ej:[['F(x) = '+fr('x<sup>3</sup>','3')],['F(2) − F(0) = '+fr('8','3')+' − 0'],['= '+fr('8','3')+' ≈ 2,667','✔']]},
+ {t:'Propiedades',f:`${INT('(f ± g)')} = ${INT('f')} ± ${INT('g')} · ${INT('k f')} = k ${INT('f')}`,hf:`${INT('(f ± g)')} = ${INT('f')} ± ${INT('g')} · ${INT('k f')} = k ${INT('f')} · ${INT('f','a','a')} = 0 · ${INT('f','a','b')} = −${INT('f','b','a')}`,x:'Las integrales se reparten en las sumas y los números de adelante salen afuera. Si cambias el orden de los límites, cambia el signo.',v:VA(x=>x*x-2*x+2,x=>x**3/3-x*x+2*x,{yr:[-1,6]})},
+ {t:'Área entre dos curvas',f:`Área = ${INT('[f(x) − g(x)]'+dx,'a','b')}`,x:'La de arriba menos la de abajo, y se integra.',v:{sl:[{k:'n',l:'Rectángulos',min:1,max:60,st:1,v:8,fmt:v=>num(v,0)}],d(p,s){p.ejes([-.5,2],[-.3,1.3]);const f=x=>sqrt(x),g=x=>x*x,a=0,b=1,dx=(b-a)/s.n;let R=0;for(let i=0;i<s.n;i++){const xm=a+(i+.5)*dx;R+=(f(xm)-g(xm))*dx;p.rect(a+i*dx,g(xm),dx,f(xm)-g(xm),'rgba(255,201,60,.55)','rgba(201,151,26,.9)')}
+  p.fn(f,'#1e6fd9',3);p.fn(g,'#e0466a',3);return `<span class="c1">arriba: √x</span> · <span class="c2">abajo: x²</span><br>Rectángulos ≈ ${num(R,4)}<br>Exacta: ∫₀¹ (√x − x²) dx = 2/3 − 1/3 = <b>1/3</b>`}},ejt:'entre √x y x², de 0 a 1',ej:[[INT('('+rz('x')+' − x'+p2+')'+dx,'0','1')],['['+fr('2','3')+'x<sup>3/2</sup> − '+fr('x<sup>3</sup>','3')+'] de 0 a 1'],[fr('2','3')+' − '+fr('1','3')+' = '+fr('1','3'),'✔']]}]}]};
+
+// ---------- estado ----------
+const T=TOOL;let gi=0,ii=0,S={},anim=null,tim=[];
+const G=document.getElementById('grupos'),L=document.getElementById('lista');
+T.grupos.forEach((g,k)=>{const b=document.createElement('button');b.className='chip';b.textContent=g.n;b.onclick=()=>{gi=k;pintarLista();elegir(0)};G.appendChild(b)});
+function pintarLista(){[...G.children].forEach((b,k)=>b.classList.toggle('on',k==gi));L.innerHTML='';
+ T.grupos[gi].items.forEach((it,k)=>{const b=document.createElement('button');b.className='it';b.innerHTML=`<small>${it.t}</small>${F(it.f)}`;b.onclick=()=>elegir(k);L.appendChild(b)})}
+function elegir(k){ii=k;const it=T.grupos[gi].items[k];[...L.children].forEach((b,j)=>b.classList.toggle('on',j==k));L.children[k].scrollIntoView({block:'nearest',inline:'nearest'});
+ document.getElementById('dtit').textContent=it.t;document.getElementById('dbig').innerHTML=it.big&&it.big.startsWith('<table')?it.big:F(it.big||it.f);document.getElementById('dexp').innerHTML='👵 '+it.x;
+ const v=it.v||T.vizDef(it);S={};const C=document.getElementById('ctl');C.innerHTML='';
+ (v.sl||[]).forEach(s=>{S[s.k]=s.v;const l=document.createElement('label');l.innerHTML=`<span>${s.l} <b id="sv_${s.k}">${s.fmt?s.fmt(s.v):num(s.v,2)}</b></span><input type="range" min="${s.min}" max="${s.max}" step="${s.st||0.01}" value="${s.v}">`;
+  l.querySelector('input').oninput=e=>{S[s.k]=+e.target.value;document.getElementById('sv_'+s.k).textContent=s.fmt?s.fmt(S[s.k]):num(S[s.k],2);dibujar()};C.appendChild(l)});
+ const inf=document.createElement('div');inf.className='info';inf.id='info';C.appendChild(inf);
+ VIZ=v;cancelAnimationFrame(anim);S.t=0;const loop=()=>{S.t+=1/60;dibujar();anim=requestAnimationFrame(loop)};if(v.anim)loop();else dibujar();
+ pasos(it)}
+let VIZ=null;
+function dibujar(){if(!VIZ)return;const p=P();const r=VIZ.d(p,S);if(r!==undefined)document.getElementById('info').innerHTML=r}
+new ResizeObserver(()=>dibujar()).observe(cv.parentNode);
+// ---------- ejemplo resuelto en continuo ----------
+function pasos(it){tim.forEach(clearTimeout);tim=[];const D=document.getElementById('pasos');
+ if(!it.ej){D.style.display='none';return}D.style.display='flex';
+ D.innerHTML=`<div class="tt"><span>✏️ Ejemplo: ${it.ejt||''}</span><button onclick="pasos(T.grupos[gi].items[ii])">↻ Repetir</button></div>`+it.ej.map((p,k)=>{const [f,n]=Array.isArray(p)?p:[p,''];return `<div class="pa"><em>${k+1}</em>${F(f)}${n?`<span class="n">${n}</span>`:''}</div>`}).join('')+'<span class="marc" id="marc">✏️</span>';
+ const ps=[...D.querySelectorAll('.pa')],m=D.querySelector('#marc');m.style.left='-40px';
+ ps.forEach((p,k)=>tim.push(setTimeout(()=>{ps.forEach(q=>q.classList.remove('ac'));p.classList.add('v','ac');m.style.left=(p.offsetLeft+p.offsetWidth-24)+'px';m.style.top=(p.offsetTop-4)+'px';p.scrollIntoView({block:'nearest'})},400+k*1900)));
+ tim.push(setTimeout(()=>{ps.forEach(q=>q.classList.remove('ac'));m.style.display='none'},400+ps.length*1900+600))}
+// ---------- voz ----------
+function leer(){if(!window.speechSynthesis)return;const it=T.grupos[gi].items[ii];const d=document.createElement('div');d.innerHTML=it.x;
+ const t=it.t+'. '+(it.voz||'')+' '+d.textContent;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='es-VE';const vs=speechSynthesis.getVoices();u.voice=vs.find(x=>/es[-_](VE|MX|US|419)/i.test(x.lang))||vs.find(x=>x.lang.startsWith('es'))||null;u.rate=.95;speechSynthesis.speak(u)}
+// ---------- hoja para imprimir ----------
+function hoja(){const H=document.getElementById('hoja');
+ H.innerHTML=`<h1><span>∫ Tabla de integrales</span><small><span class="lg">INGE<span>NIA</span></span><br>Aquí sí se entiende · WhatsApp 0416-2054982</small></h1>
+ <div class="hcols" style="columns:${T.hoja.cols};font-size:${T.hoja.fs}px">${T.grupos.map(g=>`<div class="hg"><h3>${g.n}</h3>${g.items.filter(i=>!i.noHoja).map(i=>`<div class="hi">${F(i.hf||i.f)}${T.hoja.nombres!==false?`<small>${i.t}</small>`:''}</div>`).join('')}</div>`).join('')}${T.hoja.extra||''}</div>
+ <div class="hpie">Entiende en clase. Repasa en casa. Aprueba con confianza.</div>`}
+function ajustar(){const h=document.querySelector('.hcols');let fs=T.hoja.fs;const cabe=()=>h.scrollWidth<=h.clientWidth+1&&h.scrollHeight<=h.clientHeight+1;
+ while(fs<23){h.style.fontSize=(fs+.5)+'px';if(!cabe())break;fs+=.5}while(fs>8){h.style.fontSize=fs+'px';if(cabe())break;fs-=.5}h.style.fontSize=(fs-.5)+'px'}
+if(/[?&](imprimir|hoja)/.test(location.search)){document.body.classList.add('imprimir');hoja();(document.fonts?document.fonts.ready:Promise.resolve()).then(ajustar)}else{pintarLista();elegir(0)}
+</script>
+</body>
+</html>

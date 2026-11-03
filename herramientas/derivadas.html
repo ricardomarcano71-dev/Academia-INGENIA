@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tabla de derivadas · INGENIA</title>
+<meta name="theme-color" content="#0d2b45">
+<link rel="icon" type="image/png" href="../icono-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Caveat:wght@600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0d2b45;--yel:#ffc93c;--yel2:#c9971a;--ink:#1d2a3a;--soft:#4a5a6e;--bg:#f4f7fb;--hl:#fff1a8;--azul:#1e6fd9;--rojo:#e0466a;--verde:#1f9c63;--nar:#f08c00;--mor:#7b4bd1}
+html,body{height:100%}
+body{font-family:'Nunito',Arial,sans-serif;color:var(--ink);background:var(--bg);overflow:hidden}
+header{background:var(--navy);color:#fff;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px}
+.logo{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:22px;text-decoration:none;color:#fff}.logo span{color:var(--yel)}
+header h1{font-size:17px;font-weight:900;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dl{display:flex;gap:6px}
+.dl a{background:var(--yel);color:var(--navy);font-weight:900;font-size:14px;padding:7px 11px;border-radius:10px;text-decoration:none;white-space:nowrap}
+.dl a.o{background:transparent;color:#fff;border:2px solid var(--yel)}
+main{height:calc(100% - 52px);display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:12px;padding:10px 12px}
+/* fórmulas */
+.f{font-family:'Nunito',serif;font-weight:800;line-height:1.5}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .12em;font-size:.92em}
+.fr>i{font-style:normal;padding:0 .15em;line-height:1.15}
+.fr>i:first-child{border-bottom:.09em solid currentColor}
+.rz{display:inline-flex;align-items:stretch}
+.rz:before{content:"√";font-size:1.1em;margin-right:-.05em}
+.rz>i{font-style:normal;border-top:.09em solid currentColor;padding:0 .12em}
+.f sup{font-size:.62em;vertical-align:.75em;line-height:0}
+.f sub{font-size:.62em;vertical-align:-.3em;line-height:0}
+.lim{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin-right:.18em}
+.lim>b{font-weight:800}.lim>small{font-size:.55em;font-weight:800;white-space:nowrap}
+.int{display:inline-flex;align-items:center;font-size:1.35em;font-weight:400;font-family:Georgia,serif;margin-right:.05em}
+.ab{display:inline-flex;flex-direction:column;font-size:.5em;line-height:1;margin-right:.15em;font-family:'Nunito'}
+.c1{color:var(--azul)}.c2{color:var(--rojo)}.c3{color:var(--verde)}.c4{color:var(--nar)}.c5{color:var(--mor)}
+/* lista */
+.izq{display:flex;flex-direction:column;min-height:0;gap:8px}
+.grupos{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:30px;padding:4px 11px;font-weight:900;font-size:13.5px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.chip.on{background:var(--navy);color:#fff}
+.lista{flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;align-content:start;padding:2px}
+.it{background:#fff;border:2px solid #e2e8ef;border-radius:14px;padding:8px 10px;cursor:pointer;text-align:left;font-family:inherit;color:var(--ink);display:flex;flex-direction:column;gap:4px;transition:transform .12s,border-color .2s}
+.it:hover{transform:translateY(-2px);border-color:#b9c7d6}
+.it.on{border-color:var(--yel);background:#fffbea;box-shadow:0 0 0 3px rgba(255,201,60,.35)}
+.it small{font-size:12px;font-weight:900;color:var(--soft)}
+.it .f{font-size:16px;color:var(--navy)}
+/* detalle */
+.der{background:#fff;border-radius:18px;box-shadow:0 6px 18px rgba(13,43,69,.1);display:flex;flex-direction:column;min-height:0;padding:10px 14px;gap:6px;overflow:hidden}
+.dt{display:flex;align-items:center;gap:10px}
+.dt h2{font-family:'Baloo 2';font-size:22px;color:var(--navy);line-height:1;flex:1}
+.voz{border:2px solid var(--navy);background:#fff;border-radius:20px;padding:3px 10px;font:inherit;font-weight:900;font-size:13px;cursor:pointer;color:var(--navy)}
+.big{font-size:clamp(20px,2.3vw,30px);color:var(--navy);text-align:center;padding:4px 0}
+.big table{margin:0 auto;border-collapse:collapse;font-weight:800}.big td{padding:2px 10px;text-align:center}.big tr:first-child td{border-bottom:2px solid #e2e8ef}
+.exp{font-size:14.5px;font-weight:700;color:#38506a;background:#eef6ff;border-radius:10px;padding:6px 10px}
+.viz{flex:1;min-height:130px;display:flex;gap:8px}
+.cvw{flex:1;min-width:0;position:relative}
+.cvw canvas{position:absolute;inset:0;width:100%;height:100%;border-radius:12px;background:#fbfdff;border:1px solid #e2e8ef;touch-action:none}
+.ctl{width:190px;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:800;color:var(--soft)}
+.ctl label{display:flex;flex-direction:column;gap:1px}
+.ctl label span{display:flex;justify-content:space-between}
+.ctl label b{color:var(--navy)}
+.ctl input[type=range]{width:100%;accent-color:var(--navy)}
+.info{font-size:13.5px;font-weight:800;color:var(--navy);background:#fff8dc;border-radius:10px;padding:6px 8px;line-height:1.35}
+.info .f{font-size:14px;white-space:normal}
+.info table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.info td{padding:1px 3px;text-align:right;border-top:1px solid #f0e3b0}.info tr:first-child td{color:var(--soft);border-top:0}
+.pasos{border-top:2px dashed #e2e8ef;padding-top:6px;font-size:15px;display:flex;flex-direction:column;gap:3px;max-height:34%;overflow:auto;position:relative}
+.pasos .tt{display:flex;justify-content:space-between;align-items:center;font-weight:900;color:var(--soft);font-size:13px}
+.pasos .tt button{border:0;background:#eef2f7;border-radius:14px;padding:2px 10px;font:inherit;font-weight:900;font-size:12.5px;cursor:pointer;color:var(--navy)}
+.pa{display:flex;gap:8px;align-items:baseline;opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s,background .4s;border-radius:8px;padding:1px 6px}
+.pa.v{opacity:1;transform:none}
+.pa.ac{background:var(--hl)}
+.pa>em{font-style:normal;font-weight:900;color:var(--yel2);min-width:18px}
+.pa .f{font-size:16px;color:var(--navy)}
+.pa .n{font-family:'Caveat',cursive;font-size:19px;color:#2a5d8a;margin-left:6px}
+.marc{position:absolute;width:26px;height:26px;pointer-events:none;transition:left .5s,top .5s;font-size:22px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+@media(max-width:820px){
+ header{height:46px;padding:0 8px;gap:6px}.logo{font-size:19px}header h1{font-size:14px}.dl a{font-size:12px;padding:5px 7px}
+ main{display:flex;flex-direction:column;gap:6px;padding:6px;height:calc(100% - 46px)}
+ .izq{flex:0 0 auto;gap:5px}
+ .grupos{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.grupos::-webkit-scrollbar{display:none}
+ .chip{font-size:12px;padding:3px 9px}
+ .lista{display:flex;overflow-x:auto;overflow-y:hidden;flex:0 0 auto;gap:6px;scroll-snap-type:x mandatory;padding-bottom:3px}
+ .it{flex:0 0 auto;min-width:150px;max-width:80vw;scroll-snap-align:start;padding:5px 8px}
+ .it .f{font-size:14px}
+ .der{flex:1 1 0;padding:8px 10px;gap:5px;border-radius:14px;overflow-y:auto}
+ .der>*{flex-shrink:0}
+ .dt h2{font-size:18px}
+ .big{font-size:20px;padding:0}
+ .exp{font-size:12.5px;padding:5px 8px}
+ .viz{flex-direction:column;min-height:0;flex:0 0 auto}
+ .cvw{flex:0 0 auto;height:min(46vh,230px)}
+ .ctl{width:auto;display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;font-size:11.5px}
+ .ctl .info{grid-column:1/3;font-size:12px;padding:4px 7px}
+ .pasos{font-size:13px;max-height:none;overflow:visible}
+ .pa .f{font-size:14px}.pa .n{font-size:16px}
+}
+/* hoja */
+.hoja{display:none}
+body.imprimir{overflow:visible;background:#fff}
+body.imprimir header,body.imprimir main{display:none}
+body.imprimir .hoja{display:flex;flex-direction:column;width:210mm;height:297mm;padding:9mm 10mm;background:#fff;overflow:hidden}
+.hoja h1{font-family:'Baloo 2';color:var(--navy);font-size:30px;line-height:1;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--yel);padding-bottom:2mm}
+.hoja h1 small{font-family:'Nunito';font-size:11px;color:var(--soft);font-weight:800;text-align:right}
+.hoja .lg{font-family:'Baloo 2';font-weight:800;font-size:16px}.hoja .lg span{color:var(--yel2)}
+.hcols{column-gap:5mm;margin-top:3mm;flex:1;min-height:0;column-fill:auto;overflow:hidden}
+.hg{break-inside:avoid;margin-bottom:2.6mm}
+.hg h3{font-family:'Baloo 2';font-size:14px;background:var(--navy);color:var(--yel);border-radius:5px;padding:0 6px;margin-bottom:1mm}
+.hi{display:flex;flex-direction:column;border-bottom:1px dotted #c9d3de;padding:.6mm 1mm;break-inside:avoid}
+.hi>small{font-size:.6em;font-weight:800;color:#8a96a6;order:-1;line-height:1.1;margin-bottom:-.15em}
+.hi .f{color:var(--navy);white-space:normal}
+.hextra{break-inside:avoid}
+.hpie{text-align:center;font-family:'Caveat',cursive;font-size:20px;color:#b0790c;margin-top:1mm}
+</style>
+</head>
+<body>
+<header>
+ <a class="logo" href="../herramientas.html" title="Volver a Herramientas">INGE<span>NIA</span></a>
+ <h1>📈 Tabla de derivadas</h1>
+ <div class="dl"><a href="descargas/derivadas.png" download>🖼 Imagen</a><a class="o" href="descargas/derivadas.pdf" download>🖨 PDF</a></div>
+</header>
+<main>
+ <div class="izq"><div class="grupos" id="grupos"></div><div class="lista" id="lista"></div></div>
+ <div class="der">
+  <div class="dt"><h2 id="dtit"></h2><button class="voz" onclick="leer()">🔊 Escuchar</button></div>
+  <div class="big" id="dbig"></div>
+  <div class="exp" id="dexp"></div>
+  <div class="viz"><div class="cvw"><canvas id="cv"></canvas></div><div class="ctl" id="ctl"></div></div>
+  <div class="pasos" id="pasos"></div>
+ </div>
+</main>
+<div class="hoja" id="hoja"></div>
+<script>
+// ---------- notación ----------
+const fr=(a,b)=>`<span class="fr"><i>${a}</i><i>${b}</i></span>`;
+const rz=a=>`<span class="rz"><i>${a}</i></span>`;
+const F=s=>`<span class="f">${s}</span>`;
+const lim=(a,s)=>`<span class="lim"><b>lím</b><small>${a}</small></span>${s}`;
+const INT=(s,a,b)=>a!==undefined?`<span class="int">∫</span><span class="ab"><i>${b}</i><i>${a}</i></span>${s}`:`<span class="int">∫</span>${s}`;
+const c=(n,s)=>`<span class="c${n}">${s}</span>`;
+const num=(v,d=3)=>{if(!isFinite(v))return v>0?'∞':v<0?'−∞':'—';const r=Math.abs(v)<1e-12?0:+v.toFixed(d);return String(r).replace('-','−').replace('.',',')};
+const PI=Math.PI,{sin,cos,tan,sqrt,exp,log,abs,atan,asin,acos,pow}=Math;
+// ---------- lienzo ----------
+const cv=document.getElementById('cv'),cx=cv.getContext('2d');
+function P(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;if(cv.width!=Math.round(r.width*d)||cv.height!=Math.round(r.height*d)){cv.width=r.width*d;cv.height=r.height*d}cx.setTransform(d,0,0,d,0,0);
+ const W=r.width,H=r.height;cx.clearRect(0,0,W,H);
+ const p={W,H,x:cx,xr:[-5,5],yr:[-3,3],
+  ejes(xr,yr,o={}){this.xr=xr;this.yr=yr;if(o.igual){const sx=W/(xr[1]-xr[0]),sy=H/(yr[1]-yr[0]);if(sx<sy){const m=(yr[0]+yr[1])/2,h=H/sx/2;this.yr=[m-h,m+h]}else{const m=(xr[0]+xr[1])/2,w=W/sy/2;this.xr=[m-w,m+w]}}
+   const X=this.X.bind(this),Y=this.Y.bind(this);const st=o.paso||paso(this.xr[1]-this.xr[0]),sty=o.pasoy||paso(this.yr[1]-this.yr[0]);
+   cx.lineWidth=1;cx.strokeStyle='#e8eef5';cx.beginPath();
+   for(let v=Math.ceil(this.xr[0]/st)*st;v<=this.xr[1];v+=st){cx.moveTo(X(v),0);cx.lineTo(X(v),H)}
+   for(let v=Math.ceil(this.yr[0]/sty)*sty;v<=this.yr[1];v+=sty){cx.moveTo(0,Y(v));cx.lineTo(W,Y(v))}cx.stroke();
+   cx.strokeStyle='#8a96a6';cx.lineWidth=1.4;cx.beginPath();cx.moveTo(0,Y(0));cx.lineTo(W,Y(0));cx.moveTo(X(0),0);cx.lineTo(X(0),H);cx.stroke();
+   cx.fillStyle='#8a96a6';cx.font='700 10px Nunito,Arial';cx.textAlign='center';
+   if(!o.sinNum){for(let v=Math.ceil(this.xr[0]/st)*st;v<=this.xr[1];v+=st)if(Math.abs(v)>st/2)cx.fillText(o.etx?o.etx(v):num(v,2),X(v),Math.min(H-3,Math.max(11,Y(0)+12)));
+   cx.textAlign='right';for(let v=Math.ceil(this.yr[0]/sty)*sty;v<=this.yr[1];v+=sty)if(Math.abs(v)>sty/2)cx.fillText(num(v,2),Math.max(22,Math.min(W-3,X(0)-4)),Y(v)+3)}
+   cx.textAlign='start';return this},
+  X(v){return (v-this.xr[0])/(this.xr[1]-this.xr[0])*W},Y(v){return H-(v-this.yr[0])/(this.yr[1]-this.yr[0])*H},
+  fn(f,col='#1e6fd9',w=2.6,o={}){const a=o.a??this.xr[0],b=o.b??this.xr[1];cx.strokeStyle=col;cx.lineWidth=w;cx.setLineDash(o.dash||[]);cx.beginPath();let pen=false,prev=null;
+   const n=Math.max(200,W*2);for(let i=0;i<=n;i++){const x=a+(b-a)*i/n,y=f(x);const py=this.Y(y);
+    if(!isFinite(y)||Math.abs(py)>H*6||(prev!==null&&Math.abs(py-prev)>H*1.5)){pen=false;prev=isFinite(y)?py:null;continue}
+    pen?cx.lineTo(this.X(x),py):cx.moveTo(this.X(x),py);pen=true;prev=py}cx.stroke();cx.setLineDash([]);return this},
+  area(f,a,b,col='rgba(30,111,217,.22)',g=0){cx.fillStyle=col;cx.beginPath();cx.moveTo(this.X(a),this.Y(g));const n=200;for(let i=0;i<=n;i++){const x=a+(b-a)*i/n;cx.lineTo(this.X(x),this.Y(f(x)))}cx.lineTo(this.X(b),this.Y(g));cx.closePath();cx.fill();return this},
+  punto(x,y,col='#e0466a',r=5,hueco){cx.beginPath();cx.arc(this.X(x),this.Y(y),r,0,7);if(hueco){cx.fillStyle='#fff';cx.fill();cx.lineWidth=2.4;cx.strokeStyle=col;cx.stroke()}else{cx.fillStyle=col;cx.fill()}return this},
+  seg(x1,y1,x2,y2,col='#0d2b45',w=2,dash){cx.strokeStyle=col;cx.lineWidth=w;cx.setLineDash(dash||[]);cx.beginPath();cx.moveTo(this.X(x1),this.Y(y1));cx.lineTo(this.X(x2),this.Y(y2));cx.stroke();cx.setLineDash([]);return this},
+  txt(s,x,y,col='#0d2b45',o={}){cx.fillStyle=col;cx.font=`${o.peso||800} ${o.t||13}px Nunito,Arial`;cx.textAlign=o.al||'left';cx.textBaseline=o.bl||'alphabetic';cx.fillText(s,this.X(x)+(o.dx||0),this.Y(y)+(o.dy||0));cx.textAlign='start';cx.textBaseline='alphabetic';return this},
+  rect(x,y,w,h,fill,stroke){cx.beginPath();cx.rect(this.X(x),this.Y(y+h),this.X(x+w)-this.X(x),this.Y(y)-this.Y(y+h));if(fill){cx.fillStyle=fill;cx.fill()}if(stroke){cx.strokeStyle=stroke;cx.lineWidth=1.5;cx.stroke()}return this}};
+ return p}
+function paso(r){const t=r/8,e=Math.pow(10,Math.floor(Math.log10(t))),m=t/e;return (m<1.5?1:m<3.5?2:m<7.5?5:10)*e}
+// ---------- datos de la herramienta ----------
+// TITULO: Tabla de derivadas
+// ICONO: 📈
+// la recta tangente se mueve sobre la curva; su pendiente es la derivada (curva naranja)
+const VD=(f,df,o={})=>{const xr=o.xr||[-4,4];return {sl:[{k:'x',l:'Punto x₀',min:xr[0]+.1,max:xr[1]-.1,st:.01,v:o.x0??1}],d(p,s){const yr=o.yr||[-4,4];p.ejes(xr,yr);
+ p.fn(f,'#1e6fd9',3.2);if(!o.sinD)p.fn(df,'#f08c00',2.2,{dash:[7,5]});const x=s.x,y=f(x),m=df(x);
+ if(isFinite(y)&&isFinite(m)){const w=(xr[1]-xr[0])*.22;p.seg(x-w,y-m*w,x+w,y+m*w,'#e0466a',3);p.punto(x,y,'#e0466a',6);if(!o.sinD)p.punto(x,m,'#f08c00',5);
+  const d=(xr[1]-xr[0])*.08;p.seg(x,y,x+d,y,'#1f9c63',1.6,[3,3]);p.seg(x+d,y,x+d,y+m*d,'#1f9c63',1.6,[3,3])}
+ return `${o.nf||'f'}(${num(x,2)}) = ${num(y,3)}<br><span class="c2">pendiente de la tangente = ${num(m,3)}</span><br><span class="c4">${o.nd||'f′'}(${num(x,2)}) = ${num(m,3)}</span><br>${abs(m)<.02?'➖ Aquí la curva está plana: ¡la derivada es 0!':m>0?'↗ La curva sube: derivada positiva':'↘ La curva baja: derivada negativa'}<br><span style="color:#8a96a6;font-weight:700">azul: ${o.lf||'f(x)'} · naranja: ${o.ld||'f′(x)'}</span>`}}};
+const p2='<sup>2</sup>',ln=log;
+const TOOL={hoja:{cols:2,fs:18.5},grupos:[
+{n:'Básicas',items:[
+ {t:'Constante',f:`(k)′ = 0`,x:'Una recta horizontal no sube ni baja: su pendiente es cero. Un número solo siempre tiene derivada 0.',v:VD(x=>2,x=>0,{lf:'y = 2',ld:'y′ = 0'}),ejt:'(7)′',ej:[['(7)′ = 0','✔']]},
+ {t:'x',f:`(x)′ = 1`,x:'La recta y = x sube 1 por cada 1 que avanza: su pendiente es 1.',v:VD(x=>x,x=>1,{lf:'y = x',ld:'y′ = 1'})},
+ {t:'Potencia',f:`(x<sup>n</sup>)′ = n x<sup>n − 1</sup>`,x:'"El exponente <b>baja</b> a multiplicar y el exponente <b>pierde 1</b>." Es la regla que más vas a usar.',v:VD(x=>x**3/3,x=>x*x,{lf:'x³/3',ld:'x²',yr:[-4,5]}),ejt:'(x⁵)′',ej:[['(x<sup>5</sup>)′ = 5 · x<sup>5 − 1</sup>','baja el 5, le resto 1'],['= 5x<sup>4</sup>','✔']]},
+ {t:'Raíz cuadrada',f:`(${rz('x')})′ = ${fr('1','2'+rz('x'))}`,x:'Es la potencia con n = ½: baja el ½ y el exponente queda en −½.',v:VD(x=>sqrt(x),x=>1/(2*sqrt(x)),{xr:[0,6],yr:[-1,3],x0:1,lf:'√x',ld:'1/(2√x)'}),ej:[['('+rz('x')+')′ = (x<sup>1/2</sup>)′'],['= '+fr('1','2')+' x<sup>−1/2</sup> = '+fr('1','2'+rz('x')),'✔']]},
+ {t:'Uno sobre x',f:`(${fr('1','x')})′ = −${fr('1','x'+p2)}`,x:'Es x elevado a −1: baja el −1 y queda x⁻².',v:VD(x=>1/x,x=>-1/x**2,{x0:1,lf:'1/x',ld:'−1/x²'})},
+ {t:'Exponencial e',f:`(e<sup>x</sup>)′ = e<sup>x</sup>`,x:'¡La única función que es su propia derivada! Crece tan rápido como lo que ya tiene, como una bola de nieve.',v:VD(x=>exp(x),x=>exp(x),{yr:[-1,7],x0:.5,lf:'eˣ',ld:'eˣ (¡la misma!)'})},
+ {t:'Exponencial de base a',f:`(a<sup>x</sup>)′ = a<sup>x</sup> ln a`,x:'Como eˣ, pero multiplicada por el logaritmo natural de la base.',v:VD(x=>2**x,x=>2**x*ln(2),{yr:[-1,7],lf:'2ˣ',ld:'2ˣ ln 2'})},
+ {t:'Logaritmo natural',f:`(ln x)′ = ${fr('1','x')}`,x:'El logaritmo crece cada vez más despacio; su pendiente es 1/x, cada vez más pequeña.',v:VD(x=>ln(x),x=>1/x,{xr:[0,6],yr:[-3,3],x0:1,lf:'ln x',ld:'1/x'})},
+ {t:'Logaritmo de base a',f:`(log<sub>a</sub> x)′ = ${fr('1','x ln a')}`,x:'Igual que ln x, dividido entre ln a.',v:VD(x=>ln(x)/ln(10),x=>1/(x*ln(10)),{xr:[0,6],yr:[-2,2],x0:1,lf:'log x',ld:'1/(x ln 10)'})}]},
+{n:'Trigonométricas',items:[
+ {t:'Seno',f:`(sen x)′ = cos x`,x:'Donde el seno está en la cima (plano), el coseno vale 0. Mueve el punto y compruébalo.',v:VD(x=>sin(x),x=>cos(x),{xr:[-6.3,6.3],yr:[-2,2],lf:'sen x',ld:'cos x'})},
+ {t:'Coseno',f:`(cos x)′ = −sen x`,x:'Ojo con el signo menos: el coseno empieza bajando.',v:VD(x=>cos(x),x=>-sin(x),{xr:[-6.3,6.3],yr:[-2,2],lf:'cos x',ld:'−sen x'})},
+ {t:'Tangente',f:`(tan x)′ = sec<sup>2</sup> x = 1 + tan<sup>2</sup> x`,x:'La tangente siempre sube, por eso su derivada siempre es positiva.',v:VD(x=>tan(x),x=>1/cos(x)**2,{xr:[-1.5,1.5],yr:[-4,4],x0:.5,lf:'tan x',ld:'sec²x'})},
+ {t:'Cotangente',f:`(cot x)′ = −csc<sup>2</sup> x`,x:'La cotangente siempre baja: derivada negativa.',v:VD(x=>1/tan(x),x=>-1/sin(x)**2,{xr:[.1,3],yr:[-4,4],x0:1,lf:'cot x',ld:'−csc²x'})},
+ {t:'Secante',f:`(sec x)′ = sec x tan x`,x:'Se repite ella misma por la tangente.',v:VD(x=>1/cos(x),x=>tan(x)/cos(x),{xr:[-1.5,1.5],yr:[-1,5],x0:.5,lf:'sec x',ld:'sec x tan x'})},
+ {t:'Cosecante',f:`(csc x)′ = −csc x cot x`,x:'Como la secante, pero con signo menos y "co" en todo.',v:VD(x=>1/sin(x),x=>-1/(sin(x)*tan(x)),{xr:[.1,3],yr:[-4,5],x0:1,lf:'csc x',ld:'−csc x cot x'})},
+ {t:'Arcoseno',f:`(arcsen x)′ = ${fr('1',rz('1 − x'+p2))}`,x:'Solo existe entre −1 y 1.',v:VD(x=>asin(x),x=>1/sqrt(1-x*x),{xr:[-1,1],yr:[-2,4],x0:.3,lf:'arcsen x',ld:'1/√(1 − x²)'})},
+ {t:'Arcocoseno',f:`(arccos x)′ = −${fr('1',rz('1 − x'+p2))}`,x:'Es la del arcoseno con signo menos.',v:VD(x=>acos(x),x=>-1/sqrt(1-x*x),{xr:[-1,1],yr:[-4,4],x0:.3,lf:'arccos x',ld:'−1/√(1 − x²)'})},
+ {t:'Arcotangente',f:`(arctan x)′ = ${fr('1','1 + x'+p2)}`,x:'Muy usada para integrar.',v:VD(x=>atan(x),x=>1/(1+x*x),{yr:[-2,2],lf:'arctan x',ld:'1/(1 + x²)'})}]},
+{n:'Reglas',items:[
+ {t:'Constante por función',f:`(k · f)′ = k · f′`,x:'El número de adelante espera afuera mientras se deriva lo demás.',v:VD(x=>3*x*x,x=>6*x,{yr:[-2,10],lf:'3x²',ld:'6x'}),ejt:'(3x²)′',ej:[['3 · (x'+p2+')′','el 3 espera'],['3 · 2x = 6x','✔']]},
+ {t:'Suma y resta',f:`(f ± g)′ = f′ ± g′`,x:'Se deriva cada término por separado.',v:VD(x=>x**3-3*x,x=>3*x*x-3,{yr:[-4,4],lf:'x³ − 3x',ld:'3x² − 3'}),ejt:'(x³ − 3x + 5)′',ej:[['(x<sup>3</sup>)′ − (3x)′ + (5)′'],['3x'+p2+' − 3 + 0'],['= 3x'+p2+' − 3','✔ en x = ±1 la curva está plana']]},
+ {t:'Producto',f:`(f · g)′ = f′ · g + f · g′`,x:'"La derivada del primero por el segundo sin derivar, <b>más</b> el primero sin derivar por la derivada del segundo."',v:VD(x=>x*sin(x),x=>sin(x)+x*cos(x),{xr:[-6,6],yr:[-6,6],lf:'x sen x',ld:'sen x + x cos x'}),ejt:'(x² eˣ)′',ej:[['f = x'+p2+' · g = e<sup>x</sup>'],['f′g + fg′ = 2x · e<sup>x</sup> + x'+p2+' · e<sup>x</sup>'],['= e<sup>x</sup>(2x + x'+p2+')','✔']]},
+ {t:'Cociente',f:`(${fr('f','g')})′ = ${fr('f′ · g − f · g′','g'+p2)}`,x:'"La de arriba derivada por la de abajo, <b>menos</b> la de arriba por la de abajo derivada, todo entre la de abajo al cuadrado." El orden importa por el signo menos.',v:VD(x=>x/(x*x+1),x=>(1-x*x)/(x*x+1)**2,{yr:[-1.5,1.5],lf:'x/(x² + 1)',ld:'(1 − x²)/(x² + 1)²'}),ejt:'(x/(x² + 1))′',ej:[[fr('1·(x'+p2+' + 1) − x·2x','(x'+p2+' + 1)'+p2)],['= '+fr('1 − x'+p2,'(x'+p2+' + 1)'+p2),'✔']]},
+ {t:'Regla de la cadena',f:`[f(g(x))]′ = f′(g(x)) · g′(x)`,x:'Como pelar una cebolla: derivas la capa de afuera (dejando lo de adentro igual) y multiplicas por la derivada de lo de adentro.',v:VD(x=>sin(2*x),x=>2*cos(2*x),{xr:[-3.2,3.2],yr:[-3,3],lf:'sen 2x',ld:'2 cos 2x'}),ejt:'(sen 2x)′',ej:[['afuera: sen( ) → cos( ) · adentro: 2x → 2'],['cos 2x · 2 = 2 cos 2x','✔']]},
+ {t:'Potencia de una función',f:`(u<sup>n</sup>)′ = n u<sup>n − 1</sup> · u′`,x:'La regla de la potencia más la cadena: no olvides multiplicar por la derivada de lo de adentro.',v:VD(x=>(x*x-1)**2,x=>4*x*(x*x-1),{xr:[-2,2],yr:[-2,4],lf:'(x² − 1)²',ld:'4x(x² − 1)'}),ejt:'((x² + 1)³)′',ej:[['3(x'+p2+' + 1)'+p2+' · (x'+p2+' + 1)′'],['3(x'+p2+' + 1)'+p2+' · 2x = 6x(x'+p2+' + 1)'+p2,'✔']]},
+ {t:'Exponencial compuesta',f:`(e<sup>u</sup>)′ = e<sup>u</sup> · u′`,x:'La exponencial se queda igual y se multiplica por la derivada del exponente.',v:VD(x=>exp(-x*x),x=>-2*x*exp(-x*x),{xr:[-3,3],yr:[-1.2,1.4],lf:'e^(−x²)',ld:'−2x e^(−x²)'}),ejt:'(e^{3x})′',ej:[['e<sup>3x</sup> · (3x)′'],['= 3e<sup>3x</sup>','✔']]},
+ {t:'Logaritmo compuesto',f:`(ln u)′ = ${fr('u′','u')}`,x:'La derivada de lo de adentro entre lo de adentro.',v:VD(x=>log(x*x+1),x=>2*x/(x*x+1),{yr:[-2,3],lf:'ln(x² + 1)',ld:'2x/(x² + 1)'}),ejt:'(ln(x² + 1))′',ej:[[fr('(x'+p2+' + 1)′','x'+p2+' + 1')+' = '+fr('2x','x'+p2+' + 1'),'✔']]}]},
+{n:'¿Qué es la derivada?',items:[
+ {t:'Definición',f:`f′(x) = ${lim('h → 0',fr('f(x + h) − f(x)','h'))}`,x:'Es la <b>pendiente</b> de la curva en un punto: cuánto sube por cada pasito que avanzas. Se calcula con dos puntos que se acercan hasta casi tocarse.',v:{sl:[{k:'x',l:'Punto x₀',min:-2,max:2,st:.01,v:.5},{k:'h',l:'Separación h',min:.02,max:2,st:.01,v:1.5}],d(p,s){p.ejes([-3,3],[-1,6]);const f=x=>x*x;p.fn(f,'#1e6fd9',3);const a=s.x,b=a+s.h,ms=(f(b)-f(a))/s.h;
+  p.seg(a-3,f(a)-3*ms,a+4,f(a)+4*ms,'#7b4bd1',2);p.seg(a-2,f(a)-2*2*a,a+2,f(a)+2*2*a,'#e0466a',2,[6,4]);p.punto(a,f(a),'#e0466a',6);p.punto(b,f(b),'#7b4bd1',6);
+  return `<span class="c5">pendiente con h = ${num(s.h,2)}: ${num(ms,3)}</span><br><span class="c2">pendiente exacta f′(${num(a,2)}) = 2x₀ = ${num(2*a,3)}</span><br>👉 Achica h: la recta morada se pega a la tangente roja.`}},ejt:'f(x) = x²',ej:[[fr('(x + h)'+p2+' − x'+p2,'h')+' = '+fr('2xh + h'+p2,'h')],['= 2x + h → 2x','cuando h → 0 ✔']]},
+ {t:'Máximos y mínimos',f:`f′(x) = 0 → punto plano (cima o valle)`,x:'En la cima de una montaña o el fondo de un valle la curva está <b>plana</b>, así que ahí la derivada es cero. Así se buscan los máximos y mínimos.',v:VD(x=>x**3-3*x,x=>3*x*x-3,{yr:[-4,4],x0:-1,lf:'x³ − 3x',ld:'3x² − 3'}),ejt:'f(x) = x³ − 3x',ej:[['f′(x) = 3x'+p2+' − 3 = 0'],['x'+p2+' = 1 → x = ±1'],['x = −1 es máximo · x = 1 es mínimo','✔']]},
+ {t:'Velocidad',f:`v(t) = x′(t) · a(t) = v′(t)`,x:'En física, la velocidad es la derivada de la posición y la aceleración es la derivada de la velocidad.',v:VD(x=>5*x*x/2,x=>5*x,{xr:[0,4],yr:[-1,22],x0:2,nf:'x',nd:'v',lf:'posición x(t) = 2,5t²',ld:'velocidad v(t) = 5t'})}]}]};
+
+// ---------- estado ----------
+const T=TOOL;let gi=0,ii=0,S={},anim=null,tim=[];
+const G=document.getElementById('grupos'),L=document.getElementById('lista');
+T.grupos.forEach((g,k)=>{const b=document.createElement('button');b.className='chip';b.textContent=g.n;b.onclick=()=>{gi=k;pintarLista();elegir(0)};G.appendChild(b)});
+function pintarLista(){[...G.children].forEach((b,k)=>b.classList.toggle('on',k==gi));L.innerHTML='';
+ T.grupos[gi].items.forEach((it,k)=>{const b=document.createElement('button');b.className='it';b.innerHTML=`<small>${it.t}</small>${F(it.f)}`;b.onclick=()=>elegir(k);L.appendChild(b)})}
+function elegir(k){ii=k;const it=T.grupos[gi].items[k];[...L.children].forEach((b,j)=>b.classList.toggle('on',j==k));L.children[k].scrollIntoView({block:'nearest',inline:'nearest'});
+ document.getElementById('dtit').textContent=it.t;document.getElementById('dbig').innerHTML=it.big&&it.big.startsWith('<table')?it.big:F(it.big||it.f);document.getElementById('dexp').innerHTML='👵 '+it.x;
+ const v=it.v||T.vizDef(it);S={};const C=document.getElementById('ctl');C.innerHTML='';
+ (v.sl||[]).forEach(s=>{S[s.k]=s.v;const l=document.createElement('label');l.innerHTML=`<span>${s.l} <b id="sv_${s.k}">${s.fmt?s.fmt(s.v):num(s.v,2)}</b></span><input type="range" min="${s.min}" max="${s.max}" step="${s.st||0.01}" value="${s.v}">`;
+  l.querySelector('input').oninput=e=>{S[s.k]=+e.target.value;document.getElementById('sv_'+s.k).textContent=s.fmt?s.fmt(S[s.k]):num(S[s.k],2);dibujar()};C.appendChild(l)});
+ const inf=document.createElement('div');inf.className='info';inf.id='info';C.appendChild(inf);
+ VIZ=v;cancelAnimationFrame(anim);S.t=0;const loop=()=>{S.t+=1/60;dibujar();anim=requestAnimationFrame(loop)};if(v.anim)loop();else dibujar();
+ pasos(it)}
+let VIZ=null;
+function dibujar(){if(!VIZ)return;const p=P();const r=VIZ.d(p,S);if(r!==undefined)document.getElementById('info').innerHTML=r}
+new ResizeObserver(()=>dibujar()).observe(cv.parentNode);
+// ---------- ejemplo resuelto en continuo ----------
+function pasos(it){tim.forEach(clearTimeout);tim=[];const D=document.getElementById('pasos');
+ if(!it.ej){D.style.display='none';return}D.style.display='flex';
+ D.innerHTML=`<div class="tt"><span>✏️ Ejemplo: ${it.ejt||''}</span><button onclick="pasos(T.grupos[gi].items[ii])">↻ Repetir</button></div>`+it.ej.map((p,k)=>{const [f,n]=Array.isArray(p)?p:[p,''];return `<div class="pa"><em>${k+1}</em>${F(f)}${n?`<span class="n">${n}</span>`:''}</div>`}).join('')+'<span class="marc" id="marc">✏️</span>';
+ const ps=[...D.querySelectorAll('.pa')],m=D.querySelector('#marc');m.style.left='-40px';
+ ps.forEach((p,k)=>tim.push(setTimeout(()=>{ps.forEach(q=>q.classList.remove('ac'));p.classList.add('v','ac');m.style.left=(p.offsetLeft+p.offsetWidth-24)+'px';m.style.top=(p.offsetTop-4)+'px';p.scrollIntoView({block:'nearest'})},400+k*1900)));
+ tim.push(setTimeout(()=>{ps.forEach(q=>q.classList.remove('ac'));m.style.display='none'},400+ps.length*1900+600))}
+// ---------- voz ----------
+function leer(){if(!window.speechSynthesis)return;const it=T.grupos[gi].items[ii];const d=document.createElement('div');d.innerHTML=it.x;
+ const t=it.t+'. '+(it.voz||'')+' '+d.textContent;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='es-VE';const vs=speechSynthesis.getVoices();u.voice=vs.find(x=>/es[-_](VE|MX|US|419)/i.test(x.lang))||vs.find(x=>x.lang.startsWith('es'))||null;u.rate=.95;speechSynthesis.speak(u)}
+// ---------- hoja para imprimir ----------
+function hoja(){const H=document.getElementById('hoja');
+ H.innerHTML=`<h1><span>📈 Tabla de derivadas</span><small><span class="lg">INGE<span>NIA</span></span><br>Aquí sí se entiende · WhatsApp 0416-2054982</small></h1>
+ <div class="hcols" style="columns:${T.hoja.cols};font-size:${T.hoja.fs}px">${T.grupos.map(g=>`<div class="hg"><h3>${g.n}</h3>${g.items.filter(i=>!i.noHoja).map(i=>`<div class="hi">${F(i.hf||i.f)}${T.hoja.nombres!==false?`<small>${i.t}</small>`:''}</div>`).join('')}</div>`).join('')}${T.hoja.extra||''}</div>
+ <div class="hpie">Entiende en clase. Repasa en casa. Aprueba con confianza.</div>`}
+function ajustar(){const h=document.querySelector('.hcols');let fs=T.hoja.fs;const cabe=()=>h.scrollWidth<=h.clientWidth+1&&h.scrollHeight<=h.clientHeight+1;
+ while(fs<23){h.style.fontSize=(fs+.5)+'px';if(!cabe())break;fs+=.5}while(fs>8){h.style.fontSize=fs+'px';if(cabe())break;fs-=.5}h.style.fontSize=(fs-.5)+'px'}
+if(/[?&](imprimir|hoja)/.test(location.search)){document.body.classList.add('imprimir');hoja();(document.fonts?document.fonts.ready:Promise.resolve()).then(ajustar)}else{pintarLista();elegir(0)}
+</script>
+</body>
+</html>

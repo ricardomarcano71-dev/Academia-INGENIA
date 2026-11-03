@@ -1,0 +1,69 @@
+// TITULO: Productos notables y factorización
+// ICONO: 🧮
+const CA='#a9cdf5',CB='#ffd27a',CAB='#b8e6c9',CC='#f3c2e0';
+const sq=v=>`${v}<sup>2</sup>`,cu=v=>`${v}<sup>3</sup>`;
+// dibuja un rectángulo con su etiqueta (en unidades del modelo)
+function pieza(p,x,y,w,h,col,t,o={}){p.rect(x,y,w,h,col,'#0d2b45');if(t&&w>.25&&h>.25)p.txt(t,x+w/2,y+h/2,'#0d2b45',{al:'center',bl:'middle',t:o.t||15,peso:900})}
+const SL=(a=3,b=2)=>[{k:'a',l:'a',min:1,max:6,st:.5,v:a},{k:'b',l:'b',min:.5,max:4,st:.5,v:b}];
+// modelo de área de (a+b)²
+const VCuad={sl:SL(),d(p,s){const {a,b}=s,L=a+b;p.ejes([-1,L+1.5],[-1,L+1],{igual:1,sinNum:1});p.x.clearRect(0,0,p.W,p.H);
+ pieza(p,0,b,a,a,CA,'a²');pieza(p,a,b,b,a,CAB,'ab');pieza(p,0,0,a,b,CAB,'ab');pieza(p,a,0,b,b,CB,'b²');
+ p.txt('a',a/2,L,'#1e6fd9',{al:'center',dy:-6});p.txt('b',a+b/2,L,'#c9971a',{al:'center',dy:-6});p.txt('a',0,b+a/2,'#1e6fd9',{al:'right',dx:-6});p.txt('b',0,b/2,'#c9971a',{al:'right',dx:-6});
+ return `Un cuadrado de lado a + b se parte en 4 pedazos:<br><b>a² + ab + ab + b²</b><br>(${num(L,1)})² = ${num(L*L,2)}<br>${num(a*a,2)} + 2·${num(a*b,2)} + ${num(b*b,2)} = ${num(a*a+2*a*b+b*b,2)} ✅`}};
+const VResta={sl:SL(4,1.5),d(p,s){const {a,b}=s;p.ejes([-1,a+1.5],[-1,a+1],{igual:1,sinNum:1});p.x.clearRect(0,0,p.W,p.H);const r=a-b;
+ pieza(p,0,0,a,a,'#eef2f7');pieza(p,0,0,r,r,CA,'(a − b)²');pieza(p,r,0,b,r,'rgba(240,140,0,.35)','ab',{t:12});pieza(p,0,r,r,b,'rgba(240,140,0,.35)','ab',{t:12});pieza(p,r,r,b,b,'rgba(224,70,106,.45)','b²',{t:12});
+ p.txt('a',a/2,a,'#1e6fd9',{al:'center',dy:-6});p.txt('a',0,a/2,'#1e6fd9',{al:'right',dx:-6});p.txt('b',r+b/2,a,'#c9971a',{al:'center',dy:-6});
+ return `Del cuadrado grande a² quitamos dos tiras ab.<br>Pero la esquina b² se quitó <b>dos veces</b>, por eso se vuelve a sumar:<br><b>a² − 2ab + b²</b><br>(${num(r,1)})² = ${num(r*r,2)} ✅`}};
+const VDif={sl:SL(4,1.5),d(p,s){const {a,b}=s;p.ejes([-1,a+b+a+2],[-1,a+1],{igual:1,sinNum:1});p.x.clearRect(0,0,p.W,p.H);const r=a-b;
+ pieza(p,0,0,r,a,CA,'');pieza(p,r,0,b,r,CAB,'');pieza(p,r,r,b,b,'#fff');p.seg(r,r,a,a,'#e0466a',1.5,[4,4]);p.txt('b²',r+b/2,r+b/2,'#e0466a',{al:'center',bl:'middle',t:13});p.txt('a² − b²',a/2,-.5,'#0d2b45',{al:'center',t:13});
+ const o=a+1.2;pieza(p,o,0,r,a,CA,'');pieza(p,o,a,r,b,CAB,'');p.txt('(a + b)(a − b)',o+r/2,-.5,'#0d2b45',{al:'center',t:13});p.txt('a + b',o+r,(a+b)/2,'#0d2b45',{dx:6});p.txt('a − b',o+r/2,a+b,'#0d2b45',{al:'center',dy:-6});
+ p.txt('➜',a+.3,a/2,'#c9971a',{t:22,bl:'middle'});
+ return `Al cuadrado a² le quitamos el cuadradito b². La tira verde se mueve arriba y queda un rectángulo de (a + b) por (a − b).<br>${num(a*a,2)} − ${num(b*b,2)} = ${num(a*a-b*b,2)} = ${num(a+b,1)} · ${num(r,1)} ✅`}};
+const VXX={sl:[{k:'x',l:'x',min:1,max:6,st:.5,v:4},{k:'m',l:'a',min:.5,max:4,st:.5,v:2},{k:'n',l:'b',min:.5,max:4,st:.5,v:1}],d(p,s){const {x,m,n}=s;p.ejes([-1,x+m+1.5],[-1,x+n+1],{igual:1,sinNum:1});p.x.clearRect(0,0,p.W,p.H);
+ pieza(p,0,n,x,x,CA,'x²');pieza(p,x,n,m,x,CAB,'ax');pieza(p,0,0,x,n,CAB,'bx');pieza(p,x,0,m,n,CB,'ab');
+ p.txt('x',x/2,x+n,'#1e6fd9',{al:'center',dy:-6});p.txt('a',x+m/2,x+n,'#c9971a',{al:'center',dy:-6});p.txt('x',0,n+x/2,'#1e6fd9',{al:'right',dx:-6});p.txt('b',0,n/2,'#c9971a',{al:'right',dx:-6});
+ return `(x + a)(x + b) = x² + ax + bx + ab<br>= x² + (a + b)x + ab<br>${num(x+m,1)} · ${num(x+n,1)} = ${num((x+m)*(x+n),2)} ✅`}};
+const VTri={sl:[{k:'a',l:'a',min:1,max:4,st:.5,v:3},{k:'b',l:'b',min:.5,max:3,st:.5,v:2},{k:'c',l:'c',min:.5,max:3,st:.5,v:1.5}],d(p,s){const {a,b,c:cc}=s,L=a+b+cc;p.ejes([-1,L+1.5],[-1,L+1],{igual:1,sinNum:1});p.x.clearRect(0,0,p.W,p.H);
+ const v=[a,b,cc],n=['a','b','c'],col=[[CA,CAB,'#d7e8ff'],[CAB,CB,'#ffe8c2'],['#d7e8ff','#ffe8c2',CC]];let y=L;
+ v.forEach((h,i)=>{y-=h;let x=0;v.forEach((w,j)=>{pieza(p,x,y,w,h,col[i][j],i==j?n[i]+'²':n[Math.min(i,j)]+n[Math.max(i,j)],{t:13});x+=w})});
+ return `Salen 9 pedazos: 3 cuadrados (a², b², c²) y 3 parejas de rectángulos iguales (2ab, 2ac, 2bc).<br>(${num(L,1)})² = ${num(L*L,2)} ✅`}};
+// cubo de (a+b)³ en 3D: 8 bloques que se separan
+const VCubo={anim:true,sl:[{k:'a',l:'a',min:1,max:3,st:.25,v:2},{k:'b',l:'b',min:.5,max:2,st:.25,v:1},{k:'e',l:'Separar piezas',min:0,max:1.5,st:.05,v:.6},{k:'g',l:'Girar',min:-180,max:180,st:1,v:35,fmt:v=>num(v,0)+'°'}],
+ d(p,s){const {a,b,e}=s,yaw=s.g*PI/180+(s.auto!==false?s.t*.25:0),pit=-.5,X=p.W/2,Y=p.H/2+10,K=Math.min(p.W,p.H)/((a+b+e)*2.1);const x=p.x;x.clearRect(0,0,p.W,p.H);
+  const pr=([u,v,w])=>{const c0=a/2+b/2+e/2;u-=c0;v-=c0;w-=c0;const x1=u*cos(yaw)-w*sin(yaw),z1=u*sin(yaw)+w*cos(yaw);const y1=v*cos(pit)-z1*sin(pit),z2=v*sin(pit)+z1*cos(pit);return [X+x1*K,Y-y1*K,z2]};
+  const bl=[];[[0,a],[1,b]].forEach(([i,dx])=>[[0,a],[1,b]].forEach(([j,dy])=>[[0,a],[1,b]].forEach(([k,dz])=>{const n=i+j+k;bl.push({o:[i?a+e:0,j?a+e:0,k?a+e:0],d:[dx,dy,dz],col:['#7fb2ee','#9fdcb6','#ffd27a','#f5a3a3'][n],n})})));
+  const faces=[];bl.forEach(B=>{const [ox,oy,oz]=B.o,[dx,dy,dz]=B.d;const V=[[0,0,0],[dx,0,0],[dx,dy,0],[0,dy,0],[0,0,dz],[dx,0,dz],[dx,dy,dz],[0,dy,dz]].map(q=>pr([ox+q[0],oy+q[1],oz+q[2]]));
+   [[0,1,2,3,.85],[4,5,6,7,.85],[0,1,5,4,.7],[3,2,6,7,1],[0,3,7,4,.78],[1,2,6,5,.78]].forEach(f=>{const pts=f.slice(0,4).map(i=>V[i]);faces.push({pts,z:pts.reduce((s,q)=>s+q[2],0)/4,col:B.col,sh:f[4]})})});
+  faces.sort((u,v)=>v.z-u.z).forEach(f=>{x.beginPath();f.pts.forEach((q,i)=>i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]));x.closePath();x.fillStyle=f.col;x.globalAlpha=1;x.fill();x.fillStyle=`rgba(0,0,0,${(1-f.sh)*.6})`;x.fill();x.strokeStyle='#0d2b45';x.lineWidth=1.2;x.stroke()});
+  return `<span style="color:#3b7fd4">■</span> 1 cubo a³ · <span style="color:#2e9c5c">■</span> 3 bloques a²b · <span style="color:#c9971a">■</span> 3 bloques ab² · <span style="color:#d45">■</span> 1 cubo b³<br>(${num(a+b,2)})³ = ${num((a+b)**3,2)} = ${num(a**3,2)} + 3·${num(a*a*b,2)} + 3·${num(a*b*b,2)} + ${num(b**3,2)} ✅`}};
+// balanza: los dos lados pesan lo mismo
+const VBal=(l,r,nl,nr,sl)=>({sl:sl||SL(),d(p,s){const A=l(s),B=r(s),x=p.x,W=p.W,H=p.H;x.clearRect(0,0,W,H);const cxm=W/2,top=H*.3,ang=Math.max(-.35,Math.min(.35,(B-A)*.02));
+ x.fillStyle='#0d2b45';x.beginPath();x.moveTo(cxm-30,H-20);x.lineTo(cxm+30,H-20);x.lineTo(cxm,top);x.closePath();x.fill();
+ const L=W*.32,px=[cxm-L*cos(ang),top-L*sin(ang)],qx=[cxm+L*cos(ang),top+L*sin(ang)];x.strokeStyle='#0d2b45';x.lineWidth=6;x.beginPath();x.moveTo(...px);x.lineTo(...qx);x.stroke();
+ [[px,'#1e6fd9',nl,A],[qx,'#f08c00',nr,B]].forEach(([q,col,t,v])=>{x.lineWidth=2;x.beginPath();x.moveTo(q[0],q[1]);x.lineTo(q[0]-40,q[1]+50);x.moveTo(q[0],q[1]);x.lineTo(q[0]+40,q[1]+50);x.stroke();x.fillStyle=col;x.beginPath();x.ellipse(q[0],q[1]+52,58,10,0,0,7);x.fill();
+  x.font='900 15px Nunito';x.textAlign='center';x.fillText(num(v,2),q[0],q[1]+82);x.font='800 12px Nunito';x.fillStyle='#4a5a6e';x.fillText(t,q[0],q[1]+100)});x.textAlign='start';
+ return `${nl} = <b>${num(A,3)}</b><br>${nr} = <b>${num(B,3)}</b><br>${abs(A-B)<1e-9?'⚖️ ¡La balanza está derecha! Los dos lados valen lo mismo.':''}`}});
+// triángulo de Pascal
+const VPas={sl:[{k:'n',l:'Potencia n',min:0,max:8,st:1,v:4,fmt:v=>num(v,0)}],d(p,s){const x=p.x,W=p.W,H=p.H;x.clearRect(0,0,W,H);const N=9,dy=H/(N+.6),dx=Math.min(W/(N+1),dy*1.15);let row=[1];
+ for(let i=0;i<N;i++){row.forEach((v,j)=>{const cx_=W/2+(j-i/2)*dx,cy=dy*(i+.8);const on=i==s.n;x.fillStyle=on?'#ffc93c':'#eef2f7';x.beginPath();x.arc(cx_,cy,Math.min(dx,dy)*.42,0,7);x.fill();x.fillStyle='#0d2b45';x.font=`900 ${Math.min(15,dy*.42)}px Nunito`;x.textAlign='center';x.textBaseline='middle';x.fillText(v,cx_,cy)});row=[1,...row.slice(1).map((v,j)=>v+row[j]),1]}x.textAlign='start';x.textBaseline='alphabetic';
+ let r=[1];for(let i=0;i<s.n;i++)r=[1,...r.slice(1).map((v,j)=>v+r[j]),1];const t=r.map((k,j)=>{const pa=s.n-j,pb=j;return (k>1?k:'')+(pa?'a'+(pa>1?'<sup>'+pa+'</sup>':''):'')+(pb?'b'+(pb>1?'<sup>'+pb+'</sup>':''):'')||'1'}).join(' + ');
+ return `Cada número es la suma de los dos de arriba.<br><span class="f">(a + b)<sup>${s.n}</sup> = ${t}</span>`}};
+const TOOL={hoja:{cols:2,fs:19},grupos:[
+{n:'Productos notables',items:[
+ {t:'Cuadrado de una suma',f:`(a + b)<sup>2</sup> = ${sq('a')} + 2ab + ${sq('b')}`,x:'"El cuadrado del primero, <b>más el doble del primero por el segundo</b>, más el cuadrado del segundo." Mira el dibujo: un cuadrado de lado a + b tiene 4 pedazos.',v:VCuad,ejt:'(x + 3)²',ej:[['(x + 3)<sup>2</sup> = '+sq('x')+' + 2·x·3 + '+sq('3'),'primero², doble producto, segundo²'],[sq('x')+' + 6x + 9','✔']]},
+ {t:'Cuadrado de una resta',f:`(a − b)<sup>2</sup> = ${sq('a')} − 2ab + ${sq('b')}`,x:'Igual que el de la suma, pero el doble producto va con <b>menos</b>. El último siempre es positivo, porque un número al cuadrado nunca es negativo.',v:VResta,ejt:'(2x − 5)²',ej:[['('+c(1,'2x')+' − '+c(4,'5')+')<sup>2</sup> = (2x)<sup>2</sup> − 2·2x·5 + 5<sup>2</sup>'],['4'+sq('x')+' − 20x + 25','✔']]},
+ {t:'Suma por diferencia',f:`(a + b)(a − b) = ${sq('a')} − ${sq('b')}`,x:'Los términos del medio se cancelan (+ab y −ab) y quedan dos cuadrados restándose: la <b>diferencia de cuadrados</b>.',v:VDif,ejt:'(x + 7)(x − 7)',ej:[['(x + 7)(x − 7) = '+sq('x')+' − 7x + 7x − 49','los del medio se van'],[sq('x')+' − 49','✔']]},
+ {t:'Producto de binomios con término común',f:`(x + a)(x + b) = ${sq('x')} + (a + b)x + ab`,x:'El del medio <b>suma</b> los números y el último los <b>multiplica</b>.',v:VXX,ejt:'(x + 5)(x − 2)',ej:[[sq('x')+' + (5 − 2)x + 5·(−2)','suma: 3 · producto: −10'],[sq('x')+' + 3x − 10','✔']]},
+ {t:'Cuadrado de un trinomio',f:`(a + b + c)<sup>2</sup> = ${sq('a')} + ${sq('b')} + ${sq('c')} + 2ab + 2ac + 2bc`,x:'Todos los cuadrados, más el doble de cada pareja posible.',v:VTri,ejt:'(x + y + 1)²',ej:[[sq('x')+' + '+sq('y')+' + 1 + 2xy + 2x + 2y','✔']]},
+ {t:'Cubo de una suma',f:`(a + b)<sup>3</sup> = ${cu('a')} + 3${sq('a')}b + 3a${sq('b')} + ${cu('b')}`,x:'Un cubo de lado a + b se parte en <b>8 bloques</b>: un cubo grande a³, tres bloques a²b, tres bloques ab² y un cubito b³. ¡Gíralo y sepáralo!',v:VCubo,ejt:'(x + 2)³',ej:[[cu('x')+' + 3·'+sq('x')+'·2 + 3·x·'+sq('2')+' + '+cu('2')],[cu('x')+' + 6'+sq('x')+' + 12x + 8','✔']]},
+ {t:'Cubo de una resta',f:`(a − b)<sup>3</sup> = ${cu('a')} − 3${sq('a')}b + 3a${sq('b')} − ${cu('b')}`,x:'Igual que el de la suma, pero los signos se van alternando: +, −, +, −.',v:VBal(s=>(s.a-s.b)**3,s=>s.a**3-3*s.a*s.a*s.b+3*s.a*s.b*s.b-s.b**3,'(a − b)³','a³ − 3a²b + 3ab² − b³'),ejt:'(x − 1)³',ej:[[cu('x')+' − 3'+sq('x')+' + 3x − 1','✔']]},
+ {t:'Binomio de Newton (triángulo de Pascal)',f:`(a + b)<sup>n</sup>: coeficientes 1, n, …, n, 1`,hf:`(a + b)<sup>4</sup> = a<sup>4</sup> + 4a<sup>3</sup>b + 6a<sup>2</sup>b<sup>2</sup> + 4ab<sup>3</sup> + b<sup>4</sup>`,x:'Para potencias más grandes, los números de adelante salen del <b>triángulo de Pascal</b>: cada número es la suma de los dos que tiene encima. La a va bajando su exponente y la b lo va subiendo.',v:VPas,ejt:'(a + b)⁴',ej:[['Fila 4 del triángulo: 1, 4, 6, 4, 1'],['a<sup>4</sup> + 4a<sup>3</sup>b + 6a<sup>2</sup>b<sup>2</sup> + 4ab<sup>3</sup> + b<sup>4</sup>','✔']]}]},
+{n:'Factorización',items:[
+ {t:'Factor común',f:`ax + ay = a(x + y)`,x:'Si todos los términos tienen algo repetido, lo "sacamos" afuera del paréntesis, como sacar la misma fruta de varias bolsas.',v:VBal(s=>s.a*3+s.a*s.b,s=>s.a*(3+s.b),'a·3 + a·b','a(3 + b)'),ejt:'6x² + 9x',ej:[['6'+sq('x')+' + 9x','los dos tienen 3 y x'],['3x(2x + 3)','✔ comprueba multiplicando']]},
+ {t:'Diferencia de cuadrados',f:`${sq('a')} − ${sq('b')} = (a + b)(a − b)`,x:'Se sacan las raíces de los dos cuadrados y se escriben "una con más y otra con menos".',v:VDif,ejt:'x² − 25',ej:[['raíz de '+sq('x')+' = x · raíz de 25 = 5'],['(x + 5)(x − 5)','✔']]},
+ {t:'Trinomio cuadrado perfecto',f:`${sq('a')} ± 2ab + ${sq('b')} = (a ± b)<sup>2</sup>`,x:'Si el primero y el último son cuadrados y el del medio es el doble de sus raíces, es un binomio al cuadrado.',v:VCuad,ejt:'x² + 10x + 25',ej:[['raíces: x y 5 · doble: 2·x·5 = 10x ✔','sí es perfecto'],['(x + 5)<sup>2</sup>','✔']]},
+ {t:'Trinomio x² + bx + c',f:`${sq('x')} + bx + c = (x + m)(x + n) · m + n = b · m·n = c`,x:'Busca <b>dos números</b> que multiplicados den c y sumados den b. Es un pequeño acertijo.',v:VXX,ejt:'x² + 7x + 12',ej:[['¿Qué números multiplican 12 y suman 7?','3 y 4'],['(x + 3)(x + 4)','✔']]},
+ {t:'Trinomio ax² + bx + c',f:`a${sq('x')} + bx + c: buscar m·n = a·c y m + n = b`,x:'Se busca una pareja que multiplicada dé a·c y sumada dé b; luego se parte el término del medio y se agrupa.',v:VBal(s=>2*s.a*s.a+7*s.a+3,s=>(2*s.a+1)*(s.a+3),'2a² + 7a + 3','(2a + 1)(a + 3)',[{k:'a',l:'a',min:-4,max:4,st:.5,v:1}]),ejt:'2x² + 7x + 3',ej:[['a·c = 6 · buscamos 6 = 1·6 y 1 + 6 = 7'],['2'+sq('x')+' + x + 6x + 3','partimos 7x'],['x(2x + 1) + 3(2x + 1)','agrupamos'],['(2x + 1)(x + 3)','✔']]},
+ {t:'Suma de cubos',f:`${cu('a')} + ${cu('b')} = (a + b)(${sq('a')} − ab + ${sq('b')})`,x:'Truco del signo: el primer paréntesis copia el signo, y el segundo empieza con el contrario.',v:VBal(s=>s.a**3+s.b**3,s=>(s.a+s.b)*(s.a*s.a-s.a*s.b+s.b*s.b),'a³ + b³','(a + b)(a² − ab + b²)'),ejt:'x³ + 8',ej:[[cu('x')+' + '+cu('2'),'8 = 2³'],['(x + 2)('+sq('x')+' − 2x + 4)','✔']]},
+ {t:'Diferencia de cubos',f:`${cu('a')} − ${cu('b')} = (a − b)(${sq('a')} + ab + ${sq('b')})`,x:'Igual que la suma, pero con los signos cambiados.',v:VBal(s=>s.a**3-s.b**3,s=>(s.a-s.b)*(s.a*s.a+s.a*s.b+s.b*s.b),'a³ − b³','(a − b)(a² + ab + b²)'),ejt:'27x³ − 1',ej:[['(3x)<sup>3</sup> − 1<sup>3</sup>'],['(3x − 1)(9'+sq('x')+' + 3x + 1)','✔']]},
+ {t:'Agrupación',f:`ax + ay + bx + by = (a + b)(x + y)`,x:'Se juntan los términos de dos en dos, se saca factor común en cada grupo y aparece un paréntesis repetido.',v:VBal(s=>s.a*2+s.a*s.b+3*2+3*s.b,s=>(s.a+3)*(2+s.b),'2a + ab + 6 + 3b','(a + 3)(2 + b)'),ejt:'x² + 3x + 2x + 6',ej:[['x(x + 3) + 2(x + 3)'],['(x + 3)(x + 2)','✔']]}]}]};
