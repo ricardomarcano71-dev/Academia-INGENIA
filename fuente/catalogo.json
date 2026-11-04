@@ -949,5 +949,21 @@
   ],
   "fecha": "2026-11-04",
   "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-fracc-combinadas.html"
+ },
+ {
+  "id": "idea-2026-11-04-lenguaje-tarea-vocales-consonantes",
+  "titulo": "Tarea: vocales y consonantes",
+  "desc": "Tarea para la casa: vocales en rojo y consonantes en verde, hecha a mano en el cuaderno (para quien no pudo imprimir).",
+  "materia": "Lenguaje",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "🔤",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-04",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-04-lenguaje-tarea-vocales-consonantes.html"
  }
 ]
