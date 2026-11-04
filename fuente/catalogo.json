@@ -915,5 +915,22 @@
   ],
   "fecha": "2026-11-03",
   "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-lectura-paginas-37-38.html"
+ },
+ {
+  "id": "b5-qui-alcanos",
+  "titulo": "Alcanos y radicales",
+  "desc": "Hidrocarburos, alcanos y radicales: cómo nombrarlos, con los ejemplos del cuaderno resueltos paso a paso y moléculas en 3D.",
+  "materia": "Química",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "5.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "⛓️",
+  "colegios": [
+   "fatima"
+  ],
+  "fecha": "2026-11-03",
+  "archivo": "clases-programa/bachillerato/5-ano/quimica/b5-qui-alcanos.html"
  }
 ]
