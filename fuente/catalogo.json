@@ -965,5 +965,22 @@
   ],
   "fecha": "2026-11-04",
   "archivo": "grupo-idea-1-grado/clases/idea-2026-11-04-lenguaje-tarea-vocales-consonantes.html"
+ },
+ {
+  "id": "idea-2026-11-04-lenguaje-vocales-consonantes",
+  "titulo": "Vocales y consonantes",
+  "desc": "Las vocales son poderosas y suenan solitas; las consonantes son tímidas y necesitan de las vocales (ma, me, mi, mo, mu). Repaso de lo que la maestra explicó en el colegio, con un juego.",
+  "materia": "Lenguaje",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "🔤",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-04",
+  "clase": "repaso",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-04-lenguaje-vocales-consonantes.html"
  }
 ]
