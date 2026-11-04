@@ -932,5 +932,22 @@
   ],
   "fecha": "2026-11-03",
   "archivo": "clases-programa/bachillerato/5-ano/quimica/b5-qui-alcanos.html"
+ },
+ {
+  "id": "b2-mat-fracc-combinadas",
+  "titulo": "Operaciones combinadas con fracciones",
+  "desc": "Operaciones combinadas con fracciones ( ), [ ], { } sin simplificar, y propiedad asociativa de las dos formas.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "➗",
+  "colegios": [
+   "fatima"
+  ],
+  "fecha": "2026-11-04",
+  "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-fracc-combinadas.html"
  }
 ]
