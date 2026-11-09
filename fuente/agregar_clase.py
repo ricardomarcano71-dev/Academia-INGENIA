@@ -3,6 +3,7 @@
 Uso: python3 fuente/agregar_clase.py REPO ruta/clase.js [--gratis]   (clase en pizarra; también acepta .json del motor viejo)
      Clase de un colegio ("Mi colegio"): en "plataforma" pon "colegio": "idea" y "fecha": "AAAA-MM-DD"
      (o pásalos aquí: --colegio idea --fecha 2026-11-02 [--materia "Cs. Sociales"] [--grado "1.º grado"]).
+     Pon también "clase": "repaso" (lo que la maestra explicó) o "tarea" (lo que mandó para la casa).
      Sin "niveles", solo la abren los alumnos de ese colegio; con "niveles", también los de ese nivel.
 La clase .json debe traer un bloque "plataforma":
   {"materia": "Matemática", "niveles": ["Primaria"], "grado": "1.º grado", "tipo": "Clase con voz",
@@ -28,7 +29,7 @@ if src.endswith('.js'):  # clase en pizarra: los datos salen de K.finish({...})
 else:
     C = json.load(open(src, encoding='utf-8'))
 P = dict(C.get('plataforma') or {}); cid = C['id']
-for flag in ('colegio', 'fecha', 'materia', 'grado', 'tipo', 'desc'):
+for flag in ('colegio', 'fecha', 'materia', 'grado', 'tipo', 'desc', 'clase'):
     if '--' + flag in sys.argv: P[flag] = sys.argv[sys.argv.index('--' + flag) + 1]
 colegios = [P['colegio']] if P.get('colegio') else []
 import re
@@ -71,6 +72,7 @@ e = {"id": cid, "titulo": C['titulo'], "desc": P['desc'], "materia": P['materia'
 if gratis: e['gratis'] = True
 if colegios: e['colegios'] = colegios
 if P.get('fecha'): e['fecha'] = P['fecha']
+if colegios and P.get('clase') in ('repaso', 'tarea'): e['clase'] = P['clase']  # repaso de la clase o tarea para la casa
 for path in [os.path.join(here, 'catalogo.json'), '/mnt/project-files/plataforma/catalogo.json']:
     if not os.path.exists(path): continue
     cat = [c for c in json.load(open(path, encoding='utf-8')) if c['id'] != cid]

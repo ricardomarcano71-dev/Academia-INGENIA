@@ -736,6 +736,7 @@
         {
          "t": "Operaciones combinadas en Q",
          "c": [
+          "b2-mat-fracc-combinadas",
           "racionales-cuaderno",
           "racionales-combinadas",
           "racionales-refuerzo",
@@ -1096,7 +1097,10 @@
          ]
         },
         {
-         "t": "Hidrocarburos"
+         "t": "Hidrocarburos",
+         "c": [
+          "b5-qui-alcanos"
+         ]
         },
         {
          "t": "Grupos funcionales"

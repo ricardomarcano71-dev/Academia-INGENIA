@@ -636,21 +636,6 @@
   "archivo": "clases-programa/primaria/4-grado/matematica/p4-mat-triangulos.html"
  },
  {
-  "id": "idea-2026-11-02-sociales-derechos-deberes",
-  "titulo": "Derechos y deberes de los niños",
-  "desc": "Dictado de tres derechos y tres deberes de los niños, y un dibujo. Con el encabezado como en la pizarra del colegio.",
-  "materia": "Cs. Sociales",
-  "niveles": [],
-  "grado": "1.º grado",
-  "tipo": "Mini clase con voz",
-  "icono": "🤲",
-  "colegios": [
-   "idea"
-  ],
-  "fecha": "2026-11-02",
-  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-02-sociales-derechos-deberes.html"
- },
- {
   "id": "p1-cie-agua",
   "titulo": "El agua",
   "desc": "El agua es vida: dónde está, cómo es, qué flota y cómo cuidarla.",
@@ -866,5 +851,136 @@
   "tipo": "Clase con voz sobre el libro",
   "icono": "🔤",
   "archivo": "clases-programa/primaria/1-grado/lectura/p1-lec-vocal-i.html"
+ },
+ {
+  "id": "idea-2026-11-02-sociales-derechos-deberes",
+  "titulo": "Derechos y deberes de los niños",
+  "desc": "Dictado de tres derechos y tres deberes de los niños, y un dibujo. Con el encabezado como en la pizarra del colegio.",
+  "materia": "Cs. Sociales",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "🤲",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-02",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-02-sociales-derechos-deberes.html"
+ },
+ {
+  "id": "idea-2026-11-03-lenguaje-signos-exclamacion",
+  "titulo": "Los signos de exclamación",
+  "desc": "Los signos de exclamación: qué son, cómo se escriben (uno abre y otro cierra) y para qué sirven, con un juego. Repaso de lo que la maestra explicó en el colegio.",
+  "materia": "Lenguaje",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "❗",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-03",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-lenguaje-signos-exclamacion.html"
+ },
+ {
+  "id": "idea-2026-11-03-matematica-numeros-1-29",
+  "titulo": "Los números del 1 al 29",
+  "desc": "Repaso de lo que la maestra explicó el 3 de noviembre: los números del 1 al 29, la casita del 10 y la del 20, con ejemplos para contar manzanas, pelotas y perritos.",
+  "materia": "Matemática",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "🔢",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-03",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-matematica-numeros-1-29.html"
+ },
+ {
+  "id": "idea-2026-11-03-lectura-paginas-37-38",
+  "titulo": "Lectura: páginas 37 y 38",
+  "desc": "Tarea para la casa que dejó la maestra: páginas 37 y 38 del libro Abecé vamos a leer. Unir nombres en letra de molde y cursiva con su dibujo, y escribir el nombre de cada dibujo con las palabras del recuadro.",
+  "materia": "Lectura",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Tarea guiada sobre el libro",
+  "icono": "📖",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-03",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-03-lectura-paginas-37-38.html"
+ },
+ {
+  "id": "b5-qui-alcanos",
+  "titulo": "Alcanos y radicales",
+  "desc": "Hidrocarburos, alcanos y radicales: cómo nombrarlos, con los ejemplos del cuaderno resueltos paso a paso y moléculas en 3D.",
+  "materia": "Química",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "5.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "⛓️",
+  "colegios": [
+   "fatima"
+  ],
+  "fecha": "2026-11-03",
+  "archivo": "clases-programa/bachillerato/5-ano/quimica/b5-qui-alcanos.html"
+ },
+ {
+  "id": "b2-mat-fracc-combinadas",
+  "titulo": "Operaciones combinadas con fracciones",
+  "desc": "Operaciones combinadas con fracciones ( ), [ ], { } sin simplificar, y propiedad asociativa de las dos formas.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "➗",
+  "colegios": [
+   "fatima"
+  ],
+  "fecha": "2026-11-04",
+  "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-fracc-combinadas.html"
+ },
+ {
+  "id": "idea-2026-11-04-lenguaje-tarea-vocales-consonantes",
+  "titulo": "Tarea: vocales y consonantes",
+  "desc": "Tarea para la casa: vocales en rojo y consonantes en verde, hecha a mano en el cuaderno (para quien no pudo imprimir).",
+  "materia": "Lenguaje",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "🔤",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-04",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-04-lenguaje-tarea-vocales-consonantes.html"
+ },
+ {
+  "id": "idea-2026-11-04-lenguaje-vocales-consonantes",
+  "titulo": "Vocales y consonantes",
+  "desc": "Las vocales son poderosas y suenan solitas; las consonantes son tímidas y necesitan de las vocales (ma, me, mi, mo, mu). Repaso de lo que la maestra explicó en el colegio, con un juego.",
+  "materia": "Lenguaje",
+  "niveles": [],
+  "grado": "1.º grado",
+  "tipo": "Mini clase con voz",
+  "icono": "🔤",
+  "gratis": true,
+  "colegios": [
+   "idea"
+  ],
+  "fecha": "2026-11-04",
+  "clase": "repaso",
+  "archivo": "grupo-idea-1-grado/clases/idea-2026-11-04-lenguaje-vocales-consonantes.html"
  }
 ]
