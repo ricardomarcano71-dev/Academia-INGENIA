@@ -982,5 +982,45 @@
   "fecha": "2026-11-04",
   "clase": "repaso",
   "archivo": "grupo-idea-1-grado/clases/idea-2026-11-04-lenguaje-vocales-consonantes.html"
+ },
+ {
+  "id": "b2-mat-suma-resta-fracc",
+  "titulo": "Suma y resta de fracciones",
+  "desc": "Suma y resta de fracciones desde cero: mismo y distinto denominador, mcm con la tablita, enteros y negativos.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "➕",
+  "gratis": true,
+  "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-suma-resta-fracc.html"
+ },
+ {
+  "id": "b2-mat-mult-div-fracc",
+  "titulo": "Multiplicación y división de fracciones",
+  "desc": "Multiplicación y división de fracciones desde cero: derecho, en cruz, enteros, signos y simplificar.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "✖️",
+  "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-mult-div-fracc.html"
+ },
+ {
+  "id": "b2-mat-ecuaciones-1er-grado",
+  "titulo": "Ecuaciones de primer grado",
+  "desc": "Ecuaciones de primer grado desde cero con una balanza: transponer, reducir, despejar y comprobar; con enteros, fracciones y paréntesis.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "⚖️",
+  "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-ecuaciones-1er-grado.html"
  }
 ]

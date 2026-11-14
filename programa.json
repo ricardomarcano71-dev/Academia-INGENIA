@@ -736,6 +736,8 @@
         {
          "t": "Operaciones combinadas en Q",
          "c": [
+          "b2-mat-mult-div-fracc",
+          "b2-mat-suma-resta-fracc",
           "b2-mat-fracc-combinadas",
           "racionales-cuaderno",
           "racionales-combinadas",
@@ -744,7 +746,10 @@
          ]
         },
         {
-         "t": "Ecuaciones en Z y Q"
+         "t": "Ecuaciones en Z y Q",
+         "c": [
+          "b2-mat-ecuaciones-1er-grado"
+         ]
         },
         {
          "t": "Funciones: dominio, rango y gráfica"
