@@ -717,7 +717,11 @@
          "t": "Plano cartesiano"
         },
         {
-         "t": "Ángulos, polígonos y áreas"
+         "t": "Ángulos, polígonos y áreas",
+         "c": [
+          "b2-mat-triangulos",
+          "b2-mat-lineas-angulos"
+         ]
         },
         {
          "t": "Estadística y probabilidad"
@@ -767,7 +771,10 @@
          "t": "Factorización"
         },
         {
-         "t": "Vectores en el plano"
+         "t": "Vectores en el plano",
+         "c": [
+          "b2-mat-vectores"
+         ]
         },
         {
          "t": "Traslación, rotación y reflexión"
