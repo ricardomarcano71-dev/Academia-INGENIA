@@ -1011,19 +1011,6 @@
   "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-mult-div-fracc.html"
  },
  {
-  "id": "b2-mat-ecuaciones-1er-grado",
-  "titulo": "Ecuaciones de primer grado",
-  "desc": "Ecuaciones de primer grado desde cero con una balanza: transponer, reducir, despejar y comprobar; con enteros, fracciones y paréntesis.",
-  "materia": "Matemática",
-  "niveles": [
-   "Bachillerato"
-  ],
-  "grado": "2.º año",
-  "tipo": "Pizarra con voz",
-  "icono": "⚖️",
-  "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-ecuaciones-1er-grado.html"
- },
- {
   "id": "b2-mat-lineas-angulos",
   "titulo": "Líneas y ángulos",
   "desc": "Líneas y ángulos desde cero: clases de líneas y de ángulos, transportador, complementarios y suplementarios.",
@@ -1061,5 +1048,19 @@
   "tipo": "Pizarra con voz",
   "icono": "➡️",
   "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-vectores.html"
+ },
+ {
+  "id": "b2-mat-ecuaciones-1er-grado",
+  "titulo": "Ecuaciones de primer grado",
+  "desc": "Ecuaciones de primer grado desde cero con una balanza: transponer, reducir, despejar y comprobar; con enteros, fracciones y paréntesis.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "⚖️",
+  "gratis": true,
+  "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-ecuaciones-1er-grado.html"
  }
 ]
