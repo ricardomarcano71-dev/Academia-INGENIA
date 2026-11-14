@@ -1022,5 +1022,44 @@
   "tipo": "Pizarra con voz",
   "icono": "⚖️",
   "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-ecuaciones-1er-grado.html"
+ },
+ {
+  "id": "b2-mat-lineas-angulos",
+  "titulo": "Líneas y ángulos",
+  "desc": "Líneas y ángulos desde cero: clases de líneas y de ángulos, transportador, complementarios y suplementarios.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "📐",
+  "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-lineas-angulos.html"
+ },
+ {
+  "id": "b2-mat-triangulos",
+  "titulo": "Triángulos",
+  "desc": "Triángulos desde cero: por lados y por ángulos, suma de 180°, ángulos que faltan y perímetro.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "🔺",
+  "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-triangulos.html"
+ },
+ {
+  "id": "b2-mat-vectores",
+  "titulo": "Vectores en el plano",
+  "desc": "Vectores desde cero: módulo, dirección y sentido, componentes, Pitágoras, vector AB y suma.",
+  "materia": "Matemática",
+  "niveles": [
+   "Bachillerato"
+  ],
+  "grado": "2.º año",
+  "tipo": "Pizarra con voz",
+  "icono": "➡️",
+  "archivo": "clases-programa/bachillerato/2-ano/matematica/b2-mat-vectores.html"
  }
 ]
