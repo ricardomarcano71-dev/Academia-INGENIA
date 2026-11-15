@@ -18,6 +18,8 @@ async def main():
     os.makedirs(SAL, exist_ok=True)
     segs = json.load(open(os.path.join(AQUI, "textos.json"), encoding="utf-8"))
     for seg in segs:
+        if os.path.exists(os.path.join(SAL, seg["id"] + ".mp3")):
+            continue          # ya generado: no se repite
         for intento in range(5):
             try:
                 await uno(seg)

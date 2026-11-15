@@ -106,5 +106,53 @@
  {
   "id": "g12",
   "text": "Tres cosas deciden el resultado: que el tablero esté plano, que los rieles estén rectos y a la misma altura, y que la suela trasera quede a veinticinco milímetros en todo el recorrido. Revísalas cada cierto tiempo, porque el eme de efe se mueve con la humedad. Igual que con la sierra, este diseño no ha sido probado en un prototipo: confirma las medidas con tu cepillo en la mano antes de cortar material."
+ },
+ {
+  "id": "m01",
+  "text": "Esta es una guía para sacar tablas con motosierra, del tipo que llaman Alaskan. Es un marco que se sujeta a la barra de la motosierra y la mantiene siempre a la misma distancia de la superficie por donde corre. Así, cada corte sale paralelo al anterior. Con ella, de un cuartón de veinte por veinte salen cinco tablas de treinta y tres milímetros, que después se cepillan a veinticinco. Necesitas una motosierra de cincuenta a sesenta centímetros cúbicos, con barra de veinte pulgadas."
+ },
+ {
+  "id": "m02",
+  "text": "Los materiales. Un metro sesenta de tubo cuadrado de una pulgada y un cuarto, con pared de dos milímetros, para el marco y las camisas. Medio metro de tubo cuadrado de una pulgada, para los dos postes. Sesenta centímetros de pletina de treinta por diez, para las mordazas. Cuatro tornillos de tres octavos por dos pulgadas, y dos tornillos de apriete de diez milímetros con sus tuercas. Para el riel del primer corte, un tubo de cuarenta por cuarenta, de seis metros, y un metro de pletina de cuarenta por cinco. Para los dos soportes, un tubo de cincuenta por cincuenta, de seis metros. Y una cadena para corte al hilo, afilada a diez grados."
+ },
+ {
+  "id": "m03",
+  "text": "Paso uno: las mordazas. Son las que agarran la barra sin perforarla. Corta cuatro tramos de pletina de treinta por diez, de ciento cuarenta milímetros. En el centro de cada uno suelda un suplemento de cuarenta por treinta, de seis milímetros de espesor. Ese suplemento es lo único que toca la barra; a cada lado queda un espacio libre por donde pasa la cadena. Perfora dos huecos de diez milímetros, a ciento veinte entre centros, para los tornillos de tres octavos, que quedan por fuera de la cadena. Cada mordaza son dos de estas piezas, una arriba y otra abajo de la barra."
+ },
+ {
+  "id": "m04",
+  "text": "Paso dos: los postes y las camisas. Cada poste es un tubo cuadrado de una pulgada, de doscientos cincuenta milímetros, soldado de pie y bien a escuadra sobre el centro de la pieza de arriba de cada mordaza. La camisa es un tramo de ochenta milímetros del tubo de una pulgada y un cuarto; el poste entra en ella y desliza. En una cara de la camisa perfora y suelda una tuerca de diez milímetros, donde va el tornillo de apriete. Al apretarlo, el poste queda fijo contra la pared de la camisa. Marca en cada poste una escala en milímetros; te servirá para ajustar la profundidad igual en los dos lados."
+ },
+ {
+  "id": "m05",
+  "text": "Paso tres: el marco. Dos rieles del tubo de una pulgada y un cuarto, de quinientos milímetros, van paralelos, a doscientos veinte milímetros entre centros. Los unen dos travesaños de ciento ochenta y ocho milímetros. Cada camisa va soldada de pie contra la cara interior de un travesaño, en el centro, de modo que los dos postes queden a trescientos ochenta milímetros uno del otro. Suelda el marco sobre una superficie plana: las caras de abajo de los dos rieles deben quedar en un mismo plano, porque son las que corren sobre la madera. Por último, suelda un asa sobre el riel trasero, para empujar."
+ },
+ {
+  "id": "m06",
+  "text": "Paso cuatro: montar la guía en la barra. Con el motor apagado, coloca una mordaza a unos sesenta milímetros del cuerpo de la motosierra, y la otra antes del piñón de la punta, nunca encima de él. Aprieta los cuatro tornillos. Ahora ajusta la profundidad. Mide desde la cara de abajo de los rieles hasta el filo de arriba de la cadena: esa distancia es el espesor de la tabla. Ponla en treinta y tres milímetros, y verifica que sea igual junto a los dos postes, con medio milímetro de tolerancia. Si un lado queda más bajo, la tabla sale en cuña. Aprieta los tornillos de las camisas y comprueba que la cadena gire libre, sin rozar las mordazas."
+ },
+ {
+  "id": "m07",
+  "text": "Paso cinco: los soportes. Son dos burros de tubo de cincuenta por cincuenta, de sesenta centímetros de alto, cada uno con un travesaño de arriba de seiscientos milímetros. Colócalos a unos cuarenta centímetros de cada punta del cuartón. Sobre cada burro va un taco fijo a un lado, y del otro, un taco con una cuña de madera que aprieta el cuartón de costado. Nada de esto debe pasar de veinticinco milímetros de alto, porque en el último corte la cadena pasa a unos treinta y cinco milímetros del burro. El cuartón tiene que quedar firme: si se mueve durante el corte, la tabla sale torcida."
+ },
+ {
+  "id": "m08",
+  "text": "Paso seis: el riel del primer corte. El cuartón viene con las caras irregulares, así que el primer corte necesita una referencia recta. Es una escalera hecha con dos tubos de cuarenta por cuarenta, de dos metros ochenta, a ciento sesenta milímetros entre centros, unidos por seis pletinas soldadas a ras por debajo. Sirve para cuartones de hasta dos metros cuarenta, y sobresale veinte centímetros por cada punta, para que la guía entre y salga bien apoyada. Comprueba que esté recta con un nylon tensado: la luz no debe pasar de medio milímetro. Se fija al cuartón con dos tornillos de cinco por veinticinco en cada punta. Esos tornillos entran solo veinte milímetros, así que la cadena, que pasa a treinta y tres, no los toca."
+ },
+ {
+  "id": "m09",
+  "text": "El primer corte. La guía corre sobre el riel, así que a la profundidad hay que sumarle la altura del riel: cuarenta más treinta y tres, setenta y tres milímetros. Arranca la motosierra, acelera a fondo, y entra en la madera con avance parejo, sin forzar. Deja que la cadena corte; si el motor baja de vueltas, empuja menos. Cada sesenta centímetros mete una cuña de plástico o de madera en el corte, para que la tabla no apriete la barra. Al salir, deja el motor en mínimo medio minuto antes de apagarlo, para que se enfríe."
+ },
+ {
+  "id": "m10",
+  "text": "Los cortes siguientes. Quita el riel: ahora la guía corre directamente sobre la cara que acabas de cortar, que ya es recta. Vuelve a poner la profundidad en treinta y tres milímetros, y repite. Son cuatro cortes en total, y salen cinco tablas de unos treinta y tres milímetros. La de arriba y la de abajo tienen una cara sin aserrar; esa cara se limpia después en el cepillo. Antes de cada corte revisa que el cuartón siga firme en las cuñas, porque al perder peso se afloja."
+ },
+ {
+  "id": "m11",
+  "text": "La cadena y la seguridad. Usa una cadena para corte al hilo, afilada a diez grados en vez de treinta: deja la cara mucho más lisa. Afílala cada dos o tres cuartones; una cadena sin filo recalienta el motor y tuerce el corte. Mantén lleno el depósito de aceite de cadena, porque este trabajo consume mucho. Trabaja con careta, protección de oídos, guantes, pantalón anticorte y botas. No dejes que nadie se pare del lado de la punta de la barra. Y nunca ajustes la guía ni metas cuñas cerca de la cadena con el motor encendido."
+ },
+ {
+  "id": "m12",
+  "text": "Tres cosas deciden que las tablas salgan rectas: que el riel del primer corte esté recto, que la profundidad sea igual en los dos postes, y que el cuartón no se mueva. Este diseño no ha sido probado en un prototipo, así que confirma las medidas con tu motosierra en la mano: el ancho de la barra, la distancia al piñón de la punta y el largo útil, antes de cortar material."
  }
 ]
