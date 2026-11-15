@@ -280,18 +280,34 @@ body.m-colegio .hero,body.m-colegio #mundos,body.m-colegio #como,body.m-colegio 
 .caviso{margin-top:18px;background:#fff8e1;border:2px solid var(--yel);border-radius:16px;padding:14px 16px;font-weight:800;color:#5c4400;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
 .caviso .btn{font-size:16px;padding:10px 16px}
 @media(max-width:560px){.pizarrita{font-size:21px;min-width:0;width:100%}.chero h1 small{font-size:15px}}
+.nuevo{display:inline-block;margin-bottom:12px;background:rgba(255,201,60,.16);border:2px solid var(--yel);color:#fff;font-weight:900;font-size:15px;padding:7px 14px;border-radius:30px;text-decoration:none;animation:latir 2.4s ease-in-out infinite}.nuevo:hover{background:var(--yel);color:var(--navy)}
+@keyframes latir{0%,100%{box-shadow:0 0 0 0 rgba(255,201,60,.5)}50%{box-shadow:0 0 0 8px rgba(255,201,60,0)}}
+/* Curiosidades: video gratis de cultura general en la portada (Ricardo, 15/11) */
+#curiosidades{scroll-margin-top:62px;background:linear-gradient(180deg,#0b2236 0%,#101a3a 100%);color:#fff;padding:40px 0 48px}
+#curiosidades h2.t{color:#fff}#curiosidades h2.t .y{color:var(--yel)}
+#curiosidades .lead{color:#c9d8ea}
+.curi{display:grid;grid-template-columns:1.5fr 1fr;gap:26px;align-items:center;margin-top:20px}
+.curi .marco{border-radius:18px;overflow:hidden;border:3px solid var(--yel);box-shadow:0 18px 44px rgba(0,0,0,.45);background:#000}
+.curi video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+.curi .chip{display:inline-block;background:var(--yel);color:var(--navy);font-weight:900;font-size:14px;padding:5px 12px;border-radius:20px;letter-spacing:.4px}
+.curi h3{font-family:'Baloo 2',sans-serif;font-size:clamp(26px,3.4vw,36px);line-height:1.05;margin:10px 0 8px}
+.curi ul{list-style:none;font-weight:700;color:#dbe7f3;font-size:17px}.curi li{margin:6px 0}
+.curi .btn{margin-top:16px;font-size:16px;padding:12px 18px}
+body:not(.portada) #curiosidades{display:none}
+@media(max-width:860px){.curi{grid-template-columns:1fr;gap:16px}#curiosidades{padding:30px 0 36px}}
 </style>
 </head>
 <body class="portada">
 
 <header><div class="wrap">
   <a class="logo" href="#inicio">INGE<span>NIA</span><em id="lmundo" style="font-style:normal;font-size:.62em;margin-left:6px"></em></a>
-  <nav><a href="#kids">Kids</a><a href="#teen">Teen</a><a href="#campus">Campus</a><a href="#colegio">Mi colegio</a><a href="#muestra">Gratis</a><a href="herramientas.html">Herramientas</a><a href="#planes">Planes</a><a href="#prueba">Clase gratis</a></nav>
+  <nav><a href="#kids">Kids</a><a href="#teen">Teen</a><a href="#campus">Campus</a><a href="#colegio">Mi colegio</a><a href="#curiosidades">Curiosidades</a><a href="#muestra">Gratis</a><a href="herramientas.html">Herramientas</a><a href="#planes">Planes</a><a href="#prueba">Clase gratis</a></nav>
   <button class="keypill" id="pill" onclick="pillClick()">🔑 Entrar</button>
 </div></header>
 
 <div class="hero"><div class="wrap">
   <div>
+    <a class="nuevo" href="#curiosidades">🌌 NUEVO · Video gratis: neutrinos y materia oscura ▶</a>
     <span class="desc">Clases de refuerzo y asesorías académicas</span>
     <h1>Aquí sí se <span class="y">entiende.</span></h1>
     <p class="sub"><b>Entiende en clase. Repasa en casa. Aprueba con confianza.</b><br>Clases 100% online de Matemática, Física, Química y más, con ejercicios resueltos paso a paso que puedes repetir las veces que quieras.</p>
@@ -323,6 +339,20 @@ body.m-colegio .hero,body.m-colegio #mundos,body.m-colegio #como,body.m-colegio 
   <div class="unichips" id="unichips"></div>
   <div class="cta"><a class="btn y" href="#clases">📚 Ver las clases</a><button class="btn o" onclick="abrirClave()">🔑 Entrar a mis clases</button></div>
 </div></div>
+
+<section id="curiosidades"><div class="wrap">
+  <h2 class="t">🌌 Curiosidades de la <span class="y">ciencia</span></h2>
+  <p class="lead">Cultura general gratis para todos: dale play y descubre algo que no te enseñaron en el colegio.</p>
+  <div class="curi">
+    <div class="marco"><video controls playsinline preload="none" poster="img/poster-neutrinos.jpg" src="videos/neutrinos-y-materia-oscura.mp4">Tu navegador no puede mostrar este video.</video></div>
+    <div>
+      <span class="chip">▶ VIDEO GRATIS · 4 min</span>
+      <h3>Te atraviesan ahora mismo… ¿por qué no te hacen daño?</h3>
+      <ul><li>👻 Unos cien billones de <b>neutrinos</b> cruzan tu cuerpo cada segundo.</li><li>🌑 La <b>materia oscura</b> es la mayor parte de la materia del universo y nadie la ha visto.</li><li>🧠 Aquí te explicamos por qué no las sientes, sin fórmulas.</li></ul>
+      <a class="btn w wa-link" data-msg="¡Hola INGENIA! Vi el video de neutrinos y materia oscura y quiero saber más de sus clases." href="#">💬 ¿Te gustó? Escríbenos</a>
+    </div>
+  </div>
+</div></section>
 
 <section id="mundos"><div class="wrap">
   <h2 class="t">Elige tu <span class="y">mundo</span></h2>
