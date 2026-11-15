@@ -4,7 +4,7 @@ import asyncio, json, os, sys
 import edge_tts
 
 VOZ = "es-VE-SebastianNeural"
-RITMOS = {"r0": "+0%", "r8": "+8%", "r15": "+15%"}
+RITMOS = {"r0": "+0%", "r8": "+8%"}
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SALIDA = os.path.join(AQUI, "audio")
 
@@ -26,6 +26,8 @@ async def main():
     guion = json.load(open(os.path.join(AQUI, "guion.json"), encoding="utf-8"))
     for linea in guion:
         for clave, ritmo in RITMOS.items():
+            if os.path.exists(os.path.join(SALIDA, f'{linea["id"]}_{clave}.mp3')):
+                continue  # ya generado: no repetir
             await una(linea["texto"], ritmo, os.path.join(SALIDA, f'{linea["id"]}_{clave}.mp3'))
         print("ok", linea["id"])
 

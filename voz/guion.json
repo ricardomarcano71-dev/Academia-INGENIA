@@ -90,5 +90,93 @@
  {
   "id": "n23",
   "texto": "Para dañar hay que interactuar. Sin interacción no hay energía, y sin energía no hay daño."
+ },
+ {
+  "id": "a1",
+  "texto": "¿Entonces somos huecos? Depende de qué mires."
+ },
+ {
+  "id": "a2",
+  "texto": "Tu cuerpo son átomos, y en cada átomo casi toda la masa está en el núcleo: un punto diminuto."
+ },
+ {
+  "id": "a3",
+  "texto": "Más del noventa y nueve coma nueve por ciento de tu masa está ahí. Lo demás es espacio."
+ },
+ {
+  "id": "a4",
+  "texto": "Si quitáramos ese espacio, todo tu cuerpo cabría en algo del tamaño de un glóbulo rojo."
+ },
+ {
+  "id": "a5",
+  "texto": "Y la humanidad entera, ocho mil millones de personas, cabría en un terrón de azúcar."
+ },
+ {
+  "id": "a6",
+  "texto": "Un terrón de quinientos millones de toneladas."
+ },
+ {
+  "id": "e1",
+  "texto": "¿Y de qué está hecha esa masa? Cada protón y cada neutrón contiene tres quarks."
+ },
+ {
+  "id": "e2",
+  "texto": "Pero los quarks aportan apenas el uno por ciento de la masa."
+ },
+ {
+  "id": "e3",
+  "texto": "El otro noventa y nueve por ciento es energía: la del campo de gluones que los amarra, y la de su movimiento."
+ },
+ {
+  "id": "e4",
+  "texto": "Masa es energía confinada. E igual a eme ce al cuadrado."
+ },
+ {
+  "id": "e5",
+  "texto": "Y a ese nivel no hay bolitas: quarks, gluones y electrones son vibraciones de campos cuánticos."
+ },
+ {
+  "id": "b1",
+  "texto": "Además, ese espacio no está vacío. El electrón no es una bolita que gira: es una nube que llena todo el átomo."
+ },
+ {
+  "id": "b2",
+  "texto": "Si intentas comprimirla, el electrón gana energía y empuja de vuelta. Es el principio de incertidumbre."
+ },
+ {
+  "id": "c1",
+  "texto": "Ahí manda la fuerza electromagnética. Cargas opuestas se atraen: por eso el electrón queda atado al núcleo."
+ },
+ {
+  "id": "c2",
+  "texto": "Cargas iguales se repelen: por eso las nubes de electrones de dos átomos se rechazan."
+ },
+ {
+  "id": "d1",
+  "texto": "Apoya la mano en una mesa. ¿Por qué no la atraviesa?"
+ },
+ {
+  "id": "d2",
+  "texto": "Porque al acercarse, las nubes de electrones de la mano y de la mesa se repelen."
+ },
+ {
+  "id": "d3",
+  "texto": "Además, dos electrones no pueden ocupar el mismo estado: es el principio de exclusión de Pauli."
+ },
+ {
+  "id": "d4",
+  "texto": "Tus átomos nunca llegan a tocar la mesa. Lo que sientes como contacto es esa repulsión."
+ },
+ {
+  "id": "d5",
+  "texto": "Ser sólido no es estar relleno: es que tus átomos no se dejan atravesar por otros átomos."
+ },
+ {
+  "id": "d6",
+  "texto": "Un neutrino, en cambio, no siente nada de eso: cruza la mano y la mesa sin enterarse."
+ },
+ {
+  "id": "n07b",
+  "texto": "Y esa misma fuerza electromagnética es la que puede hacer daño."
  }
 ]
