@@ -1,0 +1,26 @@
+name: Voz para video (temporal)
+on:
+  push:
+    branches: [voz-video-neutrinos]
+    paths: ['voz/guion.json', 'voz/generar.py', '.github/workflows/voz.yml']
+permissions:
+  contents: write
+concurrency: voz-video
+jobs:
+  voz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Generar narración
+        run: |
+          pip install -q edge-tts
+          python3 voz/generar.py
+      - name: Guardar audios en esta rama
+        run: |
+          git config user.name "INGENIA automático"
+          git config user.email "actions@github.com"
+          git add voz/audio
+          git diff --cached --quiet || (git commit -m "Audios de narración del video" && git push)
